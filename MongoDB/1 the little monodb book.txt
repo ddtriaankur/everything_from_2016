@@ -1,0 +1,268 @@
+
+> Crete a new text file in the bin subfolder mongo.config
+> Add a single line to your mongodb.config: dbpath=PATH_TO_WHERE-YOU_WANT_TO_STORE_YOUR_DATABASE_
+
+> Make sure the dbpath you specified exists
+> Launch mongod with the --config /path/to/your/mongodb.config parameter, for eg
+>> mongod --config c:\mongodb\bin\mongodb.config.
+
+Admin Shell
+>> db.version() 
+
+Cursors 
+ The important thing to understand about cursors is that when you ask MongoDB for data, it returns a cursor, which we can do things to, such as counting or skipping ahead, without actually pulling down data.
+
+To recap, MongoDB is made up of databases which contain collections. A collection is made up of documents. Each document is made up of fields. Collections can be indexed, which improves lookup and sorting performance. Finally, when we get data from MongoDB we do so through a cursor whose actual execution is delayed until necessary.
+
+Collection is schema-less
+>> help
+>> db.stats()
+>> db.help()
+>> db.getCollectionNames()
+
+Side note. Because this is a JS shell, if you execute a mthod and omit the '()', you'll see the method body rather than the method.
+
+Since the colelctions are schema-less, we don't explicitly need to create them. Just simply insert a document into a new collection.
+>> db.unicorns.insert({name: 'Aurora', gender: 'f', weight: 450});
+--JSON format object being inserted in the unicorn colelction
+
+-> sysetm.indexes collection is created once per database and contains the information on our database index.
+
+>> db.unicorn.find()
+
+$exists operator to check the presence
+
+If we want $or 
+>> db.unicorns.find({gender: 'f', '$or': [{loves: 'apple'}, {loves: 'orange'}, {weight: {$lt: 500} } ]})
+
+$where lets us supply JavaScript to execute on the server.
+Described in the Advanced Queries section of the MongoDB website
+
+Object _id 
+>> db.unicorns.find({_id: ObjectId("TheObjectId")})
+
+
+Chapter 2
+Updating
+
+Update: Replace vs $set
+- update takes 2 documents first: the selector to use and what field to update with.
+>> db.unicorns.update ( { name: 'Rooooodles' }, { weight:50 } )
+- NOTE if this was real code, you'd probably update your records by _id.
+- This actually 'replace' the entire document
+
+$set modifier is good if you want to change the value of one, or a few fields
+>> db.unicorns.update({weight:590}, {$set: {name:'Roooooodiles', dob: new Date{1979, 7, 18, 18,  44}, loves: ['apple'], gender: 'm', vampires:99 }});
+
+
+Update Modifiers -  http://www.mongodb.org/display/DOCS/Updating
+$inc
+$push 
+
+UPSERTS ++ +
+- an upsert updates the document if found or inserts it if not.
+- to enable upserting we set a third parameter to 'true'
+- 3rd param must be set to true for UPSERTS
+
+- A mundane example is a hit counter for a website.
+- we have to see if the record already existed for the page, & based on that decide to run an update or insert.
+- with the 3rd parameter omitted (or set to false), executing the following won't do anything:
+>> db.hits.update( { page: 'unicorns'}, {$inc: {hits: 1}} ); 
+
+with upserts enabled, if the document exists it will update its increment but if the doc is absent it will create it
+>> db.hits.update({page: 'unicorns'}, {$inc: {hits: 1}}, true);
+
+Multiple Updates**
+- by default it will update a single document. 
+
+this will set for the all document in the collection
+>> db.unicorns.update({}, {$set: {vaccinated: true }}, false, true);
+- NOTE to get the behaviour you desire, a fourth param must be set to true
+
+SUMMARY
+- Unlike an SQL update, MongoDB's update replaces the actual document
+- because of this the $set modifier is quite useful
+- upsert supports an intutive modification when paired with the $inc modifier
+- by default, update only updates the first found document
+
+_______________________________________________________________
+
+CHAPTER 3 Mastering FIND
+- result from find is a cursor
+- whose execution is delayed until needed
+
+Field Selection
+- find takes a 2nd optional param
+- projection param i.e list of field we want to retrieve
+- by default _id field is always returned
+
+Ordering
+- methods we can chain to find
+- 1st is sort: Ascending & descending order
+
+>> db.unicorns.find().sort({weight:1});   //heaviest unicorns first
+>> db.unicorns.find().sort({name: 1, vampires: -1});
+
+- Like relation db, MonoDB can use an index for sorting.
+
+Paging
+- limit and skip cursor methods
+>> db.unicorns.find().sort({weight: -1}).limit(2).skip(1);           //to get the second and third heaviest unicorn
+
+- using limit in conjuction with sort, is a good way to avoid running into problems when sorting on non-indexed fields.
+
+Count
+- the shell makes it possible to execute a count directly on a collection
+- in realuty, count is actually a cursor method
+>> db.unicorns.count({ vampires: {$gt:50}});
+
+____________________________________________________________
+CHAPTER 4 Date Modeling  Pg 16
+difference b/w NoSQL and document-oreiented databases
+
+No Joins 
+- lack of joins 
+- joins are generally seen as non-scalable
+
+- foriegn key in a relational dbs ??
+Eg: one manager having multiple employees
+>> db.employees.find( { manager: ObjectId {"12312esad12asd"} } );
+
+Arrays and Embedded Documents
+- mongoDB supports arrays as first class objects of a document?
+- its incredibly handy when dealing with many-to-one or many-to-many relationships. 
+>> db.employees.insert({_id: ObjectId("4d85c7039ab0fd70a117d733"), name: 'Siona', manager: [ObjectId("4d85c7039ab0fd70a117d730"), ObjectId("4 d85c7039ab0fd70a117d732")] }
+
+- for some documents, manager can be a scalar value, while for others it can be an array. Our original find query will work for both:
+>> db.employees.find({manager: ObjectId("4d85c7039ab0fd70a117d730")})
+
+- Arrays of values are much more convenient to deal with than many-tomany join-tables.
+- Besides arrays, mongoDB also supports embedded docs.
+
+To query a embedded document
+>> db.employees.find({'family.mother': 'Chani'});
+
+DBRef
+- is a convention many drivers support
+- when documents from the same-collection might reference documents from a different collection from each other.
+- A DBRef includes the collection and id of the referenced document.
+
+Denormalization
+- another alternative to using joins to denormalize your data
+- historically, it was reserverd for performance -sensitive coded,
+- or when data should be snapshotted (likek in audit log)
+- its common schema style 
+- This doesnt mean you shold duplicate every piece of information in every document.
+- consider modelling your data based on what information belongs to what document
+
+____________________________
+Which Should You Choose?
+Arrays of ids are always a useful strategy when dealing with one-to-many or many-to-many scenarios.
+- DBRef aren't use very often,
+- embedded docs versus doing manual referencing
+
+- an individual doc is currently limited to $ megabytes in size
+***
+- Embedded documents are mostly good for small pieces of data which we want to always pull with parent document 
+- having your data model map directly to your objects makes things a lot simpler and often does remove the need to join
+- This is especially true when you consider that mongoDB lets you query and index fields of an embedded docs
+
+Few or Many Collections
+- mist mongoDB systems are laid out similarly to what you'd find in a relational system/
+- in other words, if it would be a table in a relational database, it's likely to be a collection in MongoDB
+
+- there's no hard rule. PLay with different approaches and you'll get a sense of what does and does not feel right
+
+- Modeling in a document-oriented system is different but not too different than a realation world.
+
+
+Chapter 5 When To Use MongoDB
+- you no longer have to rely on a single solution for dealing with you data
+
+Schema-less
+- do not have to design relational table
+- alternative to RDMS
+
+Writes <next>
+- insertin into mongoDB is by default asynchronous
+= Capped collection
+>> db.createCollection('logs', {capped: true, size: 1048576})
+	- when our capped collection reaches its 1MB limit, old documents are automatically purged.
+- A limit on the number of documents, rather thatn the size, can be set using max.
+- you can update a document but it can't grow in size
+- the inserting order is preserved, so
+- you don't need an extra index to get proper time-based sorting
+
+- if you don't need write to be async use
+>> db.getLastError()
+
+Transactions
+- mongodb doesn't have transactions, it has two alternatives
+- one which is great but with limited use
+- and the other that is a cumbersome but flexible
+
+- The first is Atomic operations. Some simpler ones, like $inc and $set, commands like 'findAndModify' which can update or delete a document and return it automatically
+
+- The second, two-phase commit, exmaple below
+http://www.mongodb.org/display/DOCS/two-phase+commit
+
+- idea is, you store the state of the transaction within the actual document being updated and go through the init-pending-commit/rollback steps manually
+
+
+Data Processing
+
+- relies on MapReduce for most data processing jobs
+- Aggreation capabilities - http://www.mongodb.org/display/DOCS/Aggregation
+
+- It can be parallelized for working with large sets of data
+- For processing large data, you'll likely need to rely on something else, such as Hadoop
+- MongoDB adapter for Hadoop - https://github.com/mongodb/mongo-hadoop
+
+Geospatial
+- supports geospatial indexes.
+- This allows you to store x and y coordinates with documents and then find documents that are $near a set of coordinates or $within a box or circle
+- 5 min geospatial interactive tutorial
+http://mongly.openmymind.net/geo/index
+https://docs.mongodb.org/manual/core/geospatial-indexes/
+
+
+Chapter 6 MapReduce
+- its an approach to data processing which has two significant benefits over more traditional solutions
+- MapReduce (in theory) can be parallized, allowing very large sets of data to be processed across many core/CPUs/machines
+- Second benefit is that you get to write real code to do your processing 
+
+A Mix of Theory and Practice
+- MapReduce is a two-step process 
+- first you map then you reduce 
+- The Mapping step transforms the inputted documents and emits a key=>value pair
+- the reduce gets a key and the array of values emitted for that key and produces the final result 
+
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+Chapter 7 Performance and Tools
+
+Indexes
+	>> system.indexes contains information on all the indexes in out database
+	- indexes help improve query and sorting performance
+	- ensureIndex is used to create index
+	>> db.unicorns.ensureIndex({name: 1});
+	
+	- dropIndex for dropping index
+	>> db.unicorns.dropIndex({name:1}, {unique: true});
+
+	- indexes can be created on embedded fields (again, using the dot-notation) and on array fields
+	- can also create compound indexes
+	>> db.unicorns.dropIndex({name:1, vampires: -1});
+
+	- the order of your index (1 for ascending , -1 for descending) doesn't matter for single key index, but
+	- it can have an impact for compound indexes when you are sorting or using a range condition
+
+- additional info http://www.mongodb.org/display/DOCS/Indexes
+
+Explain
+	- to confirm whether queries are using an index, use explain method on cursor:
+	>> db.unicorns.find().explain();
+	- in case of index docs, you'll see BtreeCursor was used
+	>> db.unicorns.find({name: 'Pilot'}).explain();
+
+Asynchronous Writes
+	- 

@@ -1,0 +1,13 @@
+
+	• not only spheres, but also complex, grouped objects with hierarchies such as a jointed bird or a car.
+	• Fresnel over light in emitter
+	• All objects in the emitter can be fully animated to create, for example, birds that fly and fish that swim.
+	• The particle stream can also contain mixed random particle objects (e.g., a variety of different birds). 
+	• Simply drag the different objects into an emitter. These particles are then emitted in the same proportion.
+	• Metaball >> Emitter >> objects
+	
+	• Modifiers can be embedded in other modifiers (i.e. nested). Thus a Turbulence modifier within a Wind modifier results in very realistic smoke effects.
+	• When using a light for particles, disable the light’s shadow casting, otherwise the many shadow will slow down rendering greatly.
+	
+	• ??When playing back you should enable the Animate / Frame Rate / All Frames option, or click on the Animation toolbar’s Options icon and enable All Frames. In order to get an accurate display using the Timeline animation controls, you must single-step through the animation to make sure that no frames are skipped. This does not matter when the scene is finally rendered with the raytracer, since the scene will then be calculated frame by frame from start to end.
+	• Asd

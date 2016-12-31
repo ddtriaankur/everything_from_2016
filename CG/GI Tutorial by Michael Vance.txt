@@ -1,0 +1,243 @@
+~~ Advance Render Global Illumination ~~
+
+1. Diffuse:
+	• In the real world, light rays emit from a heated surface and travel in all directions, diffusing in intensity following the inverse square rule.
+	•  Light rays travel until they hit other surfaces and are either absorbed (stopped), refracted (slowed), or reflected (reversed), often, as with glass, in a combination of all three. 
+	• The output of any of these three, absorption, refraction, and reflection, never return more or less energy than went into it. 
+	• To save processing time and still arrive at the same result, Global Illumination simulates this behavior, paradoxically, by working in somewhat the opposite direction .
+	
+	 
+	• Samples called stochastic rays are sent outward from surfaces into the scene to find surfaces that emit either direct or GI reflected light. 
+	• A surface considered to emit light by AR3 GI in Cinema is one that has a material with an active illumination channel, or one that is directly lit by a standard Cinema light source.
+	• In order to find light sources that aren't in a direct line of sight, these stochastic rays must bounce off the first surface hit or emit new stochastic rays from the bounce surface to see what lies around the corner.
+	•  Thus a diffuse setting of two represents one bounce, a setting of three equals two bounces, etc.
+
+Primary &Secondary Intensities
+TBH
+
+Gamma::
+
+	• GI light bounce intensity automatically falls off using the physically correct inverse square rule. 
+	• Gamma correction effectively changes the falloff curve and can thus be used to lighten up the GI result to, 
+
+Example, 
+	• compensate for a lack of diffuse depth, though it won't add light where there is none. 
+	• Because it works on the unclamped bit depth, it produces a smother result than if gamma correcting a 24 bit image.
+
+	 GI Modes Compared
+	
+	1. The first is QMC, which is closest in principle to the old Advance Render GI stochastic solution, and 
+	2. The second is Irradiance Cache, which is closest in principle to the Radiosity method of previous AR GI versions.
+
+GI Mode: QMC
+
+	• each scene shading point is sampled. 
+	• That is, an array of stochastic samples (like an array flower) will blossom from every single point in the scene visible to the camera.
+	• Sample Count determines the number of stochastic rays sent outward to sample the scene for each shading point.
+	• For small light source much greater stochastic sample count should be used cause 
+	with the small stochastic sample count the chance of finding that source and accurately determining the degree of weight it should be given is greatly lessoned. 
+	
+	• Hundreds or thousands of stochastic counts might actually be necessary, depending upon the relative size of the illuminating surfaces // on relatively small scenes **
+
+	• higher diffuse depths and stochastic sample counts are RENDER HIT 
+	• some methods new to Cinema to either target rays directly toward selected materials using special Material Sampling Modes, or by altering record and stochastic ray count on a per object basis using compositing tags.
+	
+	
+
+Oversampling, QMC Sampling, and Per Pixel QMC Sampling:
+
+Tbh
+
+	• QMC evens out stochastic sample rays
+
+GI Portal is in the Illumination Section
+with fewer rays, ensuring both better visual result and faster render performance than if the entire scene were so sampled.
+
+Oversampling 
+An illuminating material is again one that has a luminance channel active or a surface directly lit by a standard light source.
+
+	• Most of the time the material sampling modes can render better quality much faster, but they do not handle refractive caustics well, and they don't work with reflective caustics at all.
+
+GI PORTAL
+
+	• Another material specific setting
+	• enables the material oversampling modes just discussed to be used with a transparent material such as a window
+	• This mode is perfect for indoor renders where the main illuminating source, a sky for example, comes through a small portal or window.
+Must :: 
+	•  its transparency channel must be activated before the GI Portal option can be selected.
+	• it has no effect when used with normal sampling. So  be sure to enable one of the oversampling modes when enabling the portal option. They must be used together.
+
+FINAL NOTES Part 1
+
+So far we have discussed the GI Mode QMC
+	• A brute force method of GI rendering. 
+	• It needs high stochastic ray counts to produce grain free results 
+	• Can produce impressive photorealistic results given enough time. 
+
+	• Besides being relatively slow and processor intensive, a principle disadvantage of this method compared to the Irradiance Cache method is that it writes no cache to disk. 
+	• Its solution, therefore, unlike with Irradiance Cache, cannot be saved or reused.
+
+
+Cache is King
+
+	• IR (Irradiance Cache) can save the GI records to a file or cache
+	• Caching saves the render time
+	• Using the same GI cache many render setting can be changed
+	•  use the Custom Location option if you wish to save the file in another location or by another name.
+	• custom location is also the only way to use a cache having a different name from the file name.
+	• Once a GI cache has been rendered and saved, it can be reused.
+	• Activate Auto Load to reuse a cache.
+
+	• If you leave the cache lock setting unchecked, different camera angles can be rendered & only records for areas not seen in previous cache renders will be added to the 
+	• If you run out of time and the pre-pass has not finished rendering, you can simply stop the render wherever you're at, set the cache to auto load, lock it, and use the records that were pre-rendered up to the point where you stopped. 
+	• If you latter unlock the cache, you can rerender and it will pick up where it left off. 
+	
+
+			GI Render options can be changed without having to render the cache
+			
+	1. Primary Intensity
+	2. Gamma
+	3. Record Density > Interpolation Method
+	4. Smoothing :: Every setting ::
+	5. Oversampling > Check Record Visibility
+	6. Details Enhancement 
+		○ > Adaptive mode
+		○ >Estimate Secondary
+		○ >Quality Ratio
+	7. Diffuse Illumination Only
+	8. Hide Pre-pass
+
+~~~Link:: http://mvpny.com/R11GITutorial/GITutorialImages/Image_17.jpg
+
+SIGGRAPH paper printed in the August 1988 edition of Computer Graphics. by Greg Ward, Frances Rubinstein, and Robert Clear
+
+	• An Irradiance Cache, instead of each pixel in a scene being sampled, 
+	• fewer samples called records are taken with each record covering an area of the scene 
+	• whose size is determined by user specified radius settings, 
+	• the curvature of the surface, & 
+	• the proximity to other surfaces.
+
+Downside 
+Fewer record samples means faster performance, but not without some costs. Each border of each record must be blended with adjacent borders to get a smooth result. This is achieved though interpolation and smoothing. Because the renderer must interpolate and smooth the results, the image render itself can take longer, thus offsetting some of the time saved by calculating fewer records. Moreover, and more importantly,
+	•  definition of shadow is lost in proportion to the fewer samples taken
+	• The larger the radius area which is sampled, the less definition shadows will have.  
+	• In order to diminish that effect, smaller radius records are placed where the geometry is more complex & in the proximity of geometry surfaces that could be expected to need more shadow definition such as corners and areas where geometries intersect.
+	
+Upside
+If the downside to interpolating and smoothing between records is the potential loss of shadow definition, 
+	• the upside is the lessoned likelihood of grain in still images or noise in animation.
+	• The smaller the radius of records, the greater the likelihood of grain noise or splotchyness, especially at lower stochastic sample counts.
+
+	• This is why pure QMC GI, where each shading point is sampled, is more subject to noise. 
+	•  (One can think of QMC GI as having a record for each pixel, with no interpolation.)
+
+Likewise, the more records computed in an irradiance cache, the closer it comes to pure QMC GI.
+	• Thus, as the IR record count increases, so too the potential for noise.
+	• The number of records to be used affect the overall definition of shadows.
+
+The two still image modes:
+
+ IR (Still Image) and IR+QMC (Still Image)
+	• IR renders a separate cache for each diffuse depth, 
+	• with each new pass creating a new stochastic ray flower at the point of the last passes' termination. 
+	• This method is much slower at higher diffuse depths than the IR+QMC mode.
+
+IR+QMC 
+	• creates just a single ray bounce at the collision point of the last ray, 
+	• so instead of creating a new ray flower for each ray collision, only a single ray is traced through the next pass, 
+	• so it's much faster with higher pass settings than is IR. 
+	• Because IR+QMC uses more initial rays than IR, it gives a slower but slightly better result than IR when only one ray depth is selected.
+
+ With higher ray depths
+	•  the IR mode uses more stochastic rays at higher depths, 
+	• so it will be much slower than IR+QMC but give truer results. 
+	
+	• IR is most suitable for interiors, 
+		○ the extra rays being useful for getting into those nooks and crannies, 
+	• IR+QMC is more suited to outdoor renders but can do well indoors too. 
+
+	               If speed is a consideration, IR+QMC is your friend with higher diffuse depths.
+
+IR + QMC Camera animation 
+
+	• good for architectural fly throughs and animations where only the camera moves. 
+	• reuses records stored from previous frames when rendering subsequent frames, 
+	• so it renders an animation in much less time than using the still image mode, and with superior quality. 
+	
+	• the cache for the entire animation is rendered before any frame render begins, 
+	• so while it renders faster than rendering out individual frames, it still can take quite some time before you see your first fully rendered frame.
+	• Thus for longer animations, it may be best to test a few individual frame renders first using one of the still image settings.
+
+Irradiance Cache Settings
+Stochastic Setting >> Higher Density Record = Higher Stochastic Sampling
+
+Record Density 
+settings that primarily control the distribution of records, Radius, Min Radius, and Density Control:
+
+Once a render is activated, Cinema begins to draw the IR pre-pass cache, where the size and placement of records is shown in a cell-like voronoi diagram covering the geometry. 
+Each cell represents a single record, and a dot in the center of each is drawn to clarify the exact center point of each record.
+
+Radius
+
+	• Radius is the primary determiner of the number of records that will be generated and 
+	directly defines how close together records in planar areas will be. 
+	• The lower the value, the more records will be computed. 
+	• How low this value needs to be depends on how much shadow definition you need in planar areas. 
+	• Lower values will produce more records giving better shadow definition, & caustic definition too, at the cost of longer cache render times.
+
+Minimum Radius
+
+	• Minimum radius determines how many extra records will be added to corners, crevices, curving surfaces and other areas where geometries intersect.
+	• The lower this value, the more additional records will be added to these areas
+	• lowering the Radius value will also create more corner records.
+	• Therefore, as the Radius value is lowered (producing more overall records), the Minimum Radius (which produces more additional records in corners) can sometimes be increased (for fewer additional records) because as overall record density increases, fewer corner records may be needed.
+	• Overall, it's very easy to become confused here because lower values mean more records, and vice versa, exactly the opposite to how the corresponding settings of the old GI worked.
+
+
+Density Control: The great multiplier.
+
+	• The Density Control behaves like a multiplier for total record density, & 
+	• it reportedly affects the shape of the falloff curve between planar records (controlled by Radius) and corner records (controlled by Minimum Radius). 
+	• When the radius value won't go low enough to space the records as closely together as you’d like, increasing the density control value will add more.
+
+
+Min Rate Max Rate: Save now, pay later.
+
+can be used to reduce cache render times while preserving shadow definition.
+
+As we learned, decreasing the number of records decreases the cache render time at the cost of lessoned shadow definition. Min and Max Rate settings offer yet another alternative. 
+	• For each value setting below 1, the resolution of the sampled image is halved (one quarter the original size). Roughly the same number of records is computed, so shadow definition is largely preserved, but the time it takes to calculate them is lessened.  
+	• The Min Rate changes the resolution of planar area records while the Max Rate changes the resolution of corner/curve records. Each is rendered with a lower resolution, but the overall result of that lower resolution is often barely noticeable, unless very low values are used, and acceptable given the speed gained.
+
+The GI cache is rendered faster, but part of that gain is lost when the lower resolution cache is again upsampled in the final image render. 
+	• In general you gain much more than you lose, especially when you are only rendering once. 
+	• If you plan to render the cache just once and tweak the remainder of the render through multiple final renders, reusing the same cache, you may be better off accepting the longer initial cache render time, as subsequent renders that use that cache will go faster.
+
+
+Interpolation:
+	 The borders between adjacent records are blended. 
+	
+	The four options are Least Squares, Weighted Average, Delaunay, and None.
+	 
+	• The default choice, Least Squares, is suitable for most circumstances as it seems to produce the smoothest, most visually pleasing result. 
+	• Weighted Average produces a little tighter result, and 
+	Delaunay is reportedly only suitable for very high record densities that use one of the Delaunay Records presets, but I have yet to see a use for it. 
+	• The None option allows you to see the un-interpolated result which is very useful when wanting to check the shading continuity and stochastic quality of records. 
+	
+	Insufficient stochastic counts will show up as high contrast, splotchy records patterns. 
+
+
+Smoothing: Quieting the noise.
+
+	Smoothing is the compliment to interpolation and can be used to smooth (some might say blur) an area of densely packed records which is useful for reducing the noise that can easily result from higher record densities having insufficient stochastic quality to blend seamlessly themselves. 
+	The GI pre-pass cache render had taken 2.5 hours, but since it was saved it could be reused with a higher smoothing value. 
+	Re-rendering the image with the new smoothing values took only a matter of minutes then since the cache did not have to be re-rendered.
+	
+
+Compositing Tag GI Settings: Per object control.
+
+	• allow you to increase or diminish stochastic and record density counts on a per object basis. 
+	• Since the tag only works on a per object basis and not on polygon selections, I separated the floor into two objects.
+
+
+Details Enhancement:

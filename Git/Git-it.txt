@@ -1,0 +1,55 @@
+
+Local Repo
+
+Init a repo
+	>> git init
+
+Status
+	>> git status
+
+Status, Add and Commit
+	- Check the status
+	- Add the file to the commit
+	○ git  add <fileName>
+	○ git add .  // for adding all files
+	
+	- To commit (aka save) the changes with a short message describing the changes
+	○ git commit -m "<you commit msg>"
+	
+	- View changes to the file
+	○ git diff
+	 
+
+	- Add username to git
+	○ git config --global user.username ddtriaankur
+
+	Remote Repo
+	- Binaries that live on github's server 
+
+Connect your Local repo to your Remote
+	○ git remote set-url origin <http link>  // remote name origin is automat. created on windows
+	- Add remote connections on windows
+	○ git remote add <RemoteName> <URL>
+	- Set a URL to remote
+	○ Git remote set-url <RemoteName> <URL>
+
+Push Work to your Remote
+	○ git push origin master
+
+	- Pull in changes
+		○ git  pull <RemoteName> <BranchName>
+	- View remote connections
+		○ git remote -v
+	- PUSH Changes
+		○ git push <RemoteName> <Branch>
+	
+	
+	Connect to the Original Repo
+		- Adding another remote connection
+		- you can name this remote connection anything you want, but often people use 'upstream', let's use that for this.
+			○ git remote add upstream  <repo url>
+			
+	Add remote connection
+		○ git remote add <remote_name> <url>
+	View remote connection
+		○ git remote -v

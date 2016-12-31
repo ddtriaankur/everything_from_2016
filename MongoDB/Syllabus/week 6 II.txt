@@ -1,0 +1,391 @@
+ 
+1 Into to Aggregation Framework
+	- it is a set of analytics tool within mongoDB
+	- allows various types of reports or amalysis on one or more mongoDB collections
+	- based on the concept of a pipeline
+	- i.e input from a mongoDB collection is passed through different set of stages
+	- each stage perform a different operation on its inputs
+	- input and output for all stages are docs/streams of docs
+
+--------------------------------------------------------------------------------------
+
+2 Aggregation starting with familiar stages
+ - match (FIND)		
+ 		it is a filtering stage, similar to find query
+
+ - project
+ 		building project stages in the aggregation framework
+ - sort
+ - skip
+ - limit
+
+> db.companies.aggregate([
+		{ $match: { founded_year: 2004 } },
+		{ $project: { 
+				_id: 0,
+				name: 1,
+				founded_year: 1
+			} }
+	]).pretty();
+
+Aggregation pipeline: 
+	a pipeline is an array with docs as elements
+	where each of the doc stipulate a stage operator
+
+	> db.companies.aggregate([
+		{ $match: { founded_year: 2004 } },
+		{ $limit: 5 },
+		{ $project: {
+			_id: 0,
+			name: 1 } },
+	]).pretty();
+
+Optimization
+
+	> db.companies.aggregate([
+			{ $match: { founded_year: 2004 } },
+			{ $sort: { name: 1 } },
+			{ $skip: 10 },
+			{ $limit: 5 },
+			{ $project: {
+				_id: 0,
+				name: 1 } },
+		]).pretty();
+
+--------------------------------------------------------------------------------------
+
+3 Expressions overview
+Aggregation Pipeline Quick Reference :: https://docs.mongodb.org/manual/meta/aggregation-quick-reference/
+	
+	Expression can include: 
+	- Field Paths and System Variables, 
+			- to access 'fields' in the input docs 'field path' is used.
+			- to specify a field path '$' sign is used in the prefix
+			- "$$CURRENT.<field>" where CURRENT is a system vaiable that defaults to the root of the current object in the most stages, unless stated otherwise in specific stages
+			- like CURERNT system var, other sys var are also available for use in expressions.
+			- to use user-defined var, use $let and $map expressinos
+			- to access variables in expressions, use a string that prefixes the variable name with $$ 
+
+	- literals, 
+			- mongoDB parses string literals that start with a dollar sign $ as a path to a field and 
+			- numeric/boolean literals in expression object as projection flags
+			- to avoid parsing literals, use the $literal expression 
+
+	- Expression Objects and
+			- Syntax : { <field1>: <expression1>, <expression2> .. }
+			- if the expressions are numeric or boolean literals,
+			- mongoDB treats the literals as projection flags, valid only in the $project stage
+			- to avoid treating numeric or boolean literals as projection flags, use the $literal expression to wrap the numeric or boolean expression 
+
+	- Operator Expressions. 
+			- they are similar to functions that take args
+			- generally these expressions take an array of args and have the following form:
+			{ <operator>: [ <arg1>, <arg2> ... ] }
+			or {<operator>: <arg1> }
+
+	- Boolean Expressions
+			- evaluate args expressions as boolean and return a boolean as the result
+			- can choose $and, $or // $not 
+
+	:: Expressions can be nested.
+
+--------------------------------------------------------------------------------------
+
+4 Intro to Reshaping docs - in $project Stages
+
+	Promoting Nested Fields
+		- making embeded docs as a top level value fields in the output 
+				Example 
+						> db.companies.aggregate([
+							{$match : {`finding query`}},
+
+							{ $project: {
+									_id: 0,
+									name: 1,
+									ipo: "$ipo.valuation_amount",
+									valuation: "$ipo.valuation_amount",
+									funders: "$funding_rounds.investments.financial_org.permalink"
+							} }
+						]).pretty();
+
+
+	- Constructing a new nested document from the values of our input document.
+	- Creating a nested document from some top level fields
+				Example
+							db.companies.aggregate([
+								{ $match: {}},
+								{ $project: {
+									_id: 0,
+									name: 1,
+									founded: {
+										year: "$founded_year",
+										month: "$founded_month",
+										day: "$founded_day"
+									}
+								} }
+							]).pretty();   
+
+--------------------------------------------------------------------------------------
+
+5 $unwind
+	- when working with an array fields in an aggregation pipeline, its often necessary to include one or more unwind stages
+	- for each element in the array unwind produces a single document.
+		Example
+		db.companies.aggregate([
+			{ $match: {`match qurey`}},
+
+			{ $unwind: "$funding_rounds" },
+			{ $project: {
+				_id: 0,
+				name: 1,
+				amount: "$funding_rounds.raised_amount",
+				year:   "$funding_rounds.funded_year"
+			}	}
+		]).pretty();
+
+--------------------------------------------------------------------------------------
+
+6. Array Expressions
+
+	- using array expressions in project stages
+	- filter is designed to work with array fields
+	- it has three params to assign
+	- $$ is used to reference a variable defined within the expression we are working in.
+	Example for filter
+			db.companies.aggregate( [
+				{ $match : {query } },
+
+				{ $project: {
+							_id:0,
+							name: 1,
+							found_year: 1,
+							rounds: { $filter: {
+										input: "$funding_rounds",
+										as: "round",
+										cond: { $gte: ["$$round.raised_amount", 10000000] } } }
+								} },
+
+					{ $match: {"rounds.investments.financial_org.permalink": "greylock"} },
+				]).pretty();
+
+	$arrayElemAt operator
+	$sliceArray operator
+	$size  gives us the size of an array 
+
+Array Expressions : https://docs.mongodb.org/manual/meta/aggregation-quick-reference/#array-expressions
+
+{ <operator>: [ <arg1>, <arg2> ... ] }
+
+--------------------------------------------------------------------------------------
+
+7. Accumulators
+ - involves calculating values from fields in multiple documents
+ 	example: $sum,$average ,$first ,$last ,$max ,$min
+	 	- for arrays $push, $addToSet
+	 	- for stats  $stdDevPop, $setDevSamp
+ - prior to v3.2 avail. only in the '$group' stage
+ - primary diff. b/w accumulators in project stage and group stage
+ 	 in project stage accumulators such as $sum and $avg must operate on arrays with in a single doc
+ 	 whereas in group stage provide you with operate on diff. docs
+
+--------------------------------------------------------------------------------------
+
+8. Using accumulators in project stages
+
+	- use of the accumulator in project stages act only on array inside a document
+
+	Example:
+		db.companies.aggregate([
+				{ $match: {query}},
+				{ $project: {
+						_id: 0,
+						name: 1,
+						largest_round: { $max: "$funding_rounds.raised_amount" }
+				}}
+		]);
+
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+
+9. Intro to $group
+			- in a group stage we can aggregate together values from multiple docs and 
+			- perform some type of aggregate operation on them such as calculating average
+
+				Example:
+						db.companies.aggregate([
+						{ $group: { 
+								_id: { founded_year: "$founded_year"},
+								average_number_of_emplioyees: { $avg: "$number_of_employees" }},
+								{ $sort: { average_number_of_employees: -1 } }
+						
+					]);
+
+				Example
+						db.companies.aggregate([
+							{ $match: {query} },
+							{ $unwind: "$relationships"},
+							{ $group: {
+									_id: "$relationships.person",
+									count: { $sum: 1 }       //sum accumulator
+							}},
+							{ $sort: { $count: -1} }
+						]);  
+
+--------------------------------------------------------------------------------------
+
+10 _id in group stages 
+ - example 1
+ 	>> .aggregate([
+ 			{ $group: { _id: { founded_year: "$founded_year" } } }
+
+ 	])
+ 	- example 2
+ 	>> .aggregate([
+ 			{ $group: { _id: {f1: "$founded_year", code2: "$category_code" }} }
+ 	])
+
+ 	- example 3
+ 	>> .aggregate([
+ 		{ $group: { ipo_year: "$ipo.pub_year" } }
+ 	])
+
+ 	- example 4
+ 	>> .aggregate([
+ 		{ $group: {
+ 			_id: {},
+ 			companies: { $push: "$name" }     //accumulator
+ 		} }
+ 	])
+
+--------------------------------------------------------------------------------------
+
+11 group vs project 
+
+	- $push		is an accumulator that is available in '$group' stages but not in project stages 
+	>> .aggregate([ { $group: { funding: { $push: { amount: "$value1", year: "$value2"  }  } } } ])
+
+	- because group stages are designed to take sequence of docs and accumulated values based on that stream of docs whereas 
+	- project work one document at a time
+
+	$first and $last accumulators
+	
+
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+
+Aggregation Pipeline Quick Reference
+					- Stages 		- Expressions 		 - Accumulators
+
+Stages
+		- used in an array
+		- docs are pass through the stages in sequence.
+		- All except the $out and $geoNear stages can appear multiple times in a pipeline.
+
+	> db.collection.aggregate([ {<stage1>}, {<stage2>, ... } ]);
+
+			$project
+					reshape each doc in the stream, 
+					by adding new fields or removing existing fields
+			$match
+					- filters the doc stream to allow only matching doc to pass unmodified into the next pipeline stage.
+					- uses standard MongoDB queries
+			$limit
+					- passes the first n docs unmodified to the pipeline
+			$skip
+					- skips the first n docs where n is the specified skip number
+					- and passes the remaining doc unmodified to the pipeline 
+			$unwind
+					- deconstruncts an array field from the input doc to output a doc for each elem
+			$sort
+					- reorders the doc stream by a specified sort key 
+					- only the order changes, the doc remain unmodiffied
+			$redact
+					- reshapes each doc in the stream by restricting the content for each doc based on information stored in the doc themselves
+			$group
+					- groups input doc by a specified identifier expression and applies the accumulator expression
+					- if specified to each group
+					- consumes all input docs and output one doc per each distinct group
+					- the output doc only contain the identifier field and if specified accumulated fields 
+			$sample
+					- randomly selects the specified number of docs from the input
+			$geoNear
+					- returns an ordered stream of docs based on the proximity to a geospatial point.
+					- incorporates the functionality of $match, $sort and $limit for geospatial data.
+					- the output docs include an additional distance field and can include a location identifier field
+			$lookup
+
+			$out
+					- writes the resulting docs of the aggregation pipeline to a collection.
+					- it must the last stage in the pipeline 
+			$indexStats
+					- returns stats regarding the use of each index for the collection
+
+Expressions
+	
+		Field Path and System Variables
+			- aggregation exp use field path to access fields in the input doc
+			- "$<field>" is equivalent to "$$CURRENT.<field>" where CURRENT is a system variable that default to the root of the current object in the most stages
+			- Other system variables are also available for use in expressions
+			- use $let and $map expressions for user defined variables
+			-- to access variables in expressions, use a string that prefixes the variable name with $$
+
+Literals
+		- can be of any type
+		- mongoDB parses string literals that start with a dollar sign $ as a path to a field and 
+		- numeric/boolearn literals in expression objects as projection flags.
+		- to avoid parsing literals, use the $literal expression
+
+Expression Objects
+				Syntax:
+						{ <field1>: <expression1>, ... }		
+
+			- if the expressions are numeric or boolean literals, MongoDB treats the literals as projection flags
+				Example:
+					1 or true to include the field
+			- valid only in the '$project' stage
+
+Operator Expressions
+			- similar to functions that take args
+			- take an arary of args, SYNTAX:
+			{ <opeartor>: [ <args1>, <args2> ... ] } 
+
+			- for single arg in the operator
+				{ <operator>: <arg> }			
+
+
+Boolean Expressions
+		- boolean expressions evaluate their args exp as booleans
+		- and return a boolean as result
+		- boolean exp evaluate as false the following: null, 0 and undefined values.
+		- all other values in the boolean expression evaluates as true
+
+Set Expressions
+		- performs set operation on arrays, treating arrays as sets
+		- ignores the duplicate entries in each input array and 
+		- the order of the elements.
+		- if set is returned, the operation filters out duplicates in the result to output an array that contains only unique entries
+		- if a set contains a nested array element, the set expression does not descend into the nested array but evaluates the array at top-level
+
+Comparison Expressions
+
+Arithmetic Expressions
+
+String Expressions
+
+Text Search Expressions
+
+Array Expressions
+
+Variable Expressions
+
+Literal Expressions
+
+Date Expressions
+
+Conditional Expressions
+
+Accumulators
+
+
+
+

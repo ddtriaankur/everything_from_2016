@@ -1,0 +1,51 @@
+
+JAVA SCRIPT
+
+	• JavaScript has while loops and do-while loops. 
+	The first is good for basic looping; 
+	the second for loops where you wish to ensure that the body of the loop is executed at least once
+
+	• JavaScript has a ternary operator for conditional expressions:
+	var allowed = (age > 18) ? "yes" : "no";
+
+	• The switch statement can be used for multiple branches based on a number or string:
+
+Objects 
+JavaScript objects can be thought of as simple collections of name-value pairs. As such, they are similar to:
+
+	• Dictionaries in Python.
+	• Hashes in Perl and Ruby.
+	• Hash tables in C and C++.
+	• HashMaps in Java.
+	• Associative arrays in PHP.
+	Everything in JavaScript is an Object
+	
+	There are two basics ways to create an empty object
+	• var obj = new Object()
+	• var obj = { }    // Also called as object literal syntax
+	• // this syntax is also core of JSON format and should be preferred at all times
+	• var obj = {
+	name: "carrot" ,
+	"for": "Max",
+	details: {
+		color: "orange"
+		size: 12
+		   }
+	}
+	• Attributes can be chained together ::
+	Obj.details.color;             //orange
+	Obj.['details']['size'];     //12
+	
+	• Object Prototype
+	function Person (name, age){
+	This.name = name;
+	This.age = age;
+	}
+// Define an object with constructor
+new Person("YOu", 23);
+
+	• Accessing objects properties preferred way
+	obj['name'] = 'Simon';
+	Var name = obj['name'];
+	
+	[Arrays Later]

@@ -1,0 +1,19 @@
+
+Cloth Surface
+	- must be applied to a polygon object.
+	- Further more, polygon subdivision plays the major role.
+	
+	- For realistic cloth, cloth objects should ideally have as high a polygon count as possible.
+	- This will give the cloth engine more points to simulate cloth with and will lead to higher quality results.
+	- C4d Subdivision surface can be used for this.
+	- This can cause the cloth to intersect with the colliding objects when the cloth is subdivided
+	- Cloth collides very close to its colliding surface.
+	- Just using Subdivision Surfaces would allow for the character, or colliding surface, to penetrate the subdivided cloth.
+
+	- The functionality of the Cloth object is the same as the Subdivision Surfaces object.
+	- Place the cloth object as a child of the Cloth Surface & the cloth will be smoothed or more accurately subdivided.
+	- To disable the Cloth object just click the green check mark next to the object 
+	- This does not mean that Cloth and subdivision can't be used together
+	- The Cloth ensures that the subdivided high-resolution mesh meets the points of the cloth object.
+	- Placing the cloth object as a child of the Subdivision Surfaces object can then smooth this even further
+	- Current limitation of the Cloth object is that it does not support multiple materials or multiple UVW tags.

@@ -1,0 +1,54 @@
+
+Link
+https://www.ntu.edu.sg/home/ehchua/programming/howto/CMD_HowTo.html
+
+DRIVES
+Gives all the available drives
+	>>wmic logicaldisk get name
+	>>tree
+	>>color /?   // help alternative
+	
+	>> attrib /?
+
+Creates a new file without appending the data
+	>> echo hey > log.txt
+
+Append the data into the file
+	>> echo tunafish >> log.txt
+
+Read the context of the file
+	>> type log.txt
+
+*Log the cmd info into a txt file with append
+	>> dir >> log.txt
+
+=============================
+To view the attrib
+	>> attrib          // show the files with their following attributes
+
+To Add attribute
+	>> attrib +h log.txt
+	>> attrib +r -h log.txt
+
+Deleting a file
+	>> del log.txt
+
+=============================
+>> mkdir TestFolder
+
+Copying folder
+>> copy <src path> <destination path>
+>> copy log.txt TestFolder
+>> dir <path>
+
+Copy only the files
+>> xcopy <src path> <destination path>
+
+Copy files including sub dir
+>> xcopy <src path> <destination path> /s
+
+>> xcopy /?
+
+>> move <src path> <destination path>
+
+rename <src filename> <new file name>

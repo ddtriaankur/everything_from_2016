@@ -1,0 +1,55 @@
+
+Sketch Material > Render 
+Pixel Units
+	
+	Absolute Pixels : This is real pixels, i.e. 1 unit refers to 1 pixel in the image.
+	Relative Pixels : these values are all scaled relative to the object's bound.
+		- this means that 1 pixel thickness may change based on the objeect's size;
+		- this is sceen size of the object
+		- what matters is the size of the object rendered onto the screen. 
+	World Space :: The pixels are transformed from the world space,
+		- so a pixel is smaller the further away it is from the camera
+
+Clip Strokes to Screen
+	- This controls how ht lines are clipped
+	- if part of the object is off screen.
+
+Self Blend
+	- sometimes it's useful to render the same line multiple times with different materials.
+	- to assign multiple Sketch materials to the same object, simply add a Sketch Style  tag for each material.
+	- this settings define the blending mode for lines on hte same object
+Blend 
+	- The blend mode sets the Mode for Lines of other objects.
+	
+Blend Modes
+	- Average :: the result of the background and blend pixel.
+	- Normal :: blend overwrites the background pixel
+	- Screen :: opposite of Multiply. Both pixels get inverted, multiplied then inverted again.
+	- Darken :: whichever is the darker is shown above.
+	- Lighten :: opposite of Darken.
+	- Difference :: background and blend pixels are subtracted from each other.
+	- Negative :: same as Difference mode except color between white and black become brighter instead of darken.
+	- Exclusion :: same as Difference except it creates a softer effect.
+	- Overlay :: combination of Screen and Multiply mode, depending on the background color.
+
+	- Hard Light :: 50% is neutral. Lighter values act like Screen, darker values act like multiply.
+	- Soft Light :: Dodge mode for blend pixel values above 50%, Burn mode for values below 50%.
+	- Dodge, Burn :: brightness value of the blend pixel is used to brighten or darken the backgound pixel.
+	- Reflect :: 
+	- Stamp :: mid nothing. brighter and darker do the resp. thing
+	- Levr :: value of blend pixel is used to apply contrast to the background pixel.
+
+
+HATCH SHADER
+	- sketch and Toon's most advanced shader.
+	- It places a picture of a stroke (or any other picture) multiple times onto the object to create a hatched lines effect
+	- give you full control over how these strokes are placed,
+	- making it possible for you to create any type of hatched lines effect. 
+
+Texture
+	- in general use an image of a stroke or strokes as the textures.
+	- to be use as the stoke //used only the greyscale
+Color
+	- here you can choose the color of the strokes. 
+	- It can draw two types of stroke:dark strokes and light strokes.
+Illumination 

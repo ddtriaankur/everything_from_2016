@@ -1,0 +1,68 @@
+
+	- Is a volumetric particle rendering plugin
+	- It implements various dedicated scene objects like a PRT Loader for loading particles from external file sequences
+	- PRT Volume and PRT Surface for converting geometry volumes and surfaces to point clouds
+	- Native C4D Emitter and TP particles, as well as 3rd party X-Particles and Turbulence FD Systems are supported via dedicated intermediate objects.
+Major Features Overview
+
+Renderer
+	- CPU based, highly optimized and heavily multi-threaded.
+	- Does not require the presence of a GPU 
+	- Supports volumetric and additive particle shading and allows the mixing of the two modes. 
+	- The volumetric shading includes per-particle control over Color, Density, Emission and Absorption.
+	- The Density controls for the lighting and shading calculations can be decoupled to provide higher control over the final results.
+	- Krakatoa features both Particle (aka Point) rendering and Voxel rendering modes.
+	- Self-Shadowing and shadow casting from matte (holdout) geometry objects are supported.
+	- The basic C4D light sources are supported
+	- Motion Blur and Depth of Field camera effects are integrated.
+	- Render time particle Repopulation allows the creation of more particles than the original source provided.
+	- The interactive lighting can be baked to PRT files as a dedicated Lighting channel and allows for fat re-rendering of pre-lit particle assets, as well as for basic relighting techniques.
+
+Particle Sources
+	- Supports C4D emitter particles and Thinking Particles
+	- External particle sources loaded from disk via the PRT Loader object,
+	- Procedurally generated particles from geo volumes and surface via the PRT Volume and PRT Surface objects
+	- And fractal based distributions via the PRT Fractals object.
+	- Supported external particle file formats are :: Thinkbox PRT , RealFlow BIN  and ASCII CSV sequences
+PRT Objects
+	- Krakatoa C4D provides several dedicated scene objects
+PRT Loader
+	- Can be used to load one or more external file sequences.
+	- It exposes controls to define which sequences will be used at render time and which will be shown in the viewports
+	- The position interpolation can be performed either linearly using the current frame's velocity, or using cubic interpolation from the two nearest surrounding frames.
+PRT Volume
+	- It can be used to fill the volume of a polygon mesh with particles.
+	- Provides the option to distribute particles within a range from the geo surface.
+PRT Surface
+	- Used to quickly distribute random particles on the surface of a polygon mesh.
+PRT Fractal
+	- Can create procedural fractal particles distributions based on random seed, iteration control and several animatable params. 
+
+Particle Channel Operator
+
+Krakatoa Channel Operator Tags
+
+Channel Copy
+	- Copies the source channel into the destination channel.
+	- The data will be copied un-altered if the source & destination channel have the same type
+	- If source is a float & the destination channel is a vector (eg. Color, emission), all three components of the destination channel will be set to the same float value. 
+	- Unless the create vector channel option is checked, a float type custom channel as the destination  channel will be created.
+	- If source is a vector and the destination is a float. The Magnitude checkbox must be checked to copy the length of the Vector into the float channel, otherwise the Copy operation will fail and the viewport display/rendering will bot be able to process the particles.
+
+Magnitude checkbox
+	- When checked, the length of the source channel will be calculated first, then the resulting value will be coped into the destination channel.
+	- If the source is a float, the checkbox must be unchecked, otherwise  a value of 0.0 will be copied.
+
+Create Vector Channel
+	- Only enabled when the Magnitude is checked.
+
+
+Channel Gradient 
+	- asd
+
+
+Channel Scale
+Channel Set
+Channel Texture
+
+

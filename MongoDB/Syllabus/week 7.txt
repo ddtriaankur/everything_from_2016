@@ -1,0 +1,257 @@
+
+1 Intro to Week 7
+	-durability of write - how the data is persisted on disk
+	-replication
+	-sharding
+
+--------------------------------------------------------------------------------
+2 Write Concern
+- db mostly writes to the memory & Main Parts of memory are Caches and Journal
+Cache
+	- of pages inside memory // priodicsally read/write from the disk depending on the memory pressure
+Journal
+	- is a log of every single thing that db processes
+	- journal execute the persistent write
+
+Write Concern *******Imp*************
+	w 	- write in the memory
+	j 	- persited write to the disk
+		default values for
+			w = 1 ; j = false
+
+--------------------------------------------------------------------------------
+3 Network Errors
+	turn your updates into inserts to avoid network error
+	use 'insert' if you let the driver create the _id 
+	multiple insert of the same doc is no harmful
+
+	update is problamatic
+
+--------------------------------------------------------------------------------
+4 Into to Replication
+Replication concept helps to
+	-Availablity 					if the server goes down still be able to function
+	-Fault Tolerence 			
+
+	replica set - is a set/group of mongod nodes. 
+		That act together
+		Data is mirror across them
+		One is primary and the others are secondary // Dynamically
+		Data written to the 'Primary' is ascync written to the secondary
+		write is exclusive to the 'Primary'
+		minimum number of replica set required is '3'
+
+Election 	
+	occur when the 'Primary' node goes down
+	have to win by a strict majority
+
+--------------------------------------------------------------------------------
+5 Replica Set Election
+	Types of Replica set nodes
+		- Regular 			-either can be a Primary or Secondary
+		- Arbiter				-just there for voting purposes
+										-three nodes with one as a arbitar node
+		-Delayed/Regular  		-can't become the 'Primary' but can participate in a vote
+													-to achieve this its p i.e. priority = '0' 
+		-Hidden 							-can't become the primary but can participate in a vote
+													-often used for analytics 
+
+--------------------------------------------------------------------------------
+6 Write Consistency 
+	by default read and writes goes to the 'Primary' node 
+	reads may or may not go to the 'Primary'
+	replication is async
+
+	*** IMP ***
+	when failover occur, briefly during the time when there is no primary you can't complete a write
+
+	Eventual consistency means it's not provided where you read and write from the primary server in a default state
+		mongoDB doesn't allow Eventual Consistency in its default state
+		if you want, you can 'read' from the 'secondary node'
+
+--------------------------------------------------------------------------------
+7 Creating a Replica Set
+	[original to be done on differnet hardwares on the same port ]
+	bash < filename.sh
+
+	$ mongod --replSet rs1 --logpath "1.log" --dbpath /data/rs1 --port 27017 --fork
+
+	mongo --port 27018 < init_replica.js
+	res.status()
+
+	Can't query by default
+	rs.slaveOk()
+
+--------------------------------------------------------------------------------
+8 Replication Set Internals
+	oplog - the oplog is a cap collection, it means its gonna roll off after certain amout of time 
+				- kept in sync by mongo
+				- you can have wiredTiger secondary and MMAP Primary
+>>use local
+>>showcollections
+>>db.oplog.rs.find().pretty()
+
+		$	ps -ef | grep mongod
+
+	Dropping the Primary
+		$ kill <pid>
+
+--------------------------------------------------------------------------------
+9 Failover and Rollback
+	- Rollback occurs when the node comes back as a secondary after crashing and the oplog is not written to others
+	- write concerns to wait untill the majority of the nodes have the write 
+	- the entire dataset will be copied from the primary if a node comes back up as a secondary after a period of being offline and the
+		oplog has looped on the primary
+
+--------------------------------------------------------------------------------
+10 Connecting to a replica set from the nodejs driver
+	- a replica set a collection of multiple mongod nodes that communicate with eachother with dataset kept in sync
+	- If you leave a replica set node out of the seedlist within the driver, the missing node will be discovered as long as you list at least one valid node. **** IMP ***
+
+Connecting Node js Driver to a replica set
+	>> mongod --port 30001 --replSet replica_set --dbpath /data/db/rs1
+	>> mongod --port 30002 --replSet replica_set --dbpath /data/db/rs2
+	>> mongod --port 30003 --replSet replica_set --dbpath /data/db/rs3
+
+Configure our replica set
+	>> mongo localhost:30001	
+	>> rs.status()
+	>> rs.initiate()
+	>> rs.add("education.local:3002")
+	>> rs.add("education.local:3003")
+
+app js
+	MongoClient.connect("mongo://localhost:30001," +
+											"localhost:30002,"+
+											"localhost:30003/course", callback(err, db){
+											 __code starts here
+											});
+
+db.collection("repl").insert({"name": "Ankur"}, callback(err,db){})
+
+--------------------------------------------------------------------------------
+11 Failover in the Node js Driver
+4:46 min try yourself
+
+db.shutdownServer()
+use admin
+
+During a Primary colelction, the insert will be buffered until the election completes, then the callback will be called after the operation is send and a response is received
+
+--------------------------------------------------------------------------------
+12 Write Concern Revisited
+w 	param determines how many nodes you wait for before you move on when you do an insert,
+		accomplished by calling get last erro 
+w = 1, waits for primary to acknowledge the write
+w = 2, wait for the primary and one another node 
+w = 3, all three node
+j = 1, wait till its written to the disk//only for primary nodes
+
+wtimeout 	how long you wait//also can be set in the drivers
+
+can set in the default replica set values
+w: 'majority'
+**check this again
+
+rs.conf()
+
+--------------------------------------------------------------------------------
+13 Read Preferences
+	reading from a secondary may get the stale data aka Eventually consistent read
+	you can read from the secondary
+
+	by default uses the primary// Strong consistent read
+	Primary preferred
+	Secondary
+	Secondary preferred
+	Nearest within 15 ms ping time
+		tag, data centre awareness idea
+
+		pymongo.read_preferences.ReadPreference.SECONDARY
+
+	Cons of reading docs from a secondary replica set
+		-Eventually consistent read, unless you are reading from the primary, the secondary will not necessarily have the most current version of the document you need to read
+		-secondary's ability to become primary can be get affected, if the reads caused it to lag on writes and fall behind on oplog. That might make it ineligible until it is able to catch up 
+		-Replication lag can result
+		-secondary hardware have better memory than the primary 
+
+Replication lag : https://goo.gl/Qs8SA2
+Troubleshooting Replica Set: https://goo.gl/2EoiIk
+
+--------------------------------------------------------------------------------
+14 Review of implications of replication
+	-Seed Lists  driver need to know atleast one replica set
+	-Write concern 			w, j & wtimeout param
+	-Read Preferences 	read from primary or secondary?
+	-Errors can happen 	failover, network error etc
+
+--------------------------------------------------------------------------------
+15 Intro to Sharding
+ - MongoDB approach to horizontal scalability.
+ - mongos   routes the query to different shards.
+ - data set is distributed b/w shards in 'chunks' 
+ - each of these 'chunks' lives on a particular shard
+ - we do query to the 'shard key'
+ - mongos talks to the mongod
+ - shard key is some part of the document itself
+ - its illigal to have a document without a shard key, cause it wouldn't know what shard to put it in
+ - db can be sharded as well as collections
+ - collections that aren't sharded will live on shard(0) 
+
+	Note 
+			- if Shard key is missing from the find operation, mongos has to send the query to all 4 of the shards. 
+				Each shard has a 3 replica-set member but only one member of each replica set (the primary, by default) 
+				is required to handle the find query. 
+			- we can't directly connect to the mongod server from our app in a sharded environment
+			- or else use mongo to connect to the 'mongos' server
+
+--------------------------------------------------------------------------------
+16 Building a Sharded Environment
+
+- done by a DB Admin not by dev.
+- app interact with a mongoS router and then mongos sends query to the shards
+- mongoS can have multiple instances
+
+config servers 	
+	- typically you can have 3 but you also can have one  
+	- holds the info about the way your data is distributed across these shards
+	- you can decide to choose certain user to live on the certain shard
+	- chunk holds the bunch of data which is mapped to a particular shard 
+	- config servers knows how these chunks are assigned to the shard
+
+chunk of data
+Two ways to shard in mongoDB
+	Range based 		- range of user _id are mapped to a specific shard
+	Hash based			- uses the hashing algo over the shard key
+
+sh file to config this shard environment
+
+--smallfiles its a MMaP option
+
+Didn't need to connect to the primary to initiate the replica set, before you create the replica set config there is no primary. 
+
+--------------------------------------------------------------------------------
+17 Implications of Sharding
+- every doc includes the shard key
+- shard key is immutable/ can't change the shard key after once 
+- index that starts with the shard key.
+- shard key is specified when updated or multi is true 
+- no shard key => scatter gather
+- no unique key = unless part of the shard key
+
+--------------------------------------------------------------------------------
+18 Sharding and replication
+	- mongos connects with shards// i.e Primary node of the replica set
+	- write concern is specified in the driver app
+	- multiple replica set of mongos instances is run inside the same box 
+	- drivers can take multiple mongos configs
+
+--------------------------------------------------------------------------------
+19 Choosing a 'shard key'
+	- sufficient cardinality// variety of values 
+	- Hotspotting, monotonically increasing then don't use it as a shard key
+
+--------------------------------------------------------------------------------
+
+
+

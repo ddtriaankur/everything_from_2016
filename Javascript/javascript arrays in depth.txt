@@ -1,0 +1,101 @@
+
+1 The Array forEach method 
+	unlike for loop, forEach can run asynch 
+>> 
+arr.forEach(function (stock){
+	stock.symbol;
+})
+
+----------------------------------------------
+5 The Array map method
+	- it can also work on data that comes async over time 
+	- map calls a provided callback function once for each element in an array
+	- and constructs a new array from the results
+
+	>>
+	 	arr.map(function(stock){
+			return stock.symbol;		
+		});
+ 	
+ 	>>
+  	arr.map(function(item) {
+				return item * 10; 
+		})
+----------------------------------------------
+
+6 The Array Filter Method
+	- creates a new array with the filtered document
+	>>
+  	arr.filter(function(stock){
+			return stock.price >= 150; //if true will end up in the results
+		});
+
+----------------------------------------------
+
+7 Chaining The Array Map and Filter Method
+	- they create new array
+	- filter accepts a predicate function
+
+----------------------------------------------
+
+8 JS Array methods in depth - concat
+	- takes the copy of the original array, copies the new argument returning the new array
+	- takes output from an array and concatinate it into the existing array
+	- can't flatten out the nested array 
+
+	>> arr.concat(3,4,5)
+
+----------------------------------------------
+
+9 Create an Array concatAll method
+	- concatAll is ONLY for Nested Array
+
+	>> Array.prototype.concatAll = function() {
+				var results = []
+				this.forEach(function(subArr){
+						subArr.forEach(function(item){
+								results.push(item);
+						});
+				});	
+
+		return results;
+	}
+
+	>> JSON.stringify( arrDocument ); 
+
+----------------------------------------------
+10 Refactoring: Array.prototype by example [filter, some, forEach]
+
+
+----------------------------------------------
+11 Introducing Reduce: Reducing an Array into an Object
+
+----------------------------------------------
+12 Introducing Reduce: Transforming Arrays Functionally
+
+
+13 Array.prototype.reduce in JavaScript by example
+
+
+14 Introducing Reduce: Common Patterns
+
+---------------------------------------------------
+2 Javascript Array methods in depth - slice
+
+3 JS Array methods in depth - indexOf
+
+4 JS Array methods in depth - join
+
+15 Advanced Reduce: Common Mistakes
+
+16 Advanced Reduce: Flatten, Flatmap and ReduceRight
+
+17 Advanced Reduce: Additional Reducer Arguments
+
+18 Converting an array-like object into an Array with Array from
+
+19 Javascript Array methods in depth - sort
+
+
+Method Chaining
+	- 

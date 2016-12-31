@@ -1,0 +1,109 @@
+
+P5 Library
+
+	Typography
+	
+	• textSize(64)
+	• textFont('Georgia')
+	• text(str, x, y, x2, y2)
+	• textWidth([text])
+	:: calc and returns the width of the txt
+	• \n new line character
+	• textWidth() : Calculates and returns the width of any character or text string.
+
+DATA
+
+	• append()
+	Syntax :: append(array, value)
+		Adds a value to the end of an array. Extends the length of the array by one. Maps to Array.push().
+		
+	• arrayCopy()
+	Syntax :: arrayCopy(arr1, loc1, arr2, loc2, No of element to be copied)
+		Copies an array (or part of an array) to another array. 
+		
+	• concat()
+	Syntax :: concat(arr1, arr2);
+	
+	• shorten()
+	Syntax :: shoten(myArray)
+Decreases an array by one element and returns the shortened array, maps to Array.pop().
+
+	• sort() :: Sorts an array
+	Syntax :: sort(list, [count])
+
+	• splice()
+	Syntax :: splice(myArray, insArray, 3)
+	Inserts a value or an array of values into an existing array. The first parameter specifies the initial array to be modified, and the second parameter defines the data to be inserted. The third parameter is an index value which specifies the array position from which to insert data. 
+
+	• subset()
+	Syntax :: subset(myArray, 0, 3)
+	Extract an element from an existing array
+
+CDN
+	• <script src="http://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.22/p5.js"></script>
+
+NOTE
+Canvas is a DOM element
+
+Loading Screen
+
+Use preload function 
+To add a loading screen to your p5.js sketch, all you need to do is include an HTML element on your page the id p5_loading. It would look something like the following:
+<div id="p5_loading" class="loadingclass">this could be some sweet graphics loading lots of bits.</div>
+
+Environment
+
+	• frameRate() :: Specifies the number of frames to be displayed every second. For example, the function call frameRate(30)
+	Calling frameRate() with no arguments returns the current framerate
+	
+	• noCursor()
+	• displayWidth, displayHeight
+	System variable that stores the width && height of the entire screen display.
+	• windowWidth, windowHeight
+	System variable that stores the width of the inner window, it maps to window.innerWidth.
+	
+	• Fullscreen()
+	var fs = fullScreen();
+	fullScreen(!fs);
+
+	• pixelDensity() // displayDensity ()
+	Calling pixelDensity() with no arguments returns the current pixel density of the sketch.
+	
+	• getURL() 
+	Gets the current URL
+	
+	• Push() && pop ()
+	save functions styles
+	
+	• blendMode()
+
+Events
+	• rotationX
+
+DOM NOTES
+Create
+	• createSlider( min, max, [value])
+	• createCheckBox( 'name', true)
+	• DROP DOWN MENU
+    ---  var sel = createSelect ()
+	sel.position('option1')
+	sel.position('option2')
+	sel.position('option3')
+	
+	• createInput()
+	• createElement()       // Any DOM ELEMENT
+
+p5.Element
+	• .input ([callback fxn])
+	• .changed()
+	• .mouseOver ()
+	• .mouseOut ()
+	• .dragOver()
+	• .dragLeave ()
+	• .drop([ when dropped], [ when files are loaded])
+
+	• .mouseMoved ()
+	• .mouseClicked ()
+	• .mousePressed ()
+	• .mouseReleased ()
+	• .mouseWheel ()

@@ -1,0 +1,177 @@
+
+Node js created by Ryan Dahl
+    We discover how to write high concurrency web server, utilizing the CommonJS module system, node's core libraries, third party modules, high level web development and more.
+
+Installing Node 
+    - homebrew, nDistro
+    homebrew is a package management system for OSX and Ruby
+    brew install node.js
+
+nDistro
+    - its a distribution toolkit for node, which allows creation and installation of node distros within seconds. An nDistro is simply a dotfile named, ndistro which defines modeule and node binary version dependencies. 
+    -IDK-
+
+Building from Source
+    - downloading it from git
+    >> git clone http://github.com/ry/node.git && cd node
+
+or download from the source via curl, wget, or similar
+    >> curl -# http://nodejs.org/dist/node-v0.1.99.tar.gz > node.tar.gz
+    >> tar -zxf node.tar.gz
+
+Now the source is downloaded, we can run ./configure which discovers which libs are available for node to utilize, such as
+    - OpenSSL for transport security support, 
+    - C and C++ compilers, etc. 
+    - make which builds node, and finally make install which will install node
+
+>> ./configure && make && make install 
+
+COMMONJS Module System
+
+Creatin Modules
+    - lets create a utility name utils blah blah blah
+
+>> var utils = {};
+>> utils.merge = function (obj, other) { };
+
+- more pseudo globals are available to the module in addition to exports, require and module. The exports object is then returned when a user invokeds require ('utils')
+
+- Core modules which are bundled with node can be required without a path, sych as require('sys')
+- relative path ./
+
+Expporting a Animal constructor
+    >> module.exports = function Animal () {};
+    which then can be utilized as:
+    >> var Animal = require('./animal');
+
+Require Paths
+    by default node checks the following dirs for modules:
+    - <node binary>/../../lib/node
+    - $HOME/.node_libraries
+    - $NODE_PATH
+
+NODE_PATH is just like PATH variable in the environment., where several paths are delimited by a colon
+
+Runtime Manipulation
+Another approach is to prepend or 'unshift' a directory onto require.paths
+
+>> require.paths.unshift(__dirname + '/math')
+>> var add = require('add'),
+    sub = require('sub')
+
+Pseudo Globals
+    - require -the require function itself
+    - module - the current Module instance
+    - exports - the current module's exported properties
+    - __filename - absolute path to the current module's __filename
+    - __dirname - absolute path to the current module's directory
+
+The module object also contains these useful properties:
+    - id - the module's id, consisting of a path 
+    - parent - the parent Module (which required this one ) or undefined
+    - filename - absolute path to the module
+    - moduleCache - an object containing references to all cached modules
+
+
+Globals
+    - process  - it exposes process manipulation such as signalling, exiting, pid and etc
+
+    console 
+     - the console object contains several methods which are used to output information to stdout or stderr
+        - console.log()
+            simply writing to stdout .alias console.info()  
+            
+        - console.error()
+            writes to stderr. alias console.warn(0
+        
+        - console.dir()
+            utilizes the sys module's inspect() method to pretty print the object to stdout:: console.dir({foo: 'dir' })
+            
+        - console.assert()
+            asserts that the given expression is truthy, or throws an exceotion
+            >> console.assert(connected, 'database connection failed' )
+            
+    process 
+        - process.version
+        - process.InstallPrefix     exposes the initial InstallPrefix
+        - process.execPath   
+        - process.platform
+        - process.pid
+        - process.cwd 
+        - process.chdir    changes the cwd to the passed path
+            process.chdir('/foo')
+        - process.getuid   returns the numerical user id of the running process
+        - process.setuid    sets the effective user id for the running process. This accepts both a numerical id, as well as string
+            For eg both process.setuid(501), and process.setuid('tj') are valid.
+        
+        - process.getuid    returns the numerical group id of the running process
+        - process.setgid     similar to setuid but for group
+        - process.env       contains the user environment
+        - process.argv       
+            when executing a file with the node executable process.argv provides access to the arguemnt vector provides access to the argument vector, the first value being the node executable, second being the filename, and remaining values being the arguments passed. E.g.
+            .> our source file ./src/oricess/misc.js can be executed by running 
+            >> node src/process/misc.js foo bar baz
+
+        - process.exit()
+            it is synonymouse with the C function exti(),
+        - process.on()
+            the process itself an EventEmitter,
+        - process.kill()
+            method sends the signal passed to the given pid, defaulting to SIGINT. SIGTERM for signal trapping
+
+        - errno
+            process.ENOENT rep. missing file or dir.
+
+----------------------------------------
+Events
+    - Nodes core module events supplies us with a single constructor, EventEmitter.
+
+    Emitting Events
+    - typically an object inherits from EventEmitter,
+    - first we create an emitter,
+    - after which we can define any number of callbacks using the emitter.on() 
+    E.g.
+    var EventEmitter = require('events').EventEmitter;
+    var emitter = new EventEmitter;
+
+    emitter.on('name', function (first, last){ 
+        console.log(first + ', '+ last);
+    });
+
+    emitter.emit('name', 'tj', 'holowaychuk');
+    emitter.emit('name', 'simon', 'holowaychuk');
+
+
+    Inheriting from EventEmitter
+    - perhaps more practical use of EventEmitter, and commonly used throughout node is to inherit from it.
+    - Eg. we define the Dog constructor, which of course will bark from time to time, also known as an event
+
+    var EventEvent = require('events').EventEmitter;
+
+    function Dog(name) {
+        this.name = name;
+    }
+
+    - here we inherit from the EventEmitter, so that we may use the methods provided such as EventEmitter on () and EventEmitter emit ().
+
+    >> Dog.prototype.__proto__ = EventEmitter.prototype;
+
+    >> var simon = new Dog('simon');
+    >> simon.on('bark', function (){
+        console.log(this.name+' barked');
+    })
+
+    Events
+    Bark twice a second:
+    setInterval(function () {
+        simon.emit('bark');
+    }, 500);
+
+    Removing Event Listeners
+     >>>>>>>>>>>> Laterz   <<<<<<<<<<<<<<<<
+
+Buffers
+
+Streams
+
+File system

@@ -1,0 +1,96 @@
+
+https://egghead.io/technologies/node
+
+CTRL + C
+
+------------------------
+1 Intro
+SHFT + :  -  for the command mode
+
+------------------------
+2 Navigation
+hjkl move keys
+w - move forward by word by word
+b - move backward by word by word
+
+------------------------
+3 Modes in Vim
+Normal mode - navigate around text/ Default mode 
+Command Mode - Shift+;
+Insert Mode - press I 
+
+Visual mode - press v 
+	shft + v   - select the whole line
+
+Exit to Normal Mode: ESC
+
+------------------------
+4 Saving files 
+Save file use 'write' in the command mode
+	: write [path_name + file_name]
+	: write name.txt
+	: write d:\name.txt
+Alternative
+	: w [path_name + file_name]
+	: w name.txt
+	: w d:\name.txt
+
+------------------------
+5 vim's buit-in command 
+dd - delete the line
+Shft+d  - preserves the white space but deletes the line
+
+d5w - delete5 words
+c3j - change 3 lines down, put into insert mode
+
+
+------------------------
+6 combining vim commands
+dw - delet a word
+cw - to change word then switch into insert mode
+
+vim commands are built up in three parts
+Action Location Context
+cit - 
+ci{ -
+ci" -
+
+------------------------
+7 how to copy and paste
+y - copy/yank the text
+p - to paste or put the copied text into the file
+dd - is same as cut would do
+
+Note = doesn't work with the clipboard
+
+------------------------
+8 configure VIM
+command mode
+: syntax on
+: syntax off
+: set number
+: set nonumber
+: set relativenumber
+: set norelativenumber
+: set number relativenumber
+
+To see all options
+: help option-list 
+
+------------------------
+9 config file for vim
+saving vim's config file
+>> vim .vimrc
+syntax on 
+set number relativenumber
+filetype plugin indent on
+set tabstop=2 shiftwidth=2 expandtab
+set backspace=indent,eol,start
+
+:wq  - save and quit vim
+
+cp .dotfiles/vimrc ~/.vimrc
+------------------------
+
+
+

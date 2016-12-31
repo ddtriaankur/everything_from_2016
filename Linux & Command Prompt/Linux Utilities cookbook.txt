@@ -1,0 +1,288 @@
+
+>> route 
+>>uptime, ls and sync
+>> history command
+	- ! and then the number next to the command as shown in the history listing
+	HISTSIZE environment variable
+
+Other environment variables
+	- PS! : it shows and sets the command line prompt
+	- USER : it shows the current user
+	- HOSTNAME : it shows the current hostname for this machine
+	- HOME : it shows the home directory of the current user
+	- Shell : it shows the current shell this terminal is running in
+	- TERM : it shows which terminal type is nbeing used
+	- PATH : it shows and sets the directories where programs are searched for 
+	- PWD : it shows the current working directory
+	- EDITOR : it can be set to the full path to your desired text editor for use with certain commands such as crontab -e
+	- TZ : it shows and sets the time zome variable
+	- HISTSIZE : it shows and sets the size of the history buffer
+	- PATH : env variable is where commands are searched for in the filesystem
+
+	1. Prepending a dot to the PATH means the program will be looked for in the current directory first, before searching the rest of the path. This is very useful during the code development for example. Do this by running: 
+	>> export PATH=".:$PATH
+
+	2. The EDITOR variable :: set you favourite text editor 
+			be sure to use the full path
+		export EDITOR=/lewis/bin64/kw
+
+	3. setting it to nothing 
+		>>export EDITOR= 
+
+	4. By convention, environment variables are usually written in upeprcase
+
+	Only exporting a variable will make it available to other shells
+	>> A=1 or A="A String"
+
+Creating aliases without having to make a script out of it
+
+	1 Clear your screen tput clear
+	2 clear sscreen alias cls="tput clear"
+
+	3 show a long directory listing enter 
+		alias la="ls -la"
+
+	4 show long listing with the most current files last enter
+		alias ls="ls -latr"
+
+Removing an alias ::
+	>> unalias cls
+
+Moving fs efficiently    Pg 12
+	>> alias lbook="cd /home/lkjsad/linuxbook"
+	>> lbook
+	- To remove the lbook 'alias' run unalias lbook
+	- List your aliases 
+		>> alias
+
+The .bashrc file    Pg 14
+
+echo $? returns the internal return code gerated by last run program
+0 for success, // A non zero means an error
+
+Redirection and piping   Pg 17
+	>> 	ifconfig > file1.txt
+	>> 	sort < file1.txt
+	You can even do both in one step
+	>> sort < file1.txt > output-file.txt
+	You can also send the output to another command using the pipe operator. For example, run. This will only sohw the line from route that contain the phrase eth0 
+	>> route | grep eth0
+
+	To find the latest version of the file
+	>> locate crc.c
+	This might return quite a few lines. How can I run ls on each file to find the latest one?
+	By piping the output into the xargs command and then ls:
+	This will now show the time and date of each line
+	>> locate crc.c | xargs ls -la
+
+Sending output from one terminal to another
+	- unique to Linux/UNIX systems
+
+	1. In one terminal run the tty command. The output should be something like /dev/ pts/16. 
+	2. In the other terminal run the route command. You will see the output in that terminal. 
+	3. Now run route again, but now using the command: route > /dev/pts/16 
+	4. The output will go to that other terminal.
+
+------------------------------------------------------------------
+------------------------------------------------------------------
+
+3 Files and Directories
+Things Covered
+- copying, removing and updating files and directories
+- finding files using find and locate
+- creting text files - vim, emacs and others
+- using the file command
+- using grep to find patterns
+- compressing files using ZIP and TAR
+- other helpful commands such as stat, sum, touch and more
+
+	- some files are in memory, eg /proc and /sys are actually virtual filesystems
+	- Every file under a filesystem has a special number called an inode
+	- The inode is where the OS stores the properties
+	of the file and contains the followings
+
+	Things that are not available in the inode are the  
+	full path and name of the file itself
+	This is stored in the /proc filesystem under the PID (process ID)
+	of the process that owns the file.
+
+	The superblock is what ties all of the inodes together on a filesystem.
+	It contains all of the information needed to manage the files.
+	Being very important to the system, most Linux fulesystems have a backuo copy of the superblock at regular intervals,
+	while also being retained in memory
+
+	The dumpe2fs command can be used to show the contents 
+	of the superbloack.
+
+Copying, removing, and updating files and directories Pg 39
+	- Copy cmd output to clipboard  >> dir | clip
+Finding files using find and locate
+	>> find -name bash*
+
+	Locate you can be in any directory
+		>> locate gnome-terminal
+	To ignore case 
+		>> locate -i sudo
+		- locate command uses a database(s) to store the location of files
+		- automatically recreated by cron job every night
+		- to refresh the database immediately run the 'updatedb' command
+
+Creating text files -vim, Emacs, and others
+	- yum install emacs // apt -get install emacs
+
+Using the File Command
+	- the file command can tell us what kind of file something is. 
+	>> file temp1.txt 	
+
+SAVING FILE TO ANOTHER LOCATION FOR VIM
+	>> :w /tmp/filename.txt
+
+grep Pg 47
+
+
+4 Networking and the Internet
+In this chapter we will cover:
+	- Troubleshooting bad connections
+	- Copying files to another machine- FTP and SCP
+	- Logging into another machine - Telnet and Secure Shell
+	- Getting a web page without a browser -wget
+	- Browsing the web -Firefox
+	- E-mail - using a web mail program
+	- Running your own web server - httpd
+	- WHat is using that port? The /etc/service file
+	- IPv4 versus IPv6
+	
+Troubleshooting bad connections
+	- First make sure the connection is really down by pinging a known external address >> ping google.com
+	- Find your gateway address. Run the route command; your gateway should show up at the top of the output. 
+	- Ping the gateway provided by route above. If it pings successfully, then the problem is most likely on the router, or at the ISP itself.
+	- If not try this. Find the interface name by using ifconfig command. Look for stanza that has something like eth0 or p3p2.
+	- Run the ethtool command on the interface. 
+	>> ethtool eth0
+	>> ifdown <interface> //if up <interface>
+
+	- to look at your /var/log/messages file (and/or dmesg). It may shed some light on why the connection is falling.
+
+Working with IP addresses, subnets, domains, and so on
+IP address: The Internet Protocol address of this machine,
+Subnet: The third octet (or set of numbers) is the subnet.
+Domain: A domain is usually referred to by a hostname, such as google.com. It too has a numberic IP. Use the ping command to determine what IP a hostname is using.
+
+COPYING files to another machine - FTP and SCP
+ - File Transfer Protocol
+ - Secure Copy
+
+ The syntax for SCP comprises of the given commands
+	 - To copy to a machine
+	 >> scp local-filename username@hostname:/directory
+	 To copy from a machine
+	 scp username@hostname:/directory/filename
+ 
+ Command to start an FTP session is ftp server-name  Pg 61	
+ 	- ftp 192.168.1.115
+ 	++ see sshd_config file
+
+ 	Logging into another machine - Telnet and Secure Shell
+ 	- The command to start a Telnet session is telnet hostname. The hostname can be a name reachable on your network or a numeric IP
+ 	- Secure Shell (SSH), is a more popular protocol as it provides for strong encryption of both the password and text. Much easier to use.
+ 	- To Start a secure shell, the command is :
+ 	>> ssh username@hostname
+
+ 	>> telnet 192.168.1.115
+ 	- (/etc.motd) file will probably be displayed.
+ 	- when done >> exit
+
+ 	ssh
+ 	>> ssh jklewis@192.168.1.115
+ 	>> pwd >> uptime
+ 	- when done type >> exit 
+
+ 	ssh keygen
+ 		for more info on this >> man ssh-keygen
+
+ 	Getting a web page withour a browser - wget
+ 		- The follwing is the method to run wget:
+ 		>> cd /tmp
+ 		>> wget <web url>
+ 		-- man wget [for more information]
+
+ 		>> firefor & (the ampersand tells it to run the command in the background so you can still access the terminal. Error messages will also be displayed here).
+
+
+ 	Running your own web server - httpd
+ 	IPv4 versus IPv6 
+
+--------------------------------------------------------------
+5 Permissions, Access, and Security
+- In this chapter we will cover
+	- creating and managing user account - useradd
+	- working with passwords
+	- working with file permissions
+	- working with firewall and router settings
+	- working with Secure Linux - SELinux 
+	- Using sudo to secure a system
+	- The /tmp directory
+
+	Creating & Managing user accounts - useradd  Pg 75
+	 Learn how to add a user account using the useradd program.
+	 you will need to be the root user.
+	 - In most Linux distros there are 2 versions of this command, useradd and adduser. They don't always do the same thing, so consult your man page.
+	 - On Fedora, adduser is a symbolic link to useradd and so they are equivalent.
+
+	 1. /etc/passwd   make a backup copy of it
+	 	>> cp /etc/passwd /tmp/passwd.orig
+	 2. Create user name test 1
+	 	>> useradd test1
+	 3. Try >> su - test1
+	 4. Lets change the password::  >> run passwd
+	 7. Now edit /etc/passwd and go to the bottom line... something similar to this: test:x:1003:1003::/home/test:/bin/bash
+	 8. Delete the x, so that the line now looks like: test1:1003:1003::/home/test1:bin/bash
+	 9. Repeat to the step 4.
+	 13 When gets done :: passwd: all authentication tokens updated successfully
+
+	 >> useradd -help
+	 - You can change how an existing account works, or when it expires.
+	 - Can give user system authoruty so he has almost has much power as root.
+	 - Consult the man pages or use -help option for more info
+
+	Working with passwords   		Pg 78
+		9. Delete a user account password::
+			>> passwd -d test1
+		This is easier than editing the /etc/passwd file directtly
+
+	Working with file permissions 			Pg 79
+
+	Working with the firewalls and router settings     Pg 81
+	- prevent unauthorized network access to a machine while still allowing normal traffic 
+	- iptables command is ussed to set up, configure, and view the tables of the IPv4 rules in the kernel.
+	- a chain is a list of rules, and a rule specifies what to do with a packet that matches.
+	- The match is called a "target".
+
+	Working with Secure Linux - SELinux
+	- DAC ::Discretionary Access Control	
+	- MAC :: Mandatory Access Control
+	- Eg: normal listing of a file under DAC >> ls -la -Z -ifcfg-eth0	
+	>> sestatus
+	
+	Using sudo to secure a system   Pg 84
+	- give a user more access to the computer, but not actually root authority
+	- This can be done by modifying the "/etc/sudoers" file and having your users invoke the sudo command.
+	
+	The /tmp directory    Pg 87
+	/tmp directory is somewhat special as by default it allows all users to write file to it.    
+
+
+
+6 Processes
+	we cover topics
+	- Understanding processes	
+	-	Examining processes with ps
+	- Examining processes using top	
+	- Changing priorities with nice
+	- Observing a process using the /proc filesystem
+
+
+7 Disks and Partitioning	
+
+
+

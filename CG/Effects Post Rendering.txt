@@ -1,0 +1,33 @@
+
+Effects Post Rendering
+
+	Post effects are generated after the image has been rendered. Therefore you will not see the effect until the image is fully rendered.
+	The order of the post effects is important.
+
+Filter
+
+Median Filter
+	Removes peaks in color values from the image.
+
+Sharpen Filter
+	This filter emphasizes transitions in the image. This reinforces the edges. 
+
+Soft Filter
+	Each pixel is balanced with its neighbor to produce a softer transition.
+
+Cel Render
+Edge
+	If this option is enabled, all polygon edges will be outlined in black, creating a shaded wireframe feel.
+
+Quantize
+Color quantize
+
+
+Remote
+	Use Remote if you want the picture or animation to be passed to another application automatically. For example, you can redirect animation frames to a video editing program for post-editing. If you are using Windows, you can use a batch file with command parameters. If you are using a Macintosh, use AppleScript. 
+
+SUB FRAME MOTION BLUR
+
+Scene Motion Blur has been renamed Sub-Frame Motion Blur. The Strength parameter has been removed. The degree of blur is controlled by the camera’s Shutter Speed (s). The Physical Camera (rendered using the Physical Renderer) also offers a realistic, accurately calculated motion blur.
+
+ 

@@ -1,0 +1,262 @@
+
+1. How to run scripts with Node
+In the command line
+> node hello.js
+> Documentation :: https://docs.npmjs.com/
+> REPL ::  Real-time console similar to browser console
+
+Using a package json
+
+	• Initialize the package json file in the working dir
+	Creating :: npm init
+	--yes init flag
+
+	• Npmjs.com
+		-- package called express for hosting server
+		
+	• For using -- npm start
+		"start": "node bot.js",   add it under script
+
+	• Specifying Packages
+	To specify the packages your project depends on 
+	You need to use list the packages you'd like to use 
+	In your packages.json
+	Dependencies vs devDependencies
+	
+	• The --save and --save-dev install flags
+	Awesome way to add dependencies to package.json
+	is from cmd line
+	--Flagging the npm install with either --save or --save-dev
+	:: npm install <package_name> --save
+	
+	• Updating Global Packages
+	:: npm install -g -jshint
+	-- to find out which package needs to be updated
+	:: npm outdated -g --depth=0
+	
+	-- For updating all global packages
+	:: npm update -g
+	
+	• more package.json
+
+Npm commands
+-installing locally vs globally
+-- link https://docs.npmjs.com/
+
+Wtf sudo ???
+--koroku
+--heroku
+--npm online
+
+npm install twit --save
+Sudo npm install npm -g
+npm start
+
+Koroku web service
+
+Shiffman Git hub
+https://github.com/shiffman/A2Z-F15/tree/gh-pages/week9
+
+-npm Ls
+-npm outdated
+-npm update
+
+-uninstalling
+
+var Twit = require('twit')
+
+	• Store code in another ref file
+	• In a new file
+		Syntax :: module.exports = {___}
+		
+	• Calling Syntax :: var config = require('config') 
+	
+	• Twit github :: https://github.com/ttezel/twit
+
+	• get(), post(), and stream()
+	• Dev ref :: https://www.ntu.edu.sg/home/ehchua/programming/howto/CMD_HowTo.html
+
+Part 6 :
+
+	• Processing-java ::  
+	  
+	• You can draw in node or do image processing using something like "node canvas" or "lwip", but I just found these solutions to be less powerful to use. I want ultimately run the bot on a "headless" server so having a browser open isn't an option.﻿
+	• Actually, I kept digging around (implementing your wording of "headless" because I didn't know it before) and I ran into this http://phantomjs.org/ and this http://brendandawes.com/blog/p5js. If I'm reading this right, this runs a headless browser, short-circuiting the problem with p5.
+	• ADD Processing working dir to the PATH variable in Environment Variables
+	>> sysdm.cpl  
+	• Node >> trigger Processing > draws the image >> save it > pickup the img >> post to twitter bot
+	
+	• Syntax :: processing-java --sketch=[path] --run
+	processing-java --sketch=D:\FAK\my_new_stuff\rainbow --run
+	
+	• var exec = require(child_process").exec;
+	Exec ( cmd, processing);
+	
+	function processing (){
+	console.log("finished")
+	}
+	
+	• https://github.com/shiffman/A2Z-F15/blob/gh-pages/week9/11_twitter_image_bot/bot.js
+	• Child process :: https://nodejs.org/api/child_process.html
+	• Deploying node and processing on a server
+	• Amazon ec2 instance
+
+Part 2 :
+
+	• Inside the working dir type
+	• npm init
+	• Name of project ::
+	• Version ::
+	• Description ::
+	• Entry Point :: [name of the file that node should trigger to run]
+	• Keywords :: whatever you want
+	•  MAKES A package.json  << File
+	• Can be changed manually
+	• EXPRESS npm module for hosting some files creating your own api
+
+	• npm install twit  --save  << to install new packages
+	• Gets added to the dependencies [incase its run from somewhere]
+	• Creates node module folder inside the working folder
+
+Part 3 :
+
+• For using :: npm start
+• Add >> start : node bot .js  << under scripts
+• >> require('Twit') ;   // its an import statement
+• Make a separate module
+• module.export = { keys }
+• './config' move up a directory and look for config
+• new Twit (config);
+
+Part 4 :
+
+• For using :: npm start
+• Add >> start : node bot .js  << under scripts
+• >> require('Twit') ;   // its an import statement
+• Make a separate
+
+Part 5 : Scheduling tweets using setInterval
+
+• Put the working code inside a FUNCTION
+• setInterval ( [func_name], [ms 1000*20] )
+• get()          //for search
+• post()       //for posting stuff
+• stream    //user stream // there are different kinds of streams
+• Nodes child processies
+• var exec = require('child_process').exec
+• var cmd = 'processing-java --sketch==<PATH> '
+• exec (cmd, [callback function name])
+• function name () {
+console.log('finished');
+}
+• BASICALLY its importing a child process thing 
+• Which is the part of 'node'
+• There is another node package called fs for file system
+• Pre built node package that comes with node  
+• Calling Syntax  :: var b64content =  fs.readFileSync( [ filename] , params);
+• var params = {encoding : 'base64'} 
+• T,post ('media/upload', {media_data :b64content },  [call back uploaded ])
+• function uploaded(err, data, response) { 
+• var id = data.media_id_string;
+• 18 min ??
+}
+
+Amazonec2 instance server ??
+http://www.venlabsla.com/x/52/05-Tunnel/
+http://www.giovannixu.com/#!/
+
+What's bash
+
+MODULES
+
+Export a js file into another js file by using export method
+
+SYNTAX::  
+Export ::module.exports.[put any name] = [method name]
+Importing ::   require ('./[filename]')   // include the file from the same folder
+
+:: module.exports = { __block of code ..  }
+
+
+OBJECT FACTORY
+Its an object (module.exports) used create another object (by using a function)
+So that each module they are calling/using it can have their custom copy
+
+Amplitude is the z distance
+
+console.log(__dirname);
+console.log(__filename)
+
+response.writeHead(200, {'Context-Type': 'text/plain'}) 
+response.write('Here is the response text.') 
+response.end()
+
+Links Resources http://stella.laurenzo.org/2011/03/bulletproof-node-js-coding/
+http://nodetuts.com/
+http://howtonode.org/
+
+http://openmymind.net/
+
+NOTES
+
+>>npm config get prefix
+
+C:\Users\username\AppData\Roaming\npm
+C:\>set PATH=%PATH%;C:\Users\username\AppData\Roaming\npm;
+
+http://jargon.js.org
+
+Win 8 Crack
+[
+slmgr /upk
+slmgr /ipk NG4HW-VH26C-733KW-K6F98-J8CK4
+slmgr /skms lunar21.no-ip.org:80
+slmgr.vbs -ato
+
+From <http://codingandprogramming.com/crack-windows-8/> 
+
+]
+
+
+
+RESTIFY package
+
+	• Typescript ?? --savedev
+	• more tsd.json
+	• more tsconfig.json
+	• Typescript builds an actual file that we gonna use it
+	
+	• tsd and typescripts as dev dependencies
+	• Scripts >> "init" : "tsd install"
+	• "build" : "tsc -p . || true "
+	• require("github")
+	• require("request")
+	• require("npm-registry")
+	• Promises ??
+	• Bluebird ?
+	• Synchronous io
+	• client.js & decoded.html
+	• npm start
+	
+	ON GOING npm projects
+	• Iodash
+	• Async
+	• Request
+	• Underscore
+	• Commander
+	• Debug
+	• Chail
+	• Q
+	• Bluebird (promise library)
+	• http://nefertitihack.alloversky.com/
+	• http://oszilat.com/
+	• http://nora-al-badri.de/
+	
+
+To save the working repl session into a file
+.save ./newFile.js
+
+NPM Directory
+>> npm config get prefix
+
+>> npm config set prefix

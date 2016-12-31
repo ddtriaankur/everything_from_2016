@@ -1,0 +1,154 @@
+
+>>wmic os get osarchitecture
+
+what are collections
+_id: ObjectId("54654328798710")
+_id:  "custom id"
+
+Lecture 4
+Query Selectors/Operators
+
+Comparison Operator
+- $gte - greater than or equal to
+- $lte - less than or equal to
+- $eq - equal to 
+- $ne - not equal to // i.e opposite
+- $in - matches any of the value in an array
+
+>> db.invent.find ( { runtime: {$gte: 90, $lte: 120 }, {title : 1} }).pretty();
+
+>> db.invent.find ( { "tomato.meter": {$gte: 90}, runtime: {$gt: 180}}, {title : 1, runtime: 1, _id: 0}).pretty();
+
+
+>> db.invent.find ( { rated: {$ne: "UNRATED"}}, runtime: {$gt: 180}}, {title : 1, rated: 1, _id: 0}).pretty();
+   // ..this will also return docs that don't have rated field at all
+
+>> db.invent.find( { rated: { $in: ["G", "PG", "PG-13"] } })
+ 
+===================================
+Lecture 5
+ELEMENT
+
+$exists - allows us to match documents for which a given field is either exists or doesn't exists
+$type - if a field in a doc. is a specified type
+
+>> db.invent.find( { "tomato.meter": { $exists: false } })
+
+Querying by type
+>> db.invent.find( { "_id": { $type: "string" } }).pretty();
+
+=========================
+Lecture 6
+Logical // these gates takes values as an array
+
+$or - OR Gate
+$and - AND Gate
+$not - logical not gate
+$nor - Opposite of 'or'
+
+>> db.invent.find({ $or: [{ A option }, { B option }] } );
+
+>> db.invent.find({ $and: [{ "tomato.meter": { $gt: "95" } }, { "metacritic": { $gt: 95 } }] } );
+>> db.invent.find ( {"tomato.meter": {$gt: 95}, "metacritic": {$gt: 95} }).pretty();
+.> superflous aka equivalent
+
+implicitly and together criterias are AND Gates
+
+>> db.invent.find( { $and: [{"metacritic": { $ne: null } }, { "metacritic": { $exists: true } } ] }).pretty();
+
+================================
+Lecture 7
+Regex     - /regular expression operator/
+	- provides reg Exp. capabilities for pattern matching string in queries	- MongoDB use PCRE version 8.38 with UTF-8 support
+
+Syntax
+	>> db.invent.find( { "awards.text": { $regex: /^Won\s.*/ } });
+	>> { $regex: 'pattern', $options: '<options>' };
+	>> { $regex: /pattern/<options> };
+
+	Options 
+					i : case insensitivity
+					m : for patterns that include anchors
+					x : extended capability to ignore all white space characters in the $regex pattern 
+
+=============================
+Lecture 8
+Operators to work on ARRAY value fields
+
+$all - to match array fields against an array of elements 
+$size - allows to match documents based on the length of an array
+$elemMatch - all mentioned criterias be satisfied within a single element of a given array field 
+
+>> db.invent.find( { genres: { $all: ["Comedy", "Crime", "Drama"] } }).pretty();
+>> db.invent.find( { countries: { $size: 1 } }).pretty();
+>> db.invent.find( { boxOffice: { $elemMatch: { country: "UK", revenue: {$gt: 15 } } } }).pretty();
+>> 
+
+=============================================
+Lecture 9
+
+Updating Documents
+	- updateOne
+	- updateMany
+	- replaceOne
+
+>> db.invent.updateOne({query}, { $set: { key : "value" } });
+	only the first one will get updated by the database 
+
+-- update operators
+	like $set
+	scalar fields are those who are not an array. Singular value fields ??
+
+FIELD UPDATE OPERATORS
+	docs.mongodb.org/v3.0/reference/operator/update-field
+
+		$set  - sets the value of the field in a document
+
+>> db.invent.updateOne( { title: "The Martian"}, { $inc: { "tomato.review": 3, "tomato.userReviews": 25 } });
+
+Updating an array Operators
+$push : adds an item to an array
+	
+-------------------------------------------------------------------------------------------------------------------
+
+/reference/operator/update-array
+$addToSet - 
+$pop - 
+$pullAll - 
+$pull -
+$pushAll - Deprecated. Add several items to an array
+$push - Add an item to an array 
+$each - for an array field man!!! without each it will think its an scaler field
+
+>> show collections
+
+>> db.invent.updateOne ( {title: "The Martian"}, {$push: { reviews: {<object>}} });
+>> db.invent.updateOne ( { title: "The Martian"}, { $push: { reviews: { $each:[ loops through an array field & update ]} } });
+>> db.invent.updateOne ( { title: "The Martian"}, { $push: { reviews: { $each: [{obj}], $slice: 5 }} }); 
+>> db.invent.updateOne ( { title: "The Martian"}, { $push: { reviews: { $each: [{obj}], $position: 0, $slice: 5 }} }); 
+
+$slice wtf??
+$position modifier wtf??
+----------------------------------------------------------------------------------
+updateMany is for multiple documents
+>> db.invent.find( {rated: null} ).count();
+>> db.invent.find( {rated: "unrated"} ).count();
+
+>> db.invent.updateMany( { rated: null }, { $set: { rated: "UNRATED" } });
+>> db.invent.updateMany( { rated: null }, { $unset: { rated: "" } });
+----------------------------------------------------------------------------------
+15:26 mins
+
+UPSERTS
+>> details  what is this command??
+
+>>db.insert.replaceOne( { "imdb": detail.imdb.id}, details);
+
+
+==============================================================================================================
+ANSWERS
+2.4
+db.movieDetails.find( { "genres":["Comedy", "Crime"] } ).count()
+
+2.5
+db.movieDetails.find( { $or:[ { $and:[ {genres:"Comedy"}, {genres:"Crime"} ] }, {genres: ""} ] } ).count()

@@ -1,0 +1,124 @@
+
+npm publish reusable-code
+Pacakage is just a dir with one or more files in it
+grunt, mocha, request, angular, socket.io, gulp, async, minimist, lodash, q, connect, passport, colors, moment, jshint
+
+03
+Globally install packages // location of the install folder > //AppData/Roaming/npm 
+install globally if gonna use as a cli tool eg: grunt
+npm install jshint -g
+
+>> npm config get prefix
+>> npm config set prefix [path]
+
+04
+- Globally installed packages can be used a cli tool,, eg Grunt, 
+>> ls node_modules/
+
+package.json
+	{ "name": "demo-app";
+	  "versino": "1.0.0"
+	}
+
+>> npm install lodash --save
+	- semantic versioning == https://docs.npmjs.com/getting-started/semantic-versioning [from vid 13]
+
+05
+Create package.json
+>> npm init --yes         // `-y` can also be used, for filling in default values
+You can also set several config options for the init command. Some useful ones 
+> npm set init.author.email "wombat@npmjs.com"
+> npm set init.author.name "ag_dubs"
+> npm set init.license "MIT"
+
+save as dependencies
+- npm install <package_name> --save
+
+- devDependencies - during local development only 
+>> npm install <package_name> --save-dev
+
+npm uses Semantic Versioning
+-> author: USR_NAME <email@gmail.com> (http://website.com)
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+06
+Updating local package
+>> npm ls                               // list packages
+>> npm outdated                        // to check if update or is not
+>> npm update                          // update the packages
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+07
+Uninstalling local packages
+>> npm uninstall lodash               // doesn't remove from the package json file
+>> npm uninstall lodash --save        // remove from the dependencies from package.json
+
+extraneous package is unwanted package
+>> npm prune
+>> npm ls
+>> npm -l
+>> npm /?
+
+++++++++++++++++++++++++++++++++++++++==
+08
+installing packages GLOBALLY
+JSHINT - static analysis tool for JavaScript
+>> npm install jshint-g
+>> jshint app.js                   // to run the app
+
+>> npm config get prefix            // to get the installed directory 
+
+++++++++++++++++++++++++++++++++++++++++++
+09
+Uninstalling GLOBAL Packages
+>> npm ls -g --depth=0                    // to list global installed packages
+>> npm uninstall -g jshint           // removes globally installed package
+
+++++++++++++++++++++++++++++++++++++++
+10 
+Creating Node Modules
+-> exports.varName ;
+
+++++++++++++++++++++++++++++++++++++++++====
+11
+Create Node modules
+
+++++++++++++++++++++++++++++++++++++++++
+12
+Publishing npm packages
+- Any files that are bundled together with package.json file 
+>> npm adduser                     // add user to the npm registry
+
+>> npm config ls                    // information stored locally for the user
+>> npm publish                      // to push npm packages to the registry
+.> colors modules 
+
+>> npm version patch              // to increment the package version
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++==
+13
+Semantic Versioning or semver  BOooooooRING
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++==
+14 
+Working with Scoped packages
+namespcaes wtf ??
+
+>> npm install -g npm
+>> npm login
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+HOW npm WORKS
+.> A package is a file or dir that is described by a package.json
+.> A moule is any file or dir that can be loaded by Node.js require()/
+
+What is a module?
+.> anything that can be loaded with require()
+.> any javascript file
+
+>> npm install cli
+
+.> The package.json file defines the package
+.> The node_modules folder is the place Node.js looks for modules
+.> when you call require(), it will load the module.
+
+Alternatively
+.> without "index.js" or a "main" field in the "package.json" file, its not a module.

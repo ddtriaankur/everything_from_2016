@@ -1,0 +1,183 @@
+
+HRect d;       																					//DECLARING THE INSTANCE OF HRect
+
+d = new HRect().rounding(10) ; 													//Initializing 
+d
+	.strokeWeight(2)
+	.stroke(#000000)
+	.fill()
+	.size()
+	.rotate()
+	.loc()
+	.anchorAt()
+;
+H.add(d);
+
+H.drawStage(); 																					//applies to the draw stage
+
+>> (int)random(25, 125);          					           //random integer values
+
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+03 Hype Drawables
+	- d = new HRect().rounding(10) ;
+	- HEllipse <naem> ;                       		     //Defining the instace of class HEllipse 
+	- HImage <name>									11:51 MIN
+			<name> = new HImage("filename.jpg") ;
+	
+	- HShape <name> 		 			 			13:18 MIN
+	- d = new HShape("filename.svg") 
+			d.enableStyle(false).anchorAt(H.CENTER)
+
+-----------------------------------------------------------------
+-----------------------------------------------------------------
+04 HColor Pool
+	- HColorPool <name>;  																							  //Declaring an instance of HColorPool Class 
+	- <name> = new HColorPool(#FFFFFF, #e1e1e1, #121212);                 //Initializing it with the value 
+	- <name>.getColor();																									//Calling 
+
+	Color Weighting Example
+		-  <name> = new HColorPool()
+					.add(#FFFFFF, 20)
+					.add(#cccccc, 8)
+					.add(#333333, 4)
+					.add(#0095a8, 2)
+				;
+
+-----------------------------------------------------------------
+05 HPixel Colorist  //Steals the color from a photograph
+	- drag the photo in the DATA folder
+
+	- HPixelColorist <name> ;
+	- <name> = new HPixelColorist("fileName.jpg").fillOnly(); 		 
+		- strokeOnly();
+		- fillAndStroke(); 
+	- <name>.applyColor(d);    																				//after the d ;
+	
+	11:00 MIN 
+	- <name>.getColor(d.x(), d.y(), 100)      //Defining the colors with ALPHA
+
+----------------------------------------------------------------
+02 HDrawable Pool + HRect
+	- HDrawablePool <name> ;
+	- <name> = new HDrawablePool(100);
+	
+	- HDrawablePool <name>; 
+	- <name> = new HDrawablePool(100);
+		pool.autoAddToStage()
+			.add(new HRect) 									//who are we painting with 
+			.onCreate( 												//that is what happens to each individual thing
+
+			) 											
+			.requestAll() 										//give me all 100 of them
+		;
+	- 
+	- 
+
+----------------------------------------------------------------
+IMP
+----------------------------------------------------------------
+03 HDrawable Pool + HShape 1
+	- 50/50 px
+	- put external assets inside the data folder
+	 
+	- d.randomColors(<name>.fillOnly());
+		.strokeJoin(ROUND)
+		.strokeCap(ROUND)
+
+----------------------------------------------------------------
+04 HDrawable Pool + HShape 2
+	- NOPE
+	- NOPE
+
+----------------------------------------------------------------
+----------------------------------------------------------------
+05 HGrid Layout
+	- .add()
+		.add()
+		.add()
+
+		.layout(
+			new HGridLayout()
+			.startX(50)
+			.startY(50)
+			.spacing(50)
+			.cols(11)
+		)
+
+		.onCreate()
+	- don't specify the location
+	- .rotate( (int)random(4) * 90 )
+	- .anchorAt(H.CENTER)	
+	- .size( 50 + (int)random(2) * 50 )
+
+----------------------------------------------------------------
+HShape Layout
+	- 
+	- 
+	- 
+	- 
+
+----------------------------------------------------------------
+----------------------------------------------------------------
+Output Files
+	- saveFrame("render.jpg") ;
+	- saveFrame("render.png") ;
+	- saveFrame("render.tif") ;
+	- saveFrame("render.tga") ;
+=++++++++++++++++++++++++++++++++++===
+	Step 2 Better
+	
+	  saveHiRes(1);
+	  noLoop();       					//Call inside the setup function
+
+	  void draw (){
+			H.drawStage();
+		}
+
+		void saveHiRes(int scaleFactor) {
+			PGraphics hires = createGraphics (width*scaleFactor, height*scaleFactor, JAVA2D);
+			
+			beginRecord(hires);
+			hires.scale(scaleFactor);
+			
+			if (hires == null) {
+				h.drawStage() ;
+			} else {
+				h.stage.paintAll(hires, false, 1) ; 						//PGraphisc, uses3D, alpha
+		}
+
+		endRecord();
+		hires.save("filename.png");
+	}
+ 
+ 	- background(H.CLEAR) ; 															//clear background, Transparent, ALPHA
+
+===++++++++++++++++++++++++++++++++++++====
+Step 3 Best
+	
+import processing.pdf.* ;
+saveVector(); 						//call it inside the setup function
+
+void draw() {
+	H.drawStage();
+}
+
+void saveVector () {
+	PGraphics tmp = null ;
+	tmp = beginRecord (PDF, "filename.pdf") ;
+
+	if (tmp == null) {
+		H.drawStage();
+	} else {
+			H.stage().paintAll(tmp, false, 1) ;
+	}
+
+	endRecord();
+}
+
+	- Illustrator tips  					04:40 MIN
+===++++++++++++++++++++++++++++++++++++====
+===++++++++++++++++++++++++++++++++++++====
+	Step 4: Final Edits inside Illustrator
+	- sadasd

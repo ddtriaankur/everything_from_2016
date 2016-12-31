@@ -1,0 +1,256 @@
+ 
+http://www.rfc-editor.org/rfc/rfc2616.txt
+
+HTTP
+- Hypertext Transfer Protocol is the application level protocol 	that is used to transfer data on the Web. 
+- this is how web browsers and servers exchange information.
+- it can be used for other puposes, such as distributed object 		management systems.
+
+How Does HTTP Work?
+- it is a request-response protocol
+- a Web browser initiates a request to a server, typically by opening a TCP/IP connection. 
+- The request itself comprises
+ 	- a request line,
+ 	- a set of request headers, and 
+ 	- an entity
+
+ The server sends a response that comprises
+ 	- a status line,
+ 	- a set of response headers, and
+ 	- an entity
+
+The entity in the req or res can be thought of simply as the payload, which may be binary data. The other items are readable ASCII characters.
+When the response has been completed, either the browser or the server may terminate the TCP/IP connection, or the browser can send another request.
+
+Example 
+>> GET / HTTP/1.1
+Connection: Keep-Alive
+User-Agent: Mozilla/5.0 (compatible; Konqueror/2.2-11; Linux)
+Accept: text/*, image/jpeg, image/png, image/*, */*
+Accept-Encoding: x-gzip, gzip, identity
+Accept-Charset: Any. utf-8, *
+Accept-Language: en, en_US
+Host: www.silicon-press.com
+-blank line-
+
+A brief explanation:
+- The first line is the request line that comprises three fields
+	1 a method: The GET method indicates that the server is supposed to return an entity
+	2 a request-URI (Universal Resource Identifier). The / indicated the root of the document system on the server, and
+	3 HTTP protocol version: 1.1 in this case
+
+	- The second line is the optional Connection header informs the server that the browser would like to leave the connection opetn after the response
+	- The third line is the optional User-Agent header that identifies the kind of browser that is sending the request , its version, and its OS
+	- The Accept header specify the type, language, and encoding for the returned entity that the browser would prefer to recieve from the server.
+
+	Responding to the browser , server sends the following respons:
+	HTTP/1.1 200 OK
+	Date: Thu, 24 Jan 2002 17:33:52 GMT
+	Server: Apache/1.3.14
+	Last-Modified: Mon, 21 Jan 2002 22:08:33 GMT
+	Etag: “47bc6-25e0-3c4c9161”
+	Accept-Ranges: bytes
+	Content-Length: 9696
+	Connection: close
+	Content-Type: text/html
+	-- blank line--
+	-- HTML entity -- 
+
+	A brief explanation: 
+	- The first line is the status line consisting of three fields:
+		1 HTTP protocol version of the response: 1.1 in this case
+		2 a three-digit numberic status code, and 
+		3 a short description of the status code
+
+	- The Content-Length, Content-Type, Etag and Last-Modified header lines describes the entity returned
+
+
+HTTPS (Secure HTTP)
+	- HTTPS denotes the HTTP with SSL (Secure Socket Layer) protocol or 
+	- its successor protocol TLS (Transfer Layer Security), a transport-layer protocol.
+	- Either of these protocols, which use encryption, can be used to create a secure connection between two machines.
+	- The browser uses SSL or TLS when connecting to a secure part of a website indicated by an HTTP URL, 
+	- The browser then uses HTTP to send and recieve requests over this secure connection.
+
+	More info 
+	HTTPs - (http://www.rfc-editor.org/rfc/rfc2616.txt) 
+	TLS  PROTOCOL - http://www.rfc-editor.org/rfc/rfc2246.txt
+____________________________________________________________
+
+MIME liek message in HTTP ??
+- containing metainformation about the data transferred and modifiers on the request/response semantics
+- Messages are passed in a format similar to that used by Internet mail
+- as defined by the Multipurpose Internet Mail Extension (MIME)
+
+- HTTP is also used as a generic protocol for communication between user agents and proxies/gateways to other Internet system, including those supported by the SMTP, NNTP, FTP, Gopher, and WAIS protocols.
+- In this way, HTTP allows basic hypermedia access to resources available from diverse applications.
+
+1.3 TERMINOLOGY
+
+connection
+	A transport layer virtual circuit established between two programs for the purpose of communication
+
+message
+	the basic unit of HTTP communication, consisting of a structured sequence of octets matching the syntax defined in section 4 and transmitted via the connection
+
+request
+	an http request message, 
+
+response
+	an http response message, 
+
+resource
+-	a network data or service that can be identified by a URI.
+-	Resource may be available in multiple representation (e.g. multiple languages, data formats, size, and resolutions) or vary in other ways.
+
+entity
+	the information transferred as the payload of a request or response. An entity consists of metainformation in the form of entity-header fields and content in the form of an entity body
+
+representation
+	an entity included with a response that is subject to content negotiation. There may exist multiple representation associated with a particular response status
+
+content negotiation
+	the mechanism of selection the appropriate representation when servicing a request. The representation of entities in any response can be negotiated (including error responses)
+
+variant 
+	 a resource may have one, or more than one, representation(s) associated with it at any given instant. Each of these representations is termed a `variant`. Use of the term `variant` does not necessarily imply that the resources is subject to content negotiation
+
+client
+	a program that establishes connections for the purpose of sending requests
+
+user agent
+	the client which initiates a request. These are often browsers, editors, spiders (web-traversing robots), or other end user tools
+
+server
+	an application program that accepts connections in order to service requests by sending back responses. Any given program may be capable of being both a client and a server; our use of these terms refers only to the role being performed by the program for a particular connection, rather than to the program's capabilities in general. Likewise, any server may act as an origin server, proxy, gateway, or tunnel, switching behavior based on the nature of each request.
+
+origin server
+	the server on which a given resource resides or is to be created	
+
+proxy
+	an intermediary program which acts as both a server and a client for the purpose of making requests on behalf of other clients.
+- Requests are serviced internally or by passing them on, with possible translation, to other servers.
+- A proxy MUST implement both the client and server requirement of this specification.
+- A "transparent proxy"	is a proxy that does not modify the request or response beyond what is required for proxy authentication and identification. 
+- A "non-transparent proxy" is a proxy that modifies the request or response in order to provide some added service to the user agent, such as group annotation services, media type transformation, protocol reduction, or anonymity filtering. Except where either transparent or non-transparent behavior is explicitly stated, the HTTP proxy requirements apply to both types of proxies.
+
+gateway
+	a server which acts as an intermediary for some other server. Unlike a proxy, a gateway recieves requests as if it were the origin server for the requested resource; the requesting client may not be aware that it is communicating with a gateway.
+
+tunnel
+	an intermeduary program which is acting as bling relay between two connections. Once active, a tunnel is not considered a party to the HTTP communication, though the tunnel may have been initiated by an HTTP request. 
+- The tunnel ceases to exist when both ends of the relayed connection are closed.
+
+cache
+	a program's local store of response messages and the subsystem that controls its message storage, retrieval, and deletion. A cache stores cacheable responses in order to reduce the response time and network bandwidth consumption on future, equivalent requests. Any client or server may include a cache, though a cache cannot be used by a server that is acting as a tunnel. 
+
+cacheable
+	a response is cacheable if a cache is allowed to store a copy of the response message for use in answering subsequent requests. The rules for determining the cacheability of HTTP responses are defined in section 13. Even if a resource is cacheable, there may be additional constraints on whether a cache can use the cached copy for a particular request  
+
+first-hand
+	a response is first-hand if it comes directly and without unnecessary delay from the origin server, perhaps via one or more proxies. A response is also first-hand if its validity has just been checked directly with the origin server 
+
+explicit expiration time
+	the time at which the origin server intends that an entity should no longer be returned by a cache without further validation
+
+heuristic expiration time
+	an expiration time assigned by a cache when no explicit expiration time is available
+
+age
+	the age of a response is the time since it was sent by, or successfully validated with, the origin-server
+
+freshness liftime
+	the length of time between the generation of a response and its expiration time
+
+fresh
+	a response is fresh if its age has not yet exceeded its freshness lifetime
+
+stale
+	a response is stale if its age has passed its freshness lifetime
+
+semantically transparent
+	a cache behaves in a "semantically transparent " manner, with respect to a particular response, when its use affects neither the requesting client nor the origin server, except to improve performance. When a cache is semantically transparent, the client receives exactly the same response (except for hop-by-hop headers) that it would have received had its request been handled directly by the origin server. 
+
+validator 
+	a protocol element (e.g., an entity tag or a Last-Modified time ) that is used to find out wheter a cache entry is an equivalent copy of an entity.
+
+upstream/downstream
+	it describe the flow of a message: all messages flow from upstream to downstream. 
+
+inbound/outbound
+	refer to the req and res paths for messages: "inbound" means "travelling towards the origin server", and "outbound" mean "travelling toward the user agent"
+
+
+1.4 Overal Operation
+-	The HTTP protocol is a request/response protocol. 
+-	A client sends a request to the server in the form of a request method, URI, and protocol version, followed by a MIME-like message containing request modifiers, client information, and possibly body content over a connection with a server.
+-	The server responds with a status line, including the message's protocol version and a success or error code, followed by a MIME-like message containing server information, entity metainformation, and possible entity-bidy content.
+-	The relationship between HTTP and MIME is described in appendix 19.4
+
+Most HTTP communication is initiated by a user agent and consists of a request to be applied to a resource on some origin server. In the simplest case, this may be accomplished via a single connection (v) between the user agent (UA) and the origin server (O).
+
+A more complicated situation occurs when one or more intermediaries are present in the request/response chain.
+-	There are three common forms of intermediary: 
+		-	proxy	 -	gateway 	- tunnel 	
+
+a). A proxy is a forwarding agent, receiving requests for a URI in its absolute form, rewriting all or part of the message, and forwarding the reformatterd request toward the server identified by the URI. 
+b). A gateway is a receiving agent, acting as a layer above some other server(s) and, if necessary translating the requests to the underlying server's protocol.
+c). A tunnel acts as a relay point between two connections without changing the messages; tunnel are used when the communication need to pass through an intermediary (such as a firewall) even when the intermediary cannot understand the contents of the messages
+
+request chain -------------------------------------->
+       UA -----v----- A -----v----- B -----v----- C -----v----- O
+          <------------------------------------- response chain
+
+The figure above shows three intermediaries (A,B, and C) between the user agent and origin server. A request or response message that travels the whole chain will pass through four separate connections.
+This distinction is important because some HTTP communication options may apply only to the connection with the nearest, non-tunnel neighbor, only to the end-points of the chain, or to all connections along the chain. 
+-Although the diagram is linear, each participant may be engaged in multiple, simultaneous communications.
+-For example, B may be receiving requests from many clients other than A, and/or forwarding requests to servers other than C, at the same time that it is handling A's request. 
+
+Any party to the communication which is not acting as a tunnel may employ an internal cache for handling requests. 
+-	The effect of a cache is that the req/res chain is shortened if one of the participants along the chain has a cached response applicable to that request. 
+-	The following illustrates the resulting chain if B has a cached copy of an earlier response from O (via C) for a request which has not been cached by UA or A.
+
+request chain ---------->
+       UA -----v----- A -----v----- B - - - - - - C - - - - - - O
+          <--------- response chain
+
+Not all responses are usefully cacheable, and some requests may contain modifiers which place special requirements on cache behaviour. HTTP requirements for cache behaviour and cacheable responses are def in section 13
+
+- there are wide variety of archi. & config. of caches and proxies currently being experimented with or deployed across the World Wide Web.
+- HTTP systems are used in corporate intranets over high-bandwidth links, and for access via PDAs with lower-power radio links, and intermittent connectivity.
+- HTTP communication usually takes place over TCP/IP connections.
+- The default port is TCP 80 [19], but other ports can be used
+- HTTP only persumes areliable transport; 
+>>
+
+2 Notational Conventions and Generic Grammer
+	2.1 Augmented BNF
+	- prose and an augmented Backus-Naur Form (BNF)
+	- The augmented BNF includes the following constructs:
+
+Basic Rules - to parsing constructs. 
+
+OCTET = <any 8-bit sequence of data>
+CHAR = <any US-ASCII char (octets 0 - 127)>
+UPALPHA = < uppercase letter>
+LOALPHA = <lovercase letter>
+ALPHA = UPALPHA | LOALPHA
+DIGIT = <>
+CTL = <control character (octets 0-31 ) and DEL (127)>
+CR = 
+LF = 
+SP = 
+HT =
+<"> = 
+
+Uniform Resource Identifiers
+- URI have been known by many names: WWW addresses, Universal Document Identifiers, Universal Resource Identifiers, and finally the comnbination of Uniform Resource Locators (URL) and Names (URN).
+
+next >> General Syntax
+
+
+
+devdocs.io
+http://framerjs.com/
+https://www.youtube.com/watch?v=JljMBn69fZM
+https://www.youtube.com/watch?v=17WoOqgXsRM

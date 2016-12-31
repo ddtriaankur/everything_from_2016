@@ -1,0 +1,97 @@
+
+8.2 What is JSON Part 1
+Load JSON file
+	• Other function
+	loadImg()
+	loadTable()
+	loadSound()
+	any file 
+	
+	Load in a preload function cause of asyncronicity
+	
+	14 min
+	Dariusk //corpora
+
+
+8.3 What is JSON Part 2
+
+function preload (){
+	Var data = loadJSON("birds.json")
+}
+
+function setup(){
+	var birds = data.birds;
+	for(condition){
+		birds[i].family
+		
+		var members = birds[i].members;
+		for (condition with j){ 
+		members[j]
+		}                          
+}
+
+}//Ends setup
+
+
+8.4 
+Asynchronous callbacks
+
+	loadJSON( "[url]", getData, 'jsonp' )
+
+	function getData ( [JSON file_name assignment ]) {
+	println(data)
+	}
+
+	Draw in a canvas
+		• Undefined var is false
+		• Interesting video 16 mins
+		• randomSeed(4)       // this seeds the random number generator
+		• i.e always get the same result of random numbers
+		•   
+
+	TIPS :: jsonp
+	I thought I would share how I found some .json datasets on the web... 1. You can Google any term and annotate it with "filetype:json". e.g 'flowers filetype:json' 2. You can use this site to create your own data .... http://www.generatedata.com/#generator . I haven't tried it, but people seem to like it. : )﻿
+
+8.5 API .. Application Programming Interface
+
+	Url query string
+	::     url/?city=london&APPID=[api Key]
+
+	Formatting the JSON file chrome app
+	JSON FORMATTER
+
+	Parsed??
+
+	Submitting city name by user
+
+8.6 API Query with User Input
+
+	xyzxtz
+
+8.7 query with setInterval()
+	JS only
+
+	JS Functions 10:40 min
+		• setInterval()
+		Syntax ::
+		setInterval(callback, 1000)
+
+
+	setTimeout()
+	//Millisecond
+
+	Home Work :: Easing motion
+
+	Syntax ::
+	setInterval (callback func, [time in ms] )
+
+8.8 Wordnik API
+
+  Default JS 
+	math.random()
+
+	8.10 The Giphy Api and Javascript
+
+	q, limit = are name value pairs that are strung together
+	+++ javascript Closure
+

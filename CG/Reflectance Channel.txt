@@ -1,0 +1,109 @@
+
+First 4 :: Glass Reflections
+
+Anisotrophic :: Surface with micro-scratches. Brushed metal
+
+Lambertian and Oren Nayer :: shading models for diffuse layer
+
+Irwain :: cloth related // silk to jeans
+
+Rest are legacy
+
+Reflectance strength :: environment will be seen
+Specular strength::  how strong will be specular
+
+Attenuation ::
+	Maximum more physically accurate mode
+	Additive mode is more useful for speculars
+
+Layer mask :: Black equals zero ie will not be seen
+
+
+TIPS
+	Layer 1
+	For Diffuse base Lambertian model 
+
+Layer 2
+	Add
+	Type Ward
+	High Roughness
+
+Layer 3 
+	Fresnel Mask to make layer underneath visible
+	Beckman
+	Dielectric 
+	IOR 1.35
+
+
+Beckmann is a physically correct and fast type and should therefore be the preferred method for normal use.
+GGX produces the greatest dispersion and works best for simulating metal surfaces
+
+Ward is best suited for soft surfaces such as rubber or skin..
+Anisotropic bends the reflected bundle of rays in certain directions, which produces a distortion of the reflection, as with brushed or scratched metal, for example.
+
+Lambertian (Diffuse), Oren-Nayer (Diffuse): These modes are somewhat different in that they are diffuse models (i.e., ,perfect’ matte reflections). They produce a result similar to the material channel Color (which doesn’t reflect). These channels should be used with caution (they can’t be cached by GI’s Irradiance Cache) and are basically only available for reasons of compatibility. The Color channel should be used instead, also because it simply renders faster.
+
+Irwan (Woven Cloth) is a type of special anisotropy that contains several cloth patterns internally that can be used to create realistic-looking cloth surfaces.
+
+Attenuation The options in this menu are designed to be used in conjunction with the material channel Color:
+
+
+define how the Color channel should be mixed with the layer color (sub-menu Layer Color) with various Reflection Strength settings.
+
+If the Color channel is disabled, these settings will have no effect!
+
+In the real world, the Color channel’s effect weakens as the surface’s reflectivity increases, which is something that the Additive mode ignores completely.
+
+• Average: Both colors will be averaged (reflects the previous Additive option when disabled (pre-R15)). This mode does not differ from the next mode, Maximum, if no color is defined in the Color setting (sub-menu: Layer Color). This mode produces the most realistic-looking results.
+• Maximum: This mode is best suited for creating colored reflections: The Color channel’s effect will be reduced and the color defined below will dominate.
+• Additive: Both colors will be added (not physically correct; the Color channel must be darkened manually).
+• Metal: Only available for reasons of compatibility if an older Project is loaded (in older versions of CINEMA 4D, this mode could be found in the Specular channel’s Mode setting and it used the color defined in the Color channel to color the specular highlight).
+
+
+Roughness
+	A roughness of 100% is referred to as a Lambertian material 
+	This type of surface reflects light in a circular dispersion in all directions, which constitutes a perfect diffuse material. This is exactly what is defined in the material channel Color: a diffuse material’s color without reflective properties. You can even ignore the Color channel completely and use the layer color to control the diffuse material color (which, however, takes longer to render).
+
+Tip:
+	A Roughness value of greater then 0% is required for the calculation of specular highlights and anisotropy.
+
+Reflection Strength
+	This setting defines the strength with which the material should reflect. The Attenuation setting above defines how this setting should work in conjunction with the material channel Color.
+	If this value is set to 0%, the material will not reflect at all; a value of 100% will produce the maximum amount of reflection. Every material in the real world reflects to some degree, even if it is very minor. Keep this in mind when creating highly realistic textures.
+Tip:
+	Note that the combined reflective strength of multiple reflective layers can be adjusted together using the Global Reflection Brightness slider in the Layers tab.
+
+If you want to create a photo-realistic scene, set this value to 0 and use the Reflection Strength setting instead.
+Tip:
+	Note that the combined specular highlight strength of multiple reflective layers can be adjusted together using the Global Specular Brightness slider in the Layers tab.
+
+Layer Cloth 
+	Cloth is most often made of yarn (and this in turn from fibers) that are woven to create a certain pattern. They are made up of structured surfaces that produce characteristic anisotropic specular highlights/reflections.
+
+Pattern
+	Woven cloth is made up of various warp and weft threads that are woven perpendicular to each other. 
+
+Quality
+	Internally, the reflective behavior of the weave pattern is treated like a procedural texture with a strong noise property (analog to the Noise shader, this would reflect a small scale value). When rendered, this texture will be evaluated using various small samples.
+
+	The effect this has on render quality is minor (although it has a huge effect on render time) if you do not use the Low option, which is designed for creating test renderings.
+
+	The better the antialiasing settings, the less the Quality setting will affect render quality.
+
+Orientation [0..5729.578°]
+Texture
+	This setting can be used to rotate the cloth structure 
+
+The Highlights setting defines the ‘width’ of the specular highlight/reflection. Smaller values produce sharp, bright highlights on individual threads; larger values will soften the highlights accordingly (they will become correspondingly darker and more expansive).
+
+Layer Fresnel
+You can select from:
+	• Dielectric for transparent materials such as glass, water, clear coat lacquer, etc.
+	• Conductor for opaque, reflective materials such as metal, minerals, etc.
+
+
+ENIVORNMENT
+
+
+
+

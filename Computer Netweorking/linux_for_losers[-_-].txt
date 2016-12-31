@@ -1,0 +1,150 @@
+
+vmware player
+
+Terminal
+>> pwd
+>> cat Desktop/story           //to read the file
+>> ls -l                      // list file with details or -a includes hidden file also -la
+>> clear
+>> cd                           // home
+
+Create & Delete Folder
+>> mkdir other
+>> rm other
+
+Create a file
+>> touch Bacon
+>> rm Bacon 
+
+Copy File
+>> cp Story Story2
+>> mv Story2 Bacon/Story2
+>> mv Story Tuna                  // renaming a file
+===============================================================
+
+To search for a word in a file
+>> grep button Story
+
+Compare two files
+>> diff Story Story2
+
+Change password
+>> passwd  
+
+Variable 
+>> name = Ankur
+>> echo hey now
+
+>> echo My name is $name
+>> info echo
+
+Print the info in a file
+>> ls > log            // overwrites over the data   
+>> ls >> log          // copies over the data
+
+File permission
+1 2   3   4
+- rwx rw- r--
+
+1 '-' means a file; 2 owner; 3 group; 4 public	
+
+cheat sheet
+u - user
+g - group
+o - other people         // guest
+-----------------------------------------
+
+Change the permission for all the group at once
+
+chmod 754 Bacon        // 7,5,4 represents the individual permissions for user, group and others
+
+4 - stands for 'read'
+2 - stands for 'write'
+1 - stands for 'execute'
+0 - stands for 'no permissions'
+
+Combine
+7 - stands for read, write and execute permissions
+
+-----------------------
+
+chmod o+w Bacon         // add writing permission to the Bacon file
+chmod o-w Bacon         // removes the writing permissions
+===============================================================================================================================
+
+Verifying files using checksum using HASH
+sha1sum <file_name> | grep <hash number>           // grep means pattern match using regular expression,, red means good
+===============================================================================================================================
+
+Compress file
+>> gzip <filename>                                                // gzip Grocery\ List
+>> gunzip <filename>.gz                                           // decopmress
+Multiple files
+>> tar cvf Bucky.tar Grocery\List Favourite\ Movies              // create mode, v means display the output in terminal and file options 
+Unzip 
+>> tar xvf Bucky.tar                                             // x means extract
+
+Run shell script
+>> bash pycharm.sh
+
+Add a new User 
+>> sudo useradd mom
+
+Edit the password for mom user
+>> sudo passwd mom
+
+Group
+>> sudo groupadd nurses
+User Group modification 
+>> sudo usermod -a -G nurses mom                // -g add exclusively to a group,, -G appends the new & prev. group together
+Delete User
+>> sudo userdel mom
+
+Core directory - etc
+>> cat passwd                // psswd-userid-group id-real name-home dir-shell path
+- shadow folder encrypted password
+==============================================================================================================================
+SETUP and Connect to SSH
+Digital Ocean
+
+>> ssh <user_name>@<ip_address>          // ssh root@10.123.030.1
+
+SSH Key Authentication
+Private key    - sits onthe personal computer
+Public key     - on the server/other computer  
+
+>> ssh-keygen -t rsa
+>> /home/bucky/.ssh/id_rsa                 //files can be protected with the password
+
+Copy Public key to the server
+>> ssh-copy-id root@<ip_add>
+
+Connect to the server
+>> ssh root@<ip_add>
+
+Disable passwd login
+>> ssh root@<ip>
+>> nano /etc/ssh/sshd_config                         // text editor
+Change the permission
+-- PermitRootLogin without-password
+Ctrl + X and Y to save
+>> reload ssh
+
+.> it won't accept anyone to the root even with password,, only private ssh key file is must have
+====================================================================================================================
+Uploading Files using SFTP
+>> sftp root@<ip_add> 
+>> cd ../..                        // inside the root core dir
+>> cd var/www/html                 // for apache
+>> put Desktop/index.html
+
+>> mkdir Books                          // on server
+>> put -r Desktop/Books                 // -r recursively 
+
+.> In browser >> <ip>/Books/harry.html
+
+Downloading Files using SFTP
+>> get inde.html Desktop/index.html
+
+>> get -r html Desktop                  // -r means not only the folder but everything inside it too
+>> get -r <server folder>  <your location> 

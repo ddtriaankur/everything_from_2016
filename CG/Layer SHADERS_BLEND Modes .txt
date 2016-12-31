@@ -1,0 +1,143 @@
+C4D BLEND Modes in Layer SHADERS
+
+Multiply
+	• Black equals to null (zero)
+	• Maps the value range from 0 to 1
+	• 1 = transparent
+
+Screen
+	• Works on grey values
+	• White are transparent
+
+Overlay
+	• Grey values only
+	• Black or white are excluded
+
+Hard Light
+	• :D
+
+Darken
+	• Works on pure white 1
+	• Leaves everything else
+
+Lighten //Levr
+	• Leaves 1 i.e pure white
+
+Add
+	- Smoothening of "Lighten"
+	- Linear addition of layers
+
+Subtract/Difference/Exclusion/Saturation/Layer Mask
+??
+
+Hue
+	• does nothing
+
+Saturation
+	• Glass like effect
+
+NOISE 
+
+SPACE >> World
+ 
+Relative Scales
+	X 0%
+	Y 0%
+	Z 100%
+
+\\
+=====================================================================================================================================
+Blending Mode
+Blend modes define what occurs when you lay an image (blend image) over another image (base image). 
+
+The following terms are used below to help describe the effect of the blending modes:
+	• Base image — i.e., a pixel’s color before you painted over it.
+	• Blend image — the color or pattern you are painting.
+	• Final image — the pixel’s final color, i.e., its color after you have painted over it.
+
+NORMAL
+	The blend image will cover the base image partially or completely, depending on the strength value selected 
+
+Dissolve 
+	Depending on the strength value selected, pixels in various sizes are placed randomly over the base image
+
+DARKEN//Lighten
+	The pixels of the blend image and base image will be compared. 
+	The areas of each image that are darker in comparison with the other image will triumph and remain visible.
+//The pixels of the blend image and base image will be compared. The areas of each image that are lighter in comparison with the other image will triumph and remain visible.
+
+MULTIPLY//SCREEN
+The colors of the blend image and base image will be multiplied which, in most cases, will result in a darker overall image (unless one of the images contains areas of white). Areas of complete black in one of the two images will result in pure black.
+ ||This mode has the opposite function of the Multiply mode. The inverted color values will be multiplied with each other and the result will then also be inverted. The result will always be brighter than the original images (as well as the Lighten mode).
+
+
+COLOR BURN//Linear Burn (Sub)
+	Darker areas of the base image will be colored using areas of the blend image. Brighter areas will receive less influence.
+//
+	Functions very similar to Color Burn but has a more understated effect.
+
+
+Color Dodge//Linear Dodge (Add)
+	Here the result will also be brighter than the original images, whereby brighter areas will be colored more intensely. Black areas will remain unaltered.
+// Functions similarly to Color Dodge with a more understated result when a lower contrast value is used.
+
+
+Overlay [works on the grey values]
+	Blends the original images, whereby the bright and dark areas of the base image will be retained.
+Soft Light
+	The base image will be darkened or lightened (stepless), based on the blend image. However, complete white or black values will not be reached. This blend mode differentiates between areas with more or less than 50% gray.
+
+Hard Light
+	Hard Light is a combination of Multiply and Screen and the effect is similar to Soft Light in that the base image will be darkened or lightened based on the blend image’s gray values, yet black and white areas can result from the blend image.
+
+Linear Light (Stamp)
+	This mode uses brightness to lighten or darken the base image in accordance to the blend image.
+
+Pin Light
+	This mode will, more or less, be applied universally, depending on the gray scale dispersion of the blend image. At a value of 50% gray the blend image will be transparent, and values of 0% and 100% respectively will result in a universal application.
+
+Hard Mix
+	Depending on the blend strength of the blend image, the base image will be converted into up to 8 colors (rasterized): Red, green, blue, cyan, magenta, yellow, black, and white.
+
+Difference
+	Depicts the difference between the blend image and base image. If the result shown is black, both images are exactly the same, the more colorful the result the more the images differ from each other.
+
+Exclusion
+	Basically the same as Difference but a 50% gray in the blend image will also be depicted as gray.
+
+
+Reflect
+	This mode is especially good for painting reflective environments onto game textures. This mode resembles Color Dodge.
+
+Negation
+	Generates a negative of the base image based on the values of the blend image (black: 100% negation, white 0% negation).
+
+Glow
+	This mode is the opposite of Reflect.
+
+Average
+	Reflects the Normal mode at 50% strength.
+
+Freeze
+	This mode is a variation of Reflect, whereby the colors of the base image and blend image will be inverted and the result inverted again.
+
+Heat
+	Also a variation of Reflect, whereby the colors of the base image and blend image will be interchanged.
+
+
+Photoshop 
+CTRL + G :: Group Layer
+CTRL+SHFT + U :: De saturate
+
+Screen Blend Mode
+CTRL + T :: Transform//Resize
+
+Liquefy
+Layer Mask
+
+Alt + CTRL + G
+
+Color Adjustment Layer i.e Gradient Map
+
+CTRL + I :: Invert
+CTRL + L :: Levels

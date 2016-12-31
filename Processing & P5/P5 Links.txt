@@ -1,0 +1,323 @@
+
+P5 Links
+	i. voxel.css: An open-source, in-browser 3D rendering engine built entirely using CSS
+
+http://voxelcss.com
+
+Color functions //should be define earlier
+
+Background (r, g, b, alpha)
+Clear()
+colorMode()
+Fill()
+noFill()
+noStroke()
+Stroke () 
+ 
+Ranges from 0-255
+
+Color
+
+Background(Red,Green,Blue,Alpha);
+Stroke();  // outline
+Fill();
+
+
+For loop
+
+For (var I = 0; I < 4; i++)
+
+Begin Shape Function
+::
+beginShape();
+vertex(30, 20);
+vertex(85, 20);
+vertex(85, 75);
+vertex(30, 75);
+endShape(CLOSE);
+
+
+Transformations such as translate(), rotate(), and scale() do not work within beginShape(). It is also not possible to use other shapes, such as ellipse() or rect() within beginShape().
+
+
+Java Script Object
+
+
+Functions 
+
+Shapes
+strokeWeight(10);
+rect (xlocation,ylocation,WIDTH,HEIGHT);
+
+strokeWeight(123);
+point (mouseX,mouseY);
+
+Line syntax
+line(x1,y1,x2,y2)
+
+
+
+
+function setup()  {        // happens only once
+}  
+
+function draw(){            // loops over & over again
+}    
+
+Function mousePressed()    //Event
+
+Return km ;
+
+Println();
+frameRate()
+Setting the frame rate within setup() is recommended. The default rate is 60 frames per second. This is the same as setFrameRate(val). 
+
+Syntax
+	• mouseIsPressed   //Event Function
+
+               Description
+                  The boolean system variable mouseIsPressed is true if the mouse is pressed and false if not.
+
+	• noStroke()
+
+	• Mouse Pressed
+                  Description
+The mousePressed() function is called once after every time a mouse button is pressed. The mouseButton variable (see the related reference entry) can be used to determine which button has been pressed. If no mousePressed() function is defined, the touchStarted() function will be called instead if it is defined.
+
+	• keyPressed()
+
+OBJECT as in OOP
+
+var bubble = {
+NAME:VALUE,
+NAME1:VALUE1,
+Display:function() {
+Ellipse(this.NAME,this.NAME1,16,16)
+ }
+
+ }
+
+http://hello.p5js.org
+http://p5ide.herokuapp.com/editor#?sketch=5695d7f1859314030014f2ec
+
+NOTES
+https://processing.org/examples/
+https://github.com/rwaldron/idiomatic.js/
+https://github.com/processing/p5.js/wiki/Education
+https://vimeo.com/channels/learningp5js/
+https://github.com/processing/p5.js-website/wiki/Adding-examples
+http://learningprocessing.com/resources/
+https://github.com/processing/p5.js/wiki/Processing-transition 
+
+2.2 Move a circle automagically
+
+VARIABLE
+
+	1. Declare a variable ::        var 
+	2. Initialize the variable [or elseundefined] ::  store any value
+	3. Use it  || CALL !!! 
+
+Assignment Operation
+X  = 50;
+
+2.3 JavaScript Objects
+     container of variables, object have data inside of it.
+     way of organizing data
+     
+	1. Syntax
+var circle = {
+      x:0,
+      y:150,
+     diameter:50
+};
+
+	2. dot Syntax || calling data from Objects
+	circel.x
+	circle.y
+	circle.diameter
+
+2.4 function map ()
+
+ Syntax
+:: col = map (mouseX,0,600,0,255)
+:: map(value,start1,stop1,start2,stop2)
+
+Parameters
+Value :: the incoming value to be converted 
+Start & stop 1 :: lower & upper bound of the current range
+Start & stop 2 :: lower & upper bound of the value's target range
+
+2.5 Random function
+
+Syntax
+random (0,50); // gives floating value number
+
+Variable width :: knows the canvas width automagically
+
+3.1 Conditional Statements || Boolean Logics
+
+Event function like mousePressed ()
+It takes breaks from draw and execute the function
+
+	• If statement
+  Syntax ::
+	       if (condition) { ….block of code  }
+
+3.2 The Bouncing Ball
+
+If else statement 
+
+3.3 Else and if,   && (both) and || [OR]
+
+3.4 Boolean variable
+Variable which contains true and false values
+
+P5 variables and 
+P5 Data Types is BOOLEAN :: mouseIsPressed [is continous]
+
+	• Funtion mousePressed is and Event funciton i.e it only occur when the mouse button is pressed
+	• Function mouseReleased ::
+	• rectMode(CENTRE)
+	•  The not '' ! '' operator :: toggle switch  
+
+4.1 While and for loop
+	• Exit condition // set the limits
+	• init ; exit condition ; incrimination
+
+for (var x= 0; x< width; x+= 50)
+
+4.2 Nested Loops used to draw  a matriX
+
+5.1 Functions :: their modularity
+Functions are just the package of the codes
+
+5.2 Function 
+	• Reusable through calling multiple times
+	• Passing arguments through functions
+	
+	• flowers (x,y,petals) //  var parameters gets declared
+	• Initialize // depends on when/where you call them with para
+	Arguments gets transferred.
+
+	• DEFINE
+	• INITIALIZE 
+	• CALL
+	• A constructor assigns the values
+	• Calling or invoking the constructor function is done with the "new" operator
+	• Write all codes inside the object and then call them in the main i.e draw function
+	• While loop ??
+	• colorMode()
+
+5.3 Functions and return Values
+
+Syntax :: function [name] ([parameters])
+
+	• println();         // for console
+
+	•  Degrees PI radians (Trignometric Function)
+	• return km;
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array
+http://exponius.sutueatsflies.com
+
+Array is an object in itself; It does have characteristics and properties
+nums.length; push(); splice() 
+mousePressed () [ //for a single click]
+
+Dist (x1,y1,x2,y2) // distance function to calculate the distance between two points
+Object Oriented Programming
+
+Floor () Ceil() round()
+
+5.4 Functions inside of the Objects
+
+	• name/key value
+	• List of variable/& functions
+	• Syntax :: 
+	
+	var bubble = {
+	x:2
+	y:50
+	display: function () {
+	ellipse(this.x,this.y,20,20)
+	},
+	Move:function() {_block of code}
+	}; // Object def ENDS
+	
+	• Syntax for calling an Object
+	bubble.display();
+
+6.1 An Array :: 
+	• is a list of data/info/values
+	• it’s a type of object 
+
+Syntax:: 
+	//Defining:: var nums[5,3,2,1]
+		// Calling:: nums[2] = 2
+		 
+Index of an Array :: 
+	• 4 items || 0,1,2,3 || nums.length
+	• Index is always number of items - 1 
+
+We can use numbers, character or objects into an array 
+
+
+ P5 TEXT text function
+
+Syntax :: //calling text("info", x_position, y_position)
+
+6.3 Array of an object
+	• An object is a collection of name value pairs
+
+ 6.4 Constructor Function
+
+Generates an object
+Name it with a capital letter
+
+Constructor Function Syntax
+	1. Initialize//Defining a const function
+	
+function Bubble (x, y)         //define parameters
+{
+this.x = x;
+this.y=  y;
+
+this.display = function() {
+};
+return this(); //inherent default
+} //Ends here
+
+	2. Calling & create new Object
+	    bubbles [ i ] = new Bubble ();
+
+	3. How to invoke a Constructor Function
+
+6.5 Array function :: push //splice
+
+Syntax
+• nums.push(63);     //Pushes // append the data into the array
+• bubbles.push(new Bubble(mouseX,mouseY) );  //check 6.4
+
+  Syntax for creating and pushing new bubbleobj into an array
+• bubbles.push(new Bubble(50,25 ); //passing arguments through function 
+• DO :: click and create a bubble object
+
+6.6 Multiple JS files
+6.7 Click and change the color of an objects
+var d = dist (x, y, mouseX, mouseY)
+
+6.8 Checking the lifespan and splice the object
+6.9 Collisions between two objects
+6.10 More than two objects
+
+NOTES
+
+	• Stroke changes the color of the line
+	• dist(x1, y1, x2, y2)
+
+Mark Dwyer
+Radian
+Pi =180
+Pi/2 = 90
+Pi/6 = 30  
+Pi/4 = 45

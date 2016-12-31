@@ -1,0 +1,149 @@
+
+01 
+CRUD operations within Node js Drivers
+Crunch Base
+
+	>> mongoimport      // wtf??  https://docs.mongodb.org/manual/reference/program/mongoimport/
+		- allows us to import human readable json into a specific data and collection
+		-Syntax :: 
+						>> mongoimport -d <db_Name> -c <collection> <filename>.json 
+
+>> mongod --port 27018
+>> GETTING info from cmd to the running app
+>> toArray ();      //wtf ??
+
+- Cluster operation running mongod running on several different port 
+
+**>> I dont understand `foreach` method in javascript man
+**>> "firstYear" in options  // wtf ??
+used to check the existence of a key in a object in JS
+
+Cursors
+- .toArray and .forEach provides a batch a documents upto a certain batch size
+- Batching provides efficiency in terms of memory overhead and execution times
+- instead of providing all the docs in the database, mongoDB provides a 'batch size' of docs to the app
+
+--------------------------------------------------------------------------------- 
+- var cursor = db.collection('companies').find(query)
+	cursor.project(projection);      // declare a projection var above to use it, var projections = {"name":1, "category":1 }
+
+ 	cursor.forEach(readDoc, goterr)
+		function readDoc (doc){
+			console.log(doc);
+		}; 
+
+		function goterr (err) {
+			assert.equal (err, null)
+			return db.close();
+		};
+
+
+	this strams the data to the application 
+
+=============================================
+02 Projection
+- projection allows implicively call display fields
+- chain a call for field projection ?
+- cursor.projection(projection);
+
+- Projecting out just the field we need, 
+- responses will require less time to assemble on db side, to transmit to the client, & 
+- to process within those clients
+
+
+	The Difference between the mongo shell and the driver is 
+		- the driver provides one set of classes and methods to interact with mongoDB
+		- whereas, mongo Shell provides its own api
+
+-----------------------------------------------
+03 Crunchbase dataset
+
+
+===============================================
+04 
+.> `command-line-args` allows to pass arguments through cmd 
+.> check the doc for `command-line-args` for semantics
+.> 'firstYear in options'  // to check a variable in an array
+
+.> JSON.stringify(query);                    // converts and objects into a string??
+.> Driver stringify the '_id' in comaprison to the mongo shell` 
+
+===============================================
+05
+$regex        - regular expression
+- searching sting valued fields 
+- for search engine like, use a text index instead
+- $options : i   				//for case insensitive 
+- searches the regular_text/string_value fields in a document
+- text index ??
+
+.> query.overview = { "$regex": options.overview, "$options": "i" };
+-> "billion.+valuation"                 //for only one character in between
+-> "billion.*valuation"                 //for many characters in between
+
+- if ('overview' in options ) 					//is true
+
+===============================================
+06
+dot notation in node js for embedded documents
+- query Syntax
+8 min
+In constructing your queries within the JavaScript using the node js driver
+- standard techniques of javaScript are used to createe and assign values to the JavaScript objects
+
+- JSON are effectivaly are arraym basically being a list of key value pairs
+  >> query["ipo.valuation_amount"]
+
+________________________________________________________________________________________________________
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+- Three Primary ways of doing this
+1. var query = {
+	     "founded_year" : {
+	     	"$gte": options.firstYear,
+	     	"$lte": options.lastYear
+	     }
+	
+};
+
+2. Refrencing a field of an object using a dot 
+Syntax - query.number_of_employees = { "$gte": options.employees };
+
+3. Access fields within a object in javaScript using array like syntax
+-   query["ipo.valuation_amount"] = {"exists": true, "$ne":null }; 
+
+________________________________________________________________________________________________________
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+07
+Using dot notation to access embedded documents with in arrays
+.> Imagine it as multiple copies of the same doc having the same embedded doc fields
+
+SYNTAX - query["offices.country_code"] = options.country ;
+
+08
+sort SKIP and Limit
+- paging like pages not batching
+- 1 for Ascending - '-1' or Descending Oorder
+- you can provide sort Order too by proving the list
+
+.> skip is also a cursor method
+>> call on cursor.foreach(function (doc) {do something} )
+
+				--> Mongo Db always use this order**  IMPORTANT
+													1. SORT 2. SKIP 3. LIMIT 
+
+-------------------------------------------------------------------------
+09
+Writing Data to the mongo db: insert one, insert many
+- setting up Token keys as a process.env keys wtf??
+
+5:33 insert many ,, second app
+-------------------------------------------------------------------------
+10
+Delting Documents from the database
+	- 
+
+
+
+
+
+

@@ -1,0 +1,296 @@
+
+Source OF LIGHT
+DIRECT SUNLIGHT :: a clear sunny day has 3 different system of illumination: 
+											-the sun itself, - the blue sky and - the reflected light from the illuminated objects
+
+	The second two sources of light derive  entirely from the first and should be subordinated of it.
+	- the color of the ground and nearby objects reflects up into the shadow areas.
+
+	OVERCAST LIGHT :: most people like sunny, cloudless days, but artists & photographers often 
+	- prefer the soft illumination of a cloud-covered sky.
+	- The layer of clouds diffuses the sunlight, 
+	- eliminating the extreme contrasts of light & shadow.
+
+OVERCAST light is ideal for complicated outdoor scenes.
+		- it allows to paint forms in their true colors without dramatic contrasts of light & shade.
+		- Without sharp shadows a picture is simpler & the shapes are bigger.
+		- colors appear brighter & purer than they do in direct sunlight.
+		- easier to show the patterns of costumes or signs.
+		- The sky in the painting above appears light gray or white, often the lightest note in the composition.
+		- Overcast ? :: light needs to be comign equally and evenly from above.
+		- Photographers like to use overcast light because it's easier to expose a scene evenly.
+		- In 3D overcast light is one of the hardest light conditions to simulate because an accurate rendering involves such a vast number of mathermatical calculations.
+
+WINDOW LIGHT 
+	- interior scenes in daylight are often lit by the soft light that enters the room through windows or open doors.
+	- This light has traditionally been popular with artists because of its constancy & its simplifying effect.
+	Without the sunlight light
+		- the daylight that enters a room from outside is usually bluish.
+		- The cool color contrast with the realtively orange color of artificial lights shining in the room.
+	On a sunny day
+		- there's often a second source cause by the light that shines on the ground outside & bounces upward into the window.
+		- This light is best seen on a white ceiling .
+		- It's often comparatively green or orange in color, depending on the color of the ground surface.
+		- Floor of the room typically has a blusih cast from skylight 
+		- You can tell the light comes from two side-by-side sources because of the twin vertical highlights on the teakettle.
+CANDLELIGHT //lantern light AND FIRELIGHT :: are all yellow-orange in color. The light is fairly weak, dropping off rapidly as objects recede from the flame. The effects of flame-based light become more noticeable, when after the sun sets and twilight deepens.
+
+	- Inverse square law
+	- In such firelit environment, smoke often scatters the light, leaving no deep darks in the vicinity of the light sources.
+	- Photographs of night scenes often miss these qualities, making the darks appear profound black.
+	- To the eye they often have a glowing appearance, with plenty of soft edges.
+
+FALL-OFF  :: The brightness of any point -source illumination dimishes rapidly with distance. This weakening of light is called fall-off. 
+	- It diminishes according to the invese square law, which states that 
+			-the effect of a light shining on a surface weakens at a rate copmarable to the square of the distance between source and surface.
+			- At twice the distance, the light is only one fourth as bright because the same rays must cover 'four time the area'. 
+			- At three times the distance, it drops to one ninth as bright.
+INDOOR ELECTRIC LIGTH  :: the most common indoor lights are incandescent and fluorescent. To paint their effects, you have to keep in mind three qualities: 
+			-relative brightness, -hardness or softness -color cast 
+	Brightness
+		- The brightness of bulbs is measured in lumens, but what matters to artists is relative brightness within a scene, especially when you have more than one source. It depends on thinds such as wattage, the type of lamp, how close the subject is to the light, and how bright the other lights are.
+	Hardness or Softness
+		- this refers to how large the patch of light seems to be from the point of view of the subject. A hard light comes from a sharp, small point.
+			-The sun -or a spotlight -is a relatively hard source or light.
+		 	-Hard light is more directional and more dramatic. 
+			-It casts crisper shadows & it brings out more surface texture & highlights. 
+		A 'soft light' emanates from a wider area, such as the large panel of fluorescent-like tubes over the workbench.
+		- In general, softer light is more flattering & reassuring. It's better for task lighting because it reduces the confusion of cast shadows. 
+		- Tonal transition from light to shade are more gradual in soft light compared to hard light. 
+		- Lighting designers routinely turn a hard source into a soft source using large translucent 'silk' or diffuser panels. It's also the reason people put lamshades over incandescent bulbs.
+	
+Color Cast 	:: is the domninant wavelength of a light source, often measured in degrees Kelvin, a standard measure based on the main color of light that an object emits when it is heated to extreme temperatures.
+		- Spectral power distribution shows which wavelength of the visible spectrum have the strongest output.
+	INCANDESCENT LIGHTS	
+		- Regular incandescent lights are stronger in orange and red wavelengths, and they tend to be weak in blue.
+	FLUORESCENT LIGHTS	
+		- 'Standard warm white & cool white fluorescents' emphasize yellow-green.
+		- They're made to give the most light in the range of wavelengths to which the human eye is most sensitive. 
+
+STREETLIGHTS AND NIGHT CONDITIONS
+++++
+LUMINESCENCE 		:: when hot or flaming objects give off light its's called incandescence.But some things give off a glow at cool temperatures through a process called luminescence. This light can come from both living and nonliving things.
+	BIOLUMINESCENCE	
+		- organisms that can produce light live mostly in the ocean. They include fish, squid, jellyfish, bacteria, and algae. Some light-producers are activated by mechanical agitation, creating the milky light in the ocean alongside ships' wakes.
+		- Land animals that emit light include fireflies, millipedes and centipedes. Some kinds of mushrooms that grow on rotting wood emit a dim light called foxfire. 
+	Fluorescence	:: is the light that is produced by an object that converts invisible electromagnetic energy, such as ultraviolet radiation, into a visible wavelength. 
+		- Some minerals, such as amber & calcite, will give off colorful visible light when they're lit by ultaviolet light.
+TIPS & TECHNIQUES	
+	1. Luminescent colors often gradate from one hue to another.
+	2. Blue-green colors are most common in the ocean because 'those wavelengths travel the farthest through water'. 
+	3. Pain the scene first in darker tones without the luminescence, then add the glowing effects last.
++++++++++++++
+HIDDEN LIGHT SOURCES
+
+
+---------------------------------
+Light and Form :: light striking a geometric solid such as a sphere or a cube creates an orderly and predictable series of tones. Learning to identify these tones and to place them in their proper relationship is one of the keys to achieving a look of solidity.
+		-Center Light -Highlight -Halftone -Terminator -Reflected Light(GI) -Core of shadow -Occlusion Shadow -Cast Shadow -Sunlight
+
+The 'form principle' is the analysis of nature in terms of geometrical solids, which can be rendered according to laws of tonal contrast.
+MODELING FACTORS 	:: direct sunlight & overcast light. Each has a different set of tonal steps from light to shadow, known as modeling factors.
+		- In the direct sunlight, there's a strong division of light & shade.
+		- The light side includes the light and dark half-tones, the center light, and the highlight.
+THE TERMINATOR or bedbug line, is the area where the form transition from light into shadow. 
+		- occurs where the light rays from the source are tangent to the edge of the form.
+		- It's a soft, indirect light, the transition from light to shadow at the terminator will be more gradual. 
+		- You can cast a shadow with a pencil on the object to test which areas are in light and which are in shadow.
+	Shadows
+		- Within the shadow is not darkness but the effect of other, weaker sources.
+		- Outdoors, the blue light from the sky usually modiefies the shadow planes. Reflected light often raises the tone of the shadow. The darkest parts of the shadow are usually at the points of contact, called occlusion shadow.
+CORE OF THE SHADOW
+		- it only forms if the secondary source of light (edge light, reflected light, or fill light) doesn't overlap too much with the main light.
+		- Keeping the core intact - or painting it in even if you can't see it - can give the form more impact.
+		- If you're setting up a model or maquette, you can place the primary & secondary lights just far enough apart so that you can see the the core beginning to appera.
+GROUPING PLANES
+		- always try to state the form in terms of the simplest truth: light & shadow. This makes the details read instantly, & it save painting time.
+TEXTURE AT THE TERMINATOR
+		- The texture in the shadow shoul not just be a darker version of the texture in the light because that's not how the eyes sees it. In fact, the texture is very difficult to see at all in the shadow region.
+		- It's much more visible in the fully lit area, especially in the darker halftone, just before the line of the terminator divides light from shadow.
+		- This region is called the 'half light', an area of ranking light where an uneven surface stands out dramatically. 
+DIFFUSE LIGHT	
+		- In soft or diffuse light, such as overcast light, there is no distinct light side, shadow side, terminator, or core.
+		- All of the upward-facing planes tend to be lighter, since they receive more of the diffused light from the cloudy ceiling.
+
+SEPARATION OF LIGHT AND SHADOW 	:: In sunlight the light side & the dark side of the form can be separated by as many as five steps of the tonal scale. Just as musicians are always conscious of intervals between notes, artists must be aware of maintaining consistent tonal intervals.
+		- The 'value' of color is a measure of its lightness or darkness in comparison to a scale of grays between pure white & pure black. 
+		- The X-factor is sunlight & shadow & the tricks that our visual sytems play on us.
+		- It's good to keep this rule in mind: In bright sunlight, a newspaper in shadow is darker than a balck shirt in the light.
+LIGHTING RATIO
+		- It's easy to underestimate the tonal separation between the light side & the shadow side in sunlight. 
+		- When lighting experts set up artificial lights for a movie shot, they call this separation the lighting ratio, & they usually try to reduce it to cancel the unflattering effect of harsh or dark shadows. 
+		- If you're counting steps on value scale from one to ten, you might typically see five steps of tone from sunlight to shadowtwo f-stops on a camera's aperture setting.
+		- The separation would be reduced if there were hight clouds, hazy atmospherem or a light colored ground surface.
+CAST SHADOWS 	:: When a form intercepts a parcel of direct light, it projects or casts a shadow onto whatever lies behind it. The resulting dark shape can be a useful design device to suggest depth or to tie together elements inside & outside your composition.
+	THE EYEBALL ON THE ANT
+		- In outer space, shadows appear profoundly black. The lack of atmoshpere means that there's no luminous glow to fill the shadows.
+		- But on Earth cast shadows are flooded by various sources. 
+		- On sunny days, cast shadows tend to be blue only because they look up to the blue of the sky.
+HALF SHADOW 	:: One way to create drama, especially with a vertical form, is to light the top half & leave the rest in shadow.
+		- The edge between light & shadow is soft, suggesting that something far away is casting the shadow.
+OCCLUSION SHADOWS 	:: Dark accents occur at places where forms come close enough to each other to crowd out the light, leaving a small, dense area of shadow. They're commonly seen where materials push together in folds or at points of contact with the ground. 
+
++++++++++++
+THREE-QUARTER LIGHTING 	:: Most portraits are painted with light coming from about 45 degrees in front of the model. 
+		::The light reaches most of the visible form, leaving only a fraction of the form in shadow. The light is low enough to illuminate both eyes.
+		- Light casts a shadow on half side of the fave, leaving a lighted triangle on the shaded cheek. This general pattern is called three-quarter lighting.
+		- Also called broad lighting, cause it emphasizes the nearer or broader side of the face.
+		- Photographers call this main light the 'key light'. The shadow receives a weaker, second sources of greenish light coming from the right. This light entering the shadow is called the 'fill light'.
+		- If the key light is used against the 'short side' of the face - the farther. foreshortened side. Short lighting can help make a face look thinner. 
+			-When short lighting is arranged so that the nose shadow merges with the shaded side of the face, it's called 'Rembrandt lighting'. 
+		- All of these arrangements are flattering unobtrusive, good reasons why artists have used them almost universally.
+
+FRONTAL LIGHTING 	:: Light that shines directly toward a model from the viewer's perspective is called 'frontal lighting'. 
+				:: The light can be hard & direct, like a flashbulb, or soft & diffuse, like a north window. In either case, very little of the shadow is visible.
+		- Frontal lighting occurs when you're sketching someone with your back to the light source.
+		- Frontal lighting emphasizes 2D design instead of sculptural form.
+		- It's a good lighting to choose if you want to emphasize local color or pattern-to feature a fashion or costume, for instance.  
+		- And it's one of the few times when outlines actually appear in real life. The outline is really the thin fringe of shadow that appears at the very edge of the form. 
+		- It varies in weight in proportion to the width of the plane that is turning away.
+EDGE LIGHTING 	:: comes from behind to touch the sides of the form, separating it from the background. 
+		::It's also called a rim light or kicker in the film industry, & it usually requires a relatively strong source of light.
+		- Edge lighting occurs outdoors when the sun is low in the sky & shining toward the viewer. 
+		- The background is dark enough to stand out dramatically. A star burst of light radiates from the brow of the dinosaur, suggesting a hard, bony surface, creates flaring highlight.
+		- The width of the rim light varies according to the size of the planes that face backward to the light.
+CONTRE-JOUR 	:: is a type of backlighting where a subject blocks the light, often standing against a bright sky or an illuminated doorway. 
+		::The field of light takes on an active presence, almost surrounding or infusing the edges of the object.
+		- When a form is placed contre jour, its silhouette shape becomes prminent. The colors lose saturation, & shadows strtch forward. 
+		- Details disappear as the glare of the light spills over the edges of the form.
+		- One approach to contre-jour lighting is to think of the light area behind the subject not as flat white paint but as a sea of illuminated vapor, with light streaming out of the background, melting away the edges of the form.
+LIGHT FROM BELOW 	:: Strong light doesn't usually come from below, so when you see it, it grabs you attention. 
+		:: We tend to associate underlighting with firelight or theatrical footlights, which can suggest a magical, sinister, or dramatic feeling.
+		- Sources of light that shine upward are often strongly colored, either with the orange glow of firelight, or witht the blue flicker or a computer screen.
+REFLECTED LIGHT 	:: Just as the moon reflects the light of the sun into our night landscape, every object in a scene that receives strong light becomes its own source of light. Therefore, any nearby area of shadow will be affected by it.
+	5 General TRUTHS About COLOR IN REFLECTED LIGHT
+		1 In shadows, upfacing planes are cool, and downwacing planes are warm.  
+		2 Reflected light falls quickly as you get farther from the source, unless the source is very large.
+		3 The effect is clearest if you remove other sources of reflected & fill light.
+		4 The color of the shadow is the sum of all the sources of reflected illumination, combined with the local color of the object itself. 
+		5 On a sunny day, vertical surfaces in shadow usually receive two sources of illumination: warm ground light & blue sky light. 
+SPOTLIGHTING 	:: In theatrical illumination, the light is almost never completely uniform. Less important areas of the stage fall into shadow, while the spotlight rivets the attention of the audience on the most important part of the action.
+		- Ambient light is the light left over when the key light is removed.
+		- The colored shadows give the feeling that there are actually two adjacent spotlights, a red one below & a blue one above. This is typical of theater lighting, where adjacent colored spotlights cast shadows with chromatic edges.
+LIMITATIONS OF THE FORM PRINCIPLE 	:: Solid objects with a matte finish behave predicatbly in strong light, with a light side, a shadow side, & reflected light. 
+		::But other materials, such as clouds, foliage, hair, glass, & metal, respond to light differently & require a flexible approach.
+		- Clouds are so variable in density, thickness, & composition that it's hard to make general rules about how light interacts with them. 
+		- Clouds transmit a greater quantity of light to the shadow side through internal scattering than the volume of light they pick up from secondary sources. 
+		- The world is not made of plaster. It's composed of a wide variety of materials and surfaces. 
+++++
+Chapter 06: COLOR RELATIONSHIPS 	:: A monochromatic color scheme is composed of any single hue taken through a range of value //or chroma. There is a long tradition for artwork made only in grayish, brownish, or bluish tones.
+		- Grisaille :: means gray. Preliminary step to plan the tonal values, or as a part of the process in painting, before the colors were overlaid in transparent glazes. 
+		- In full-color comics, flashback sequences are often presented in sepia.
+WARM AND COOL 	:: You can't measure the temperature of a color with a thermometer. The idea of warm & cool color is all in our minds, but the effect of color temperature on the viewer is real anyway.
+		-  
+		-  
+COLORED LIGHT INTERACTIONS 	:: When two different colored lights shine on a form, the lit areas mix to create a new color. These mixtures of light behave a little differently from pigment mixtures. It's called 'additive color mixing' because one light is added to another.		
+		-  
+		-  
+TRIADS 	:: A triadic scheme is composed of any three basic colors, but not necessarily full-chroma colors. 
+
+COLOR ACCENT 	:: You can spice up a black & white sketch or a gray painting with a little dash of color. An accent attracts the eye to the center of interest.
+		- Color accents are usually a copmlement or near complement, & usually more highly chromatic than the rest of the picture.
+		- If you restrict the entire image to something close to a monochromatic scheme, anything different will jump out & grab the viewer's attention.
+		- Color accents can also be added as a seasoning throughout a picture, to provide relief from large areas of unrelieved hues.
+++++
+CHAPTER 08: VISUAL PERCEPTION 	:: 
+	TONE AND COLOR 
+		- The light sensitive layer of the eye's retina is divided into two kinds of receptors: rods and cones. The rods detect lightness and darkness, but they are entirely color-blind, and they function better at lower light levels.
+		- The cones repond to color and tone, and they work at relatively high light levels.
+		- The visual brain processes tonal information separately from color information.
+		- Neuroscientists characterize the tonal pathway as the "where" stream. This capacity, which we share with all mammals, is adept at motion & depth perception, spatial organization, and figure-ground separation.
+		- The color capacity is called the "what" stream. It is more concerned with object & face recognition & color perception.
+IS MOONLIGHT BLUE?		
+	PURKINJE SHIFT :: rods of the eye most sensitive to greenish wavelengths of light. Green seem lighter in tone and red roses look black in the moonlight.
+	The KHAN/PATTANAIK HYPOTHESIS
+		- hypothesize that the rod cells predominantly synapse onto the S-cone(the cone cells sensitive to bluish light)
+	EDGES AND DEPTH 	:: blurriness along the boundary of a form. 
+		- A camera produces an image in which normally only one plane of distance is in focus at a time. Everything that's not on the focal plane is blurry.
+	INTERSECTING CONTOURS
+		- when one object sits in front of another in space, what happens at the location where the contours intersect each other?
+	EDGES IN MOONLIGHT
+		- The reason we can't see fine details at night is because the fovea, the central point of vision where we see small detail, is filled with with cones, and these photoreceptors respond well only in bright light.
+		- If you use night photography as refrence, remember that the camera does not see as the eyes sees, particularly at night.
+COLOR OPPOSITIONS 	:: Complements suggest an opposition of elemental principles, like fire & ice. Blue opposes yellow; magenta challenges green. These antagonistic pairings seem to correspond to the way our visual systems are wired.
+	-Johann Wolfgang von Goethe's book Theory of Colors  
+		- Following on ancient ideas since Aristotlem he believed that color arose from the interaction between light & darkness. Darkness is not the absence of light, but rather its rival or counterpart.
+		- Blue he believed is a lightening of black. Yellow is a darkening of white. All other colors are grouped between them.
+		- Color schemes where yellow, red, and purple predominate, he believed, bring forth feelings of radiance, power, and nobility.
+		- Blue, he believed, stands for 'deprivation, shadow, darkness, weakness, coldness, and distance'
+		- "Colors are the deeds of light, its deeds and sufferings."
+
+COLOR CONSTANCY 	
+ADAPTATION AND CONTRAST 	:: wehn we look at a scene, the experience of one color affects the way we perceive other colors. This happens both 2D, as flat colors influence each other, and in the 3D realm as well.
+		- When you look at an object of a certain color, your eyes adjust or adapt to that color.
+APPETIZING AND HEALING COLORS 	:: Colors express teh main psychic function of man. by Carl Jung
+		- Green, blue, indigo and violet moves more toward states of serenity & meditation. 
+
+++++
+Chapter 09: SURFACES AND EFFECTS
+
+TRANSMITTED LIGHT		:: when sunlight travels through a thin, semitransparent material, the light becomes richly colored. Light that bounces off the surface is fairly dull by comparison. 
+		- You can see transmitted light when the sun shines through the green 0r yellow leaves of tree, 
+		- The effect is also noticeable when the sun backlights a colored balloon, a sailboat's spinnaker, or a translucent nylon umbrella.
+SUBSURFACE SCATTERING 	:: Light enters the skin or any translucent material and spreads out beneath the surface, creating am unmistakable glow. Subsurface scattering affects forms with depth and volume, such as a person's ear, a glass of milk, or a piece of fruit. 
+		- Two materials, approx same color in terms of hue, value, and chroma. Only some of the light that touches the surfaces of the forms reflects of it. 
+		- Lit from back, SSS shines. The glow is brighter where the wedge is thinner because the light has less distance to travel, and less of it is absorbed.
+	SSS shows up most strikingly when 3 conditions are met:
+		1 Translucent flesh 2 Small Forms 3 Backlighting 
+COLOR ZONES OF THE FACE 	::
+		- 
+		- 
+		- 
+		- 
+THE HAIR SECRET 	:: To avoid the stringy look, use big brushes, keep the masses simple, soften theedges, and control the hightlights.
+	WHERE THE HAIR MEETS THE FOREHEAD
+		- if the edges are too hard, it tends to sit on the head like a leather helmet. 
+		- It helps to visualize masses of hair as ribbons. In a real ribbon, the highlight goes across, not along, the curving shapes.
+		- Often a lighting arrangement with key light and an edge light can bring interest to the hair.
+CAUSTICS		
+SPECULAR REFLECTIONS		:: An object with a shiny surface is like a mirror. It reflects an image of whatever is around it.
+	SPECULAR VERSUS DIFFUSE REFLECTION	
+		- In specular reflection, light rays bounce off the surface at the same relative angle that they approached it. In diffuse reflection, light rays bounce in all directions.
+		- Diffuse reflection is typical of a matte surface, such as an egg. Many surfaces are a combination of specular & diffuse reflections.
+	3 RULES OF SPECULARITY	
+		1 The more reflective the surface, the broader the range of values you need to paint it.
+		2 Convex reflective surfaces, such as chrome, reflect a miniature view of the scene around the object, often including elements beyond the limits of your composition.
+		3 The specular pattern is a separate layer added on top of the usual modeling factors that you use to render the object.
+HIGHLIGHTS 	:: Highlights are specular reflections of the light source on wet or shiny surfaces. 
+		::Imagine placing a pocket mirror beside the object & angling it so that it reflects the light source back into your eye.	Any plane parallel to that mirror surface will reflect a highlight back at you.
+	ANNULAR HIGHLIGHTS	
+		- look for it in the window of a passenger train on a late afternoon, in a cobweb on a dewy morning, in a cornfield lit by a setting sun, or on tree branches surrounding a streetlight on a rainy night.
+COLOR CORONA 	:: An extrenely bright source, such as a setting sun or a streetlight, is often surrounded by a region of colorful light. The color corona appears both in human vision & in photography, where it is sometimes called a lens flare. 
+		- A color corona can make a source seem brighter than the white of the paper & can actually make a viewer squint involuntarily.
+MOTION BLUR 	:: there are two kind of blurring that suggest motion /action - 1 Motion Blur where a form moves rapidly in front of a stationary observer or camera,
+2 Speed blur where the camera tracks along with a fast-moving object.
+	MOTION BLUR
+		- any fast-moving object has a softly blurred edge.
+		- To suggest that the imaginary camera was tracking along with the dancers, & to give a sense of shallow focus, it also helped to blur the details of the crowd across the street.
+	SPEED BLUR
+		- The blur gets more extereme toward the edges of the picture. Forms closet to the camera blut the most.
+		- As with motion blur, only the edges perpendicular to the movement get the blur treatment; the ones running along the path of action stay sharp.
+PHOTOS VS. OBSERVATION	:: The caeras tend to distort light & color in the following ways ::
+		1 Deep shadows will appear pure black & bright highlights will appear pure white due to clipping. It is the loss of information because of the photosensor's inability to respond to relative extremes of bright or dim light. 
+		2 Colors tend to shift or weaken in chroma & become monochromatic. Subtle or close variations between adjacent warm & cool colors are often not registered.
+		3 Weak sources such as reflected colors from nearby objects are often lost. 
+	USING PHOTOS WITHOUT LOSING COLOR
+		3 Do what photographers do: wait for overcast days where the light & dark values aren't so extreme, or hold up a large white reflector to bounce light into the shadows if you're shooring in sunlight. 
+		4 Take two exposures, one for the darks & one for the lights, & use those photos separately for refrence.
+++++
+Chapter 10: ATMOSPHERIC EFFECTS 
+
+SKY BLUE
+ATMOSPHERIC PERSPECTIVE
+REVERSE ATMOSPHERIC PERSPECTIVE
+GOLDEN HOUR LIGHTING
+SUNSETS
+FOG, MIST, SMOKE, DUST
+RAINBOWS
+SKYHOLES AND FOLIAGE
+SUNBEAMS AND SHADOWBEAMS
+DAPPLED LIGHT
+CLOUD SHADOWS
+ILLUMINATED FOREGROUND
+SNOW AND ICE
+WATER: REFLECTION AND TRANSPARENCY
+MOUNTAINS STREAMS
+COLOR UNDERWATER

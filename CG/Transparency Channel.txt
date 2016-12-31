@@ -1,0 +1,42 @@
+
+Here you can define the transparency. 
+If the material has a color, the color is automatically reduced with increasing transparency. 
+Equation :: color percentage + transparency percentage = 100%. 
+So a white material with 0% transparency is white (100%). A white material with 50% transparency is 50% white (gray). A white material with 100% transparency has no color.
+
+You can load a texture as a transparency map . 
+The brighter a pixel in the transparency map, the more transparent the corresponding region of the material. 
+Red parts of the slide allow only red light to pass through; white parts allow all light through. With black, no light can pass through the slide.
+
+Using transparent material with a light source to create a light map or gel (look up gels). 
+     apply a transparent texture to a light source, the light will be filtered acc. to the texture’s coloration, just like a real gel.
+
+TIR 
+The transparency and reflection values are dependent on the viewing angle.   // FRESNEL
+
+Additive
+	Disables the automatic color control.
+	if the material has a color, the color is automatically reduced with increasing transparency. This can help to ensure a realistic effect.
+
+Mix Mode
+	mix the color and "texture" panes using one of four modes.
+	If you load a texture or a 2D shader, it is placed on a layer above the color (i.e. the texture is placed on top of the color). 
+
+TIP Texture is the top most layer
+
+Normal mode
+	with 100 value you'll see texture only
+	With value set to 70%,   the result is 70% of the texture & 30% of the color.
+
+Mix Strength 
+	If the value is set to 70%, the result is 70% of the texture and 30% of the color.
+
+Absorption
+	When light enters a transparent medium it weakens and changes color to one degree or another 
+	glass is very rarely completely colorless. 
+	The thicker the material the weaker the light becomes as it passed through 
+	glass is not completely transparent. 
+	These effects can be emulated in CINEMA 4D using the following two parameters. In the following the term Color refers to the Color parameter at the top of the Transparency channel.
+
+NOTE
+Transparent tex material in light

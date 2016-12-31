@@ -1,0 +1,52 @@
+
+Networking 
+
+Linux Pc using Gnu's gcc compiler
+Linux, BSD or some flavor of UNIX 
+for  windows install Cygwin [ collection of UNIX tools ]
+Pg 2
+WinSock
+
+Links ;; linux.com , bsd.org, cygwin.com, tangentsoft.net/wskfaq
+
+A file descriptor is simply an integer associated with an open file.
+
+Two Types of Internet Sockets
+Raw sockets look them up
+	- Stream Socket and 
+	- Datagram Sockets  reff to as SOCK_STREAM and SOCK_DGRAM
+	Sometimes called as connectionless sockets
+
+STREAM SOCKET :: telnet ??
+	• http uses the stream socket 
+	• data arrives in the order
+	• TCP 'Transmission control protocol' 
+
+
+DATAGRAM SOCKETS :: packets may arrive in order
+	•  the data within the packets will be error free
+	• UDP 'User Datagram Protocol' also uses IP
+	• Why are connectionless
+	• For ex. Tftp(trivial file transfer protocol pg 5) the recipient has to sent back a I got it package
+	ie. An ACK package [Acknowledgement procedure]
+	• UDP is good for speed and speed
+
+Low level Nonsense and Network Theory
+
+Data Encapsulation :: 
+	• Ethernet >> IP >> UDP >> TFTP >> DATA
+	• When the another computer recieves the packet 
+	• The hardware strips the Ethernet header
+	• The kernel strips the IP and UDP header
+	• The TFTP program strips the TFTP header, and it finally has the data
+	• Layered Network Models !!?
+	• Layers of the full blown model ::
+	- Application - Presentation - Session - Transport - Network - Data Link - Physical
+	• Physical layer is the hardware (serial Ethernet etc)
+	
+	UNIX might be :: 
+	Application Layer (telnet, ftp etc)
+	Host to Host Transport Layer (TCP, UDP)
+	Internet Layer (IP and routing)
+	Network Access Later (Ethernet, wifi or wahtever )
+

@@ -1,0 +1,83 @@
+
+>> db
+>> db.dropDatabase()
+>> use invents
+
+New info (JSON) i.e the document goes into a collection
+>> db.players.insert(<JSON>);       // info or document goes into player collection
+>> db.players.insert ( [<insert JSON array >] );              
+
+>> db.players.findOne ();      // finds the first one
+
+Updating, Removing and Collections
+>> db.players.remove(<selection_criteria>);
+
+..>>Update only particular field of a document // monogdb
+
+Delete any collection
+>> db.players.drop();
+
+Find
+>> db.players.find(
+	{serach criteria}	
+	)
+
+>> db.players.findOne(
+	{ name: "Ankur"}	
+	)
+
+and criteria
+>> db.players.findOne(
+	{ name: "Ankur", age: 22}	
+	)
+
+or criteria
+>> db.players.find ( { $or:[ {criteria 1}, {criteria 2} ] });
+
+Greater than 30
+>> db.players.find( { age: {$gt: 30} } );
+
+Filter/Show only name
+>> db.players.find( {age: 30}, {name: 1, _id: 0} )
+>> db.players.find( {age: 30}, {name: 1, _id: 0} ).limit(3);
+>> db.players.find( {age: 30}, {name: 1, _id: 0} ).skip(2);
+
+===============================
+Django
+Gulp
+Python Network Packet Sniffer
+Linux Tutorial for beginners
+React js
+Wifi Wireless Security
+Nmap tuts
+Grunt js
+Bootstrap
+
+Java Beginner
+Python 3.4
+
+=======================================================================================
+
+Indexing   -- is the same way of indexing in books
+
+>> db.users.find( { <object> } ).explain("executionStats");
+
+Create an Index
+>> db.users.ensureIndex ( {"age": 1} );
+
+Get Index Info
+>> db.users.getIndexes ();                    // by default _id is also indexed
+
+Drop an Index
+>> db.users.dropIndex ( {"age": 1} );
+
+======================================================================================
+
+Aggregation & Groups
+>> db.users.aggregate ( {$group: { _id: "$eyeColor", total: {$sum: 1}} });       // group based on eye color
+>> db.users.aggregate ( {$group: { _id: "$gender", total: {$sum: 1}} });       // group based on gender
+
+>> db.users.aggregate ( {$group: { _id: "$gender", avgAge: {$avg: "$age"}} });       // group based on gender
+>> db.users.aggregate ( {$group: { _id: "$gender", avgAge: {$max: "$balance"}} });       // max balance 
+
+avg, sum, max, min

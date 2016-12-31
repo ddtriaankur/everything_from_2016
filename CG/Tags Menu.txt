@@ -1,0 +1,33 @@
+Tags Menu
+
+Additional tags:
+	- Character: Character Tags
+	- Cloth: Belt Tag, Cloth Tag, Collision Tag
+	- Dynamics: Dynamics Body tag
+	- Hair: Hair tags
+	- MoGraph: Mograph tags
+	- Sketch: Sketch Style tag, Sketch Render tag
+
+Cinema 4D Tags
+
+Align to Spline Expression
+	- If you want to define an animation path for an object,
+	- It is recommended first you create the path as Spline object.
+	- This has an advantage over the keyframe method in that you can create BSpline paths and use tools such as the magnet.
+	- You can also use closed splines for creating cyclic motion a difficult task using keyframes
+	
+Motion Blur
+	- can be use to apply motion blur to an object.
+	- Only works in conjuction with the enabled Vector Motion Blur option (and only when rendering in the Picture Viewer).
+	- Use in conjunction with the Physical Renderer's motion blur, to define if an object should be rendered with motion blur.
+	
+Metaball Tag
+	- Can be assign to the children of a Metabll Object for further control if the metaball mesh
+
+Subdivision Surface Weight
+	- It stores weighting information. It is created automatically when you weight a Subdivision Surface.
+	- The subdivision of the objects beneath a Subdivision Surface in the hierarchy can also be controlled.
+	- Assign a separate tag to each object.  
+
+Vibrate Expression
+	- Used to make objects vary in size, position and rotation in regular patterns (Regular Pulse enabled) or to generate random size, position and rotation changes, making the object vibrate 

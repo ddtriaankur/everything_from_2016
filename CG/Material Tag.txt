@@ -1,0 +1,48 @@
+
+Projection
+	- The offset & Length setting define the position and size of the texture in the X and Y directions on the texture envelope.
+	- For example, if Length X and Y are both set to  100%, the texture covers the envelope completely.
+
+Spherical
+	- Spherical mapping projects the texture onto the objects in a spherical form.
+	- Rarely suitable for flat objects. 
+	- There is distortion with cylindrical objects also.
+Cylindrical
+	- Projects the texture onto the object in a cylindrical shape.
+	- Rarely suitable for flat objects.
+	- Distorted when used with spherical objects
+Flat
+	- Flat mapping projects the texture onto the object in a planar direction.
+	- Flat projection tends to be used with flat objects only.
+	- Gets distorted when applied to a sphere or cylinder.
+Cubic
+	-  Cubic mapping projects the texture onto all six sides of a texture cube.
+Frontal
+	- Projected from the camera position onto the object. 
+	- You can create various visual effects using Frontal mapping, 
+	- Or perform compositing tricks directly in C4D.
+	- Seen in science fiction films where characters or spaceships gradually blend into the background using cloaking.
+	- Use Frontal mapping for such effects.
+	- Another interesting effect, remove the Background object and move the polygon around!
+Spatial
+	- Spatial mapping is similar to Flat projection.
+	- However, the texture is pulled up and to the left as it passes through the object.
+	- Does cause some distortion and as such is not suitable for photographic images.
+	- Spatial mapping is more suitable for structural textures, such as plaster and marble.
+
+UVW Mapping
+	- If an object has UVW coordinates, you can select them as projection type.
+	- In this case, the texture geometry is fixed to the object surface & is subject to all subsequent movement & deformation applied to the object.
+
+	- UV projection is explained in the UV Edit menu.
+	- Primitive and Generative objects have UVW mapping applied to them by default.
+	- All Polygon objects with UVW coordinates have a UVW tag in the Object Manager.
+What's the third coordinate for
+
+Shrink Wrapping
+	- With this type the centre of the texture is fixed to the north pole of a sphere and the rest of the texture is stretched over it.
+	- The advantage of this mapping type is that the texture meets itself at the south pole only.
+Camera Mapping
+	- The texture is projected from the camera onto the object.
+	- Tip:: Camera mapping has its own Manager, Projection Man, which offers all the other options.
+

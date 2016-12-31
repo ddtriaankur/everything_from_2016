@@ -1,0 +1,23 @@
+
+JavaScript in Ten minutes
+
+What is chucks
+Function are first class lexical closure :: First class in the sense you can pass them around as values at runtime.
+
+Variadic Behavior : A function that takes any number of arguments is said to be variadic.
+
+It is possible to add methods to the simple types. So, for example, you can add an int() method to all numbers, so that Math.PI.int() produces 3.
+
+JavaScript The Definitive Guide O'relly
+What is an identifier
+
+Break Statement
+Throw Statement
+Try Statement
+With Statement // not recommended
+
+Scope
+In java script blocks do not have a scope
+
+Maker Function
+

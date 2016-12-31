@@ -1,0 +1,59 @@
+
+Adb
+	adb shell pm list libraries
+
+	Adb shell pm uninstall com.tumblr
+	Adb uninstall com.pinterest
+
+	Adb usb
+	Adb tcpip <port>
+	Default port : 5037
+
+Adb devices -Ly
+	Adb connect <host><port>
+
+Screen capture :: 
+	adb shell screencap /sdcard/screen.png
+
+Pull file ::
+	adb pull /sdcard/screen.png     //sdcard is the internal storage
+
+
+Record a screen:
+	adb shell screenrecord /sdcard/demo.mp4
+	Stop the screen recording by pressing Ctrl-C, otherwise the recording stops automatically at three minutes or the time limit set by --time-limit.
+
+Pull cmd ::
+	adb pull /sdcard/screen
+
+
+For a list of available shell programs
+	adb shell ls /system/bin
+	Dirname
+	Id
+	Iplsof
+	Getconfig
+	Lsusb
+	netcnfg
+	Pm
+	Reboot
+	Sdcard
+	Service
+	Servicemanager
+	Setconfig
+
+
+List the directory
+	adb ls /sdcard
+
+Media Control
+	Adb shell media dispatch next
+
+	Adb reboot -p
+
+WHOA 
+	adb shell
+	$ ls -a -l
+
+
+

@@ -1,0 +1,50 @@
+
+Processing Intro
+
+8.0 What is an Object Oriented Programming
+
+	• Class is a template or a blueprint
+	• Object is the instance.
+
+8.1 Defining a Class Part I
+
+	• Declaring Syntax : Bubble b ; >> similar  to the >> int x;
+           [type] [name] ;
+	• Object are with the caps letter
+	• Calling Object Syntax::  b.display () ; 
+	• Initialize :: just like x = 10;     >>  b = new Bubble ();   // Calling the Constructor
+	
+8.2 A Class Definition
+
+Syntax :: class Bubble { 
+[data]
+[function]    // both in harmony
+}                     //Defining a class
+	• Passing Argument Through Constructor 8 min
+	• Syntax for constructor inside Class :: Bubble ()     { initialize the x & y value }
+	
+8.3 Constructor Arguments
+
+Arguments are local to the function
+Pass multiple parameters
+
+8.4 Second Constructor
+
+	• Overloading means defining the second or many constructor inside the class.
+	• EG:: fill(r, g, b); >> fill(r, g); >> fill (b, alpha);
+	• Many Different Versions of a Constructor can be Designed.
+
+	• 10:40 min :: boolean function_name ();          ///
+	
+	• 6 min :: if ( p1.overlaps( p2) ) {  --code of block--  }
+	• Inside class :: boolean overlaps (Particle other) {  --code of block-- }
+	
+	 
+8.5 Pass by value vs Pass by reference
+
+	• Normal data passing through the function just makes the copy of it.
+	• BUT, when you pass an object via a function, your are passing the original ref. of the object in the memory.
+	
+	
+
+

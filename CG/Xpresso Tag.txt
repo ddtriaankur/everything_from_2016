@@ -1,0 +1,127 @@
+
+To learn Xpresso as quickly as possible, we recommend that you work through the tutorials in the CINEMA 4D Tutorial manual and, if something is not clear, look it up in this reference for afull description.
+
+XGroups  
+	- Are container for nodes
+	- In addition to acting as a container, 
+	- An XGroup can be connected to nodes and other XGroups.
+	- You can save and load XGroups to reuse them in other projects.
+
+Attribute Manager
+Input First 
+	- If enabled, nodes that are outside the selected XGroup are evaluated first
+	- Especially important when the XGroup receives values from the nodes,
+	- To ensure that the XGroup receives up-to-date values 0.
+
+Aktiv
+	- Allows to switch the XGroup using the button
+	- The nodes inside the XGroup will only be processed if the XGroup is active. 
+
+Schutzen
+	- You can password protect XGroup using this 
+	- Which will hide the contents of the XGroup until the password is entered.
+
+Nodes
+Cinema 4D's nodes work in radians. 
+	- Nodes use angular values from 0 to 2*PI rather than degrees from 0 to 360 
+	- To work in degrees, use the Degree node to convert from radians to degrees, and vice versa.
+
+User Data
+To create a User Data port
+	- In the Object Manager, select the object. Only User data added to object in the Object Manager can be used in the XPresso Editor. User data added to XGroups cannot be used in the XPresso editor.
+	- In the Attribute Manager, > User Data> Add User Data
+
+Data types
+	- Defines the type of value it uses
+	- Such as Integer, Vector or Color
+	- change the data type in the Attribute Manager
+
+Color
+	- RGB color component
+	- RGB can also be interpreted as a vector - so the color R:10, G:75, B:0 => 10;75;0.
+	- This enables to use a color to control an object's position or rotation vector.
+Link 
+	- Contains info on the various elements in a C4D scene, 
+	- Including info on tags and materials as well as objects.
+	- The link type cannot be converted to other data types
+	- Its purpose is to allow you to select a scene element (such as an object, material or tag) for closer examination.
+	- Ex:: you can use the Link data type to add a user data box in the Attribute Manager.
+	- You can then assign materials, tags and objects by dragging and dropping them into the box.
+Object
+	- The object type is a sub-type of Link and is used for object data only.
+	- This data type gives you access to an object's global and local matrices.
+Filename
+	- allows you to store a file path.
+	- Ex: the Sound node uses the "Filename" data type to store the path of the sound file that you want to load.
+Texture
+	- This element contains a reference to a texture, i.e. to an image file or shader.
+	- This is of use only when used with materials, such as within a material channel.
+Lens Glow
+	- This data type is a container for a complete data set 
+	- All information required to control lens glow for a light source.
+	- This data type cannot be converted to other types.
+Bool
+	- Two possible states: True or Flase. 
+	- Represented by 1 and 0, used in math calculations.
+	- To combine several Bool values, use Logic nodes.
+Integer
+	- Supports whole numbers 
+	- not fractional numbers that can be negative, zero or positive.
+	- The length of the vector is calculated automatically when a vector is converted to an integer or a real number.
+	- When an integer or a real is converted to a vector, the value is used for the vector's X,Y and Z components.
+	- Ex: the real 12.5 is converted to the vector (12.5;12.5;12.5)
+Real 
+	- Can be fractional numbers
+	- Ex Pi, i.e. 3.141592654
+Vector 
+	- Important for manipulating positions & rotations in 3D space.
+	- Object positions, HPB angles, colors and point coordinates are all stored as vectors.
+	- If you convert a vector to an integer, the length of the vector is converted rather than the individual components.
+	- Can also be used with matrices.
+Normal
+	- A "normalized vector" is a vector of the same direction, but with a length of 1.
+Matrix
+	- A matrix is a group of vectors, 
+	- Global matrix gives you access to the object's position, scale and rotation
+	- The four vectors are stored in the following registers of the global matrix: 
+	- V0 for the position vector called the Offset vector; 
+	- V1, V2 and V3 for x, y and z axis.
+	- Using these registers, you can read or overwrite any vector.
+Time 
+	- Give access to the animation's current time.
+	- Related to the frame rate.
+	- If the rate is 25 frames per second, the Time value for frame 24 is one second exactly.
+	- Useful for controlling dynamic processes since it enables you to take an animation's progress into account.
+	- Eg: you can make a ball bounce once per second 
+String
+	- For text and character strings
+	- XPresso wires are able to automatically convert numeric sequences in the string to vectors, matrices or other numeric formats.
+	- Example, you can pass the string 12;4;5 to a node instead of vector.
+Gradients
+	- Consists of a large number of values that represent a gradient.
+	- Cannot be converted to other data types.
+Priority
+	- It contains the XPriority and its numerical value
+	- Plus details on the order of evaluation
+Font 
+	- Stores info for a chosen font, 
+	- You can use the Font data type to vary the appearance of a text spline.
+	- Cannot be converted to  other data types.
+Date /Time
+	- Queries your computer's current system time and system date.
+Spline
+	- With this data type you can draw a spline in the Attribute Manager using a graph.
+The XPresso Pool
+	- Provides a quick way to add nodes to the XPresso Editor.
+	- Contains all of the Cinema 4D nodes.
+	- You can add the configured node to the XPresso Pool and save it for later.
+	- In the XPresso Pool, create a new pool by choosing Edit / Create Pool.
+	- Configure the nodes that you want to add to the pool.
+Create Pool
+	- Create a new pool for you own node config
+	- To add your own node config to the pool, first config the nodes as desired in the XPresso Editor then drag and drop the nodes into the pool.
+Load Pool
+	- Load a pool file
+Create Folder
+	- Enables you to arrange your own pool into folders for better organization
+	- Drag and drop the nodes that you want to place within the folder from the Pool or Editor into the folder.

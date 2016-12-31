@@ -1,0 +1,132 @@
+
+1. MongoDb Schema Design
+- Application Driven Schema
+
+MongoDB Supports
+	- Rich documents
+	- Pre Join/ Embeded Data
+	- No Mongo Joins
+	- No constraints
+	- Atomic Operations
+	- No Declared Schema
+
+	Ans Second last
+________________________________________________________________________________
+2. Relational Normalization
+Goals of Normalization
+	- free the database of modification normalize
+	- Minimize redesign when extending
+	- Avoid bias toward any particular access pattern
+
+++
+Normalized Data Models
+ - it is the link reference between two documents.
+
+ 	Use Normalized Data Models:
+ 		- when embedding would result in duplication of data but 
+		-	would not provide sufficient read performance advantages  
+ 		- to represent more complex many-to-many relationships
+ 		- to model large hierarchical data sets
+		- References provides more flexibility than embedding. However, client-side applications must issue follow-up		
+			queries to resolve references.
+		- **In other words, normalized data models can require more round trips to the server
+_______________________________________________________________________________
+3. Modelling a Blog in Documents
+
+	Post Collection
+	- {
+			_id: "",
+			Title: "",
+			Author: "",
+			Content: "",
+			Comments: [{}, {}]
+			tags: ["", ""]
+			date: date()
+		}
+
+Authors Collection
+{
+	_id:"",
+	name: "",
+	email: "",
+	password: #hased and not in plain text
+}
+____________________________________________________________________________++++
+4. LIVING WITHOUT CONSTRAINTS
+- foreign key constraints  -:> is what is the way how you link two documents together
+- living wo constraints means embedding the document
+- embed the document in a way it makes sense to your applications
+
+- keeping your data consistent even though MongoDB lacks foreign key constraints ??
+_____________________________________________________________________________+++++
+5* Living without TRANSACTIONS
+- Atomic Operation approaches?  -:> all the changes/operation on a document happens at once
+
+Operations done at the same time on document
+1. Restructure
+2. Implement in Software -:> one banks collection is not relational to the other. Their transaction should be in sync.
+3. Tolerate -:> a little bit of inconsistency.
+
+________________________________________________________________________________
+6. One to One Relations
+- Each item directly corresponds to one other item eg. "name": "John Doe"
+
+- Frequency of Access
+- Size of items : which of these is growing in time or not
+- Atomicity of data : atomic operations on a individual document
+answer : second last
+________________________________________________________________________________
+7. One to Many Relations
+ - eg:: one city with many people
+- true linking
+
+- one to few
+	blog_post: comments
+	haiving single collection works/ embedded is good with one to few
+
+Ans: second last
+________________________________________________
+8. Many to many Relations
+eg ::   books: authors or// students: teachers
+
+- Few: Few
+
+Books_collection
+{
+	_id: 12,
+	title: "aslkjsad"
+}
+
+Authors_collection
+{
+	_id: 27,
+	author_name: "asdasdlk",
+	books: [12, 7,8]
+}
+
+- can be linked in both directions
+_________________________________________________
+9. Multikeys
+Adding a multi key index on Teacher field of students
+>> db.students.ensureIndex( { "teachers": 1 } )
+
+>> db.students.find({ 'teachers': {$all:[0,1]} })
+>> db.students.find({ 'teachers': {$all:[0,1]} }).explain()
+
+_________________________________________________
+10. Benefits of Embedding
+- read performance
+- is fast
+
+_________________________________________________
+11. Representing Trees
+
+_________________________________________________
+12. When to Denormalize
+
+_________________________________________________
+Normalized
+Foreign key constraints
+Atomicity++
+linking
+- Can make atomic updates as books are checked out or turned in

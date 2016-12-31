@@ -1,0 +1,96 @@
+Multi-processors
+	Rendering hair uses all cores
+	BUT only single core is used for preparation phase (Status bar :: preparing hair)
+	Spread the hair over multiple Hair object to utilize multi core
+
+With Physical Render
+• Rendering hair takes much longer (because hairs are calculated internally as polygons)
+• Hair looks slightly different
+• Hair Multi-Passes are not supported
+
+The BiRender 
+Sketch + Toon renderers
+
+Grad 
+	The left end of the gradient represents the hair root, the right the tip.
+Var
+	Use this setting to vary the hair’s H/S/V values. This prevents the overall color of the hair from being too uniform and results in a more realistic look. Even real hair does not have a uniform color.
+
+
+Blend Modes
+	it is assumed that one bitmap has been laid onto another - the functionality, though, remains the same.
+
+Average
+	The result is the average of the background pixel and the blend pixel.
+Normal
+	The background pixel will be completely covered by the blend pixel, if the blend strength is 100%.
+
+Multiply 
+	This mode multiplies the background pixels by the blend pixels. Unless the blend pixels are white, the result will be darker than the background pixels.
+Screen
+	This is the opposite of the Multiply blend mode. The background pixels and blend pixels are inverted, multiplied, and inverted again. This mode generally gives a result brighter than the background.
+
+Darken
+	The background and blend pixel will be compared and the result will always be darker.
+Lighten 
+	This is the same as darken except the result will always be lighter.
+
+Difference
+	The background and blend pixels will be subtracted from each other.
+Negative
+	The Negative mode is the same as Difference mode, except colors between white and black will become brighter instead of darker.
+Exclusion
+	This mode is the same as Difference mode, except that it will create a softer effect.
+
+Overlay
+	A combination of Screen and Multiply modes (depending on the background color).
+
+Hard Light
+	This mode works like Multiply mode and Screen mode at the same time. 50% brightness is neutral (nothing happens). Lighter values act like Screen, darker values act like Multiply.
+Soft Light
+	This is a combination of the Burn and Dodge modes. The Dodge mode is used to blend pixels with a Brightness value greater than 50%, the Burn mode is used for values below 50%.
+
+XOR
+	This is a combination of the Burn and Dodge modes. The Dodge mode is used to blend pixels with a Brightness value greater than 50%, the Burn mode is used for values below 50%.
+
+Overwrite
+	This is mostly useful for technical illustrations using patterns. It ignores any opacity (which is used to do the pattern) from behind it and overwrites the opacity so the pattern is always visible.
+
+Levr
+	The value of the blend pixel is used to apply contrast to the background pixel.
+
+	The Surface settings are specially designed for rendering fur.
+
+
+Backlit color
+	This channel is responsible for coloring hair, when lit, that lies behind other hair.
+
+	In reality, this particular effect is visually very understated. The intensity of this effect is relatively small, so, in most cases, you will not even need this channel. If you want to make the effect visible, increase the Translucence value in the Illumination channel.
+
+	As in reality, rendered hair also has 2 sources of specular highlights. The first source originates from reflections on individual hairs, the second from an overall reflection from within the hair. The second source is, therefore, influenced much more by the color of the hair than is the first. 
+
+	The specular lights can be output separately using the Multi-Pass functionality in the Hair render settings.
+
+
+
+Transparency
+	• Black = no transparency
+	• White = completely transparent
+	• Gray = transparency relative to the grayscale value
+
+	Since rendering transparent hair takes longer and requires more memory, it should only be applied if absolutely necessary. Hair renders very realistically, even without using transparency.
+
+Brightness
+	This setting lets you adjust the amount of transparency. Higher values lead to greater transparency.
+
+Thickness
+
+Curve
+	This function graph lets you define the shape of the hair along its entire length. This does not make much sense when creating normal hair, but can be used to create interesting effects
+
+Tex
+	a Voronoi shader was used to define the thickness of the hair
+
+
+Frizz
+	Frizz lets you add chaos to your hair (To be exact, an internal Noise filter is applied). With Frizz you can let your hair bend in any and all directions, even over the entire length of the hair.

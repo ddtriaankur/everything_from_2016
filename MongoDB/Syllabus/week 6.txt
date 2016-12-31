@@ -1,0 +1,311 @@
+
+Aggregation  :		http://www.mongodb.org/display/DOCS/Aggregation
+Accumulators :		https://docs.mongodb.org/manual/meta/aggregation-quick-reference/?_ga=1.130849357.359548761.1460946231#accumulators
+
+:?: determine the number of unique companies an individual has been associated with
+
+totalnumber of relationships individual have participated in
+db.companies.aggregate( [
+    { $match: { "relationships.person": { $ne: null } } },
+    { $project: { relationships: 1, _id: 0 } },
+    { $unwind: "$relationships" },
+    { $group: {
+        _id: "$relationships.person",
+        count: { $sum: 1 }
+    } },
+    { $sort: { count: -1 } }
+] )
+
+db.companies.aggregate([
+	{Eric Di Benedetto},
+	{$group: {
+		_id: "$name",
+		count: { $sum: 1 }
+	}}
+])
+	{ $unwind: "$relationships"},
+
+db.companies.aggregate([{$match: { "relationships.person.permalink":"eric-di-benedetto" } },
+	{ $project: { relationships: 1, _id: 0 } },
+	{ $unwind: "$relationships" },
+	{ $group: { 
+		_id: "$relationships.person.permalink",
+		count: { $sum: 1}
+		 } },
+		 { $match: {"_id": "eric-di-benedetto"}}
+		 ]).pretty();
+
+db.companies.aggregate([
+  { $match: { "relationships.person.first_name": "Eric"} }
+]).pretty(); 
+
+Notes :
+
+	- process data records and return computed results
+	- it group values from multiple docs together, and can perform a variety of operation on them to return a single result
+
+MongoDB provides three ways to perform aggregation:
+	1. the aggregation pipeline
+	2. the map-reduce function
+	3. single purpose aggregation methods
+
+Aggregation Pipeline
+ - mongoDBs aggregation framework is modelled on the concept of data processing pipelines.
+ - Doc enter a multi-stage pipeline that transform the document into an aggregated result
+ - pipeline stages can use operators for tasks such as calculating the average
+   or concatenating a string
+ - The pipeline provides effiecient data aggregation using native operations
+   within MongoDB, & is the preferred method for data aggregation in mongoDB
+ - can operate on a sharded collection
+ - it can use indexes to improve its performance during
+   some of its stages.
+
+db.collection.aggregate( [
+	{ $match: { status: "A" }},
+	{ $group: { _id: "$cust_id", total: { $sum: "$amount" } } }
+] )
+
+Map-Reduce
+- in general it have two phases: 
+	1. a map stage that  process each doc and emit one or more obj for each input doc
+	2. reduce phase that combines the output of the map operation
+ - map-reduce can specify a queury condition to select the input doc as well
+   as sort and limit the result
+ - in general map reduce is less efficient and more complex than the
+   aggregation pipeline
+ - can operate on sharded collection. 
+ - can also output to a sharded collection
+
+db.orders.mapReduce (
+	function() { emit ( this.cust_id, this.amout ); },  	//map
+	function(key, values) { return Array.sum( values ) },	//reduce
+	{ 
+	 query: { status: "A" },				//query
+	 out: "order_totals"					//output
+	}
+)
+
+
+Single Purpose Aggregation Operations
+	MongoDB also provides 
+	>> db.collection.count() 
+	>> db.collection.group()
+	>> db.collection.distinct() 
+ - all of these operation aggregate docs from a single collection
+ >> db.orders.disctinct("cust_id") 
+
+link :: https://docs.mongodb.org/manual/reference/aggregation-commands-comparison/
+
+----------------------------------------------------------------------
+Analytics in MongoDB
+1. 
+Takes doc out of mongoDB collection and pass them to one or more stages,
+each of which perform different operations on its inputs
+I/O are streams of docs 
+each stage provides a set of params we can manipulate
+
+----------------------------------------------------------------------
+2.
+Operations
+- match (find)
+- project 
+- sort
+- skip
+- limit
+
+>> db.companies.aggregate([
+	{ $match: { founded_year: 2004} },
+]).pretty();
+
+>> db.companies.aggregate([
+	{ $match: { founded_year: 2004 } },
+	{ $sort: {name: 1} },
+	{ $skip: 10 },
+	{ $limit: 5 },
+	{ $project: {
+		_id: 0,
+		name: 1,
+		founded_year: 1
+	} }
+])
+
+- a pipeline is docs as elements, and 
+- each doc is a stage operator 
+- mongoDB will execute in the stages you specify
+- first filters the docs where the 'founded year' is 2004
+- sorting based on the name ascending order
+- skipping the first 10
+- and limiting our end results to 5
+- finally, projecting the 'name'
+
+----------------------------------------------------------------------
+3. // Aggregation Pipeline Quick Ref
+Expressions
+Accumulators
+
+----------------------------------------------------------------------
+4.
+$project - into to reshaping
+promote Nested Fields
+>> db.companies.aggregate([
+	{ $match: {"funding_rounds.investment.financial_org.permalink":
+"greylock"} },
+	{ $project: {
+		_id: 0,
+		name: 1,
+		ipo: "$ipo.pub_year",
+		valuation: "$ipo.valuation_amount",
+		funders: "$funding_rounds.investments.financial_org.permalink"
+	}}
+]).pretty();
+
+>> db.companies.aggregate([
+	{ $match: {"funding_rounds.investment.financial_org.permalink":
+"greylock"} },
+	{ $project: {
+		_id: 0,
+		name: 1,
+		founded: {
+			year: "$founded_year",
+			month: "$founded_month",
+			day: "$founded_day"
+			}
+		} }
+]).pretty();
+
+-----------------------------------------------------------------------------
+5.
+$unwind
+	- it unwinds each element in the array into a, single doc for each
+	  array element
+
+>> db.companies.aggregate([
+	{ $match: {} },
+	{ $unwind: "$funding_rounds" },
+	{ $project: {
+
+	} }
+])
+
+-----------------------------------------------------------------------------
+6.
+Array Expressions
+>> db.companies.aggregate([
+	{ $match: {} },
+	{ $project: {
+		_id: 0,
+		name: 1,
+		founded_year: 1,
+		rounds: { $filter: {
+			input: "$funding_rounds",
+			as: "round",
+			cond: { $gte: ["$$round.raise_amount",100000000] }
+		} }
+	} }
+]).pretty();
+
+- double dollar to ref a var to find within the expression we are working in
+
+- arrayElemAt
+>> db.companies.aggregate([
+	{ $match: {} },
+	{ $project: {
+		_id: 0,
+		name: 1,
+		founded_year: 1,
+		first_round: { $arrayElemAt: ["$funding_rounds", 0 ] },
+		last_round: { $arrayElemAt: [ "$funding_rounds", -1 ] }
+	} }
+]).pretty();
+
+- slice expression
+>> db.companies.aggregate([
+	{ $match: {} },
+	{ $project: {
+		_id: 0,
+		name: 1,
+		founded_year: 1,
+		early_rounds: { $slice: ["$funding_rounds", 1, 3 ] }
+	} }
+]).pretty();
+
+- size
+>> db.companies.aggregate([
+	{ $match: {"founded_year": 2004} },
+	{ $project: {
+		_id: 0,
+		name: 1,
+		founded_year: 1,
+		total_rounds: { $size: "$funding_rounds" }
+	} }
+]).pretty();
+
+-----------------------------------------------------------------------------
+7. Accumulators
+- involves calculating values from multiple docs
+
+----------------------------------------------------------------------------
+8. Accumulators in project
+>> db.companies.aggregate([
+	{ $match: { "funding_rounds": { $exists: true, $ne: [] } } },
+	{ $project: { 
+		_id:0,
+		name: 1,
+		latgest_round: { $max: "$funding_rounds.raised_amount" }
+	} }
+]);
+- max traverses through an array and provide a maximum value
+
+>> db.companies.aggregate([
+	{ $match: { "funding_rounds": { $exists: true, $ne: [] } } },
+	{ $project: { 
+		_id:0,
+		name: 1,
+		latgest_round: { $sum: "$funding_rounds.raised_amount" }
+	} }
+]);
+- sum calcs the total sum of the array
+
+--------------------------------------------------------------------------
+9 Intro to $group
+- operations on group of docs
+>> db.copmanies.aggregate([
+	{ $group: { founded_year: "$founded_year" },
+	{ average_number_of_employees: { $avg: "$number_of_employees" }
+ } },
+	{ $sort: { average_number_of_employees: -1 } }
+]);
+
+>> db.companies.aggregate([
+	{ $match: { "relationships.person": { $ne: null } } },
+	{ $project: { relationships: 1, _id: 0 } },
+	{ $unwind: "$relationships" },
+	{ $group: {
+		_id: "$relationships.person",
+		count: { $sum: 1 }
+	} },
+	{ $sort: { count: -1 } }
+]).pretty();
+-----------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,93 @@
+
+// TIPS 
+
+Lock Guide 					ALT + Ctrl + ;
+Snap   							SHFT + Ctrl + ;
+Rulers              Ctrl + R
+Guides       				CTRL + ;
+Grid   							Ctrl + '
+Show  							CTRL + H
+Actual Pixels       ALT + Ctrl + 0
+Deselect            CTRL + D
+Reselect  					SHFT + Ctrl + D
+Merge Layers        Ctrl + E
+Merge Visible       SHFT + Ctrl + E
+Send to Back    		SHFT + Ctrl + [ 
+Bring to Back    		SHFT + Ctrl + ]
+Later 
+
+
+Target Path ??
+Gamunt Warning ?? 
+Pattern Maker ??
+
+Liquify 						SHFT + Ctrl + X
+Inverse 	 					Ctrl + I
+
+Color  			F6
+Layer  			F7
+INFO 				F8
+
+Adjustment
+
+Select a colour from an image         Alt + Brush Tool
+
+Increase/ Decrease Brush Size 				WINDOWS: ]/[
+
+Inc / Dec Brush Hardness              WINDOWS: }/{
+
+Prev /next Brush 											WINDOWS: ,/.
+
+First / Last Brush 										WINDOWS: </>
+
+Toggle Air Brush Option 							Shift+Alt+P
+
+Create New Layer
+	SHFT + Ctrl + N  ::
+	Ctrl + New Lyr ::
+
+Fill a layer
+	Alt + Del
+	Ctrl + Del
+
+Flatten Layers
+	Ctrl + Alt + Shft + E
+	Ctrl + Alt + Shft + N + E
+
+Merge Visible Layers 									Ctrl+Shift+E
+
+Copy 																	Ctrl + J
+
+To send Layer To bottom or on top of the stack 								Ctrl+Shift+[ // ]
+
+Bring Layer forward or back 																	Ctrl + [//]
+
+Reselect  																										Ctrl+Shift+D
+
+Select Bottom Layer // for Top layer 													Alt+Comma(,) / /Period (.)
+
+Finding The Sizing Handles 																		Ctrl+T, then Ctrl+0
+
+Select Individual Channel 																		Ctrl+3(red),4(green),5(blue) + 2 (Normal)
+
+Fill  																												Shift+F5
+
+Save for Web and Devices 																			Ctrl+Shift+Alt+S
+
+Levels 																												CTRL + L
+
+Free TransForm 																								CTRL + T
+
+Curves 																												CTRL + M 
+
+Color Balance 																								CTRL + B
+
+Saturation 																										CTRL + U
+
+Desaturate 																										Ctrl + Shift + U
+
+Auto Tone
+	Shift + Ctrl + L
+	Alt+Shift+Ctrl+L
+	
+	

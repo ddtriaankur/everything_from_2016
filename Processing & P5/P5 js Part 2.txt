@@ -1,0 +1,271 @@
+
+P5 js Part 2 
+
+7.1 Intro to HTML
+	• head tag in html
+	• Include script tags in the html to access the p5 js libs and sketch files
+	• Learn HTML tags
+	• HTML makes static format
+	• P5 js is dynamic and interaction based info
+
+7.2 Create HTML DOM Elements with P5 JS //
+
+	• createCanvas()
+	• There are more create____() in the p5 DOM Lib
+	
+	• p5 DOM library is required for these functions::
+	     <script language="javascript" type="text/javascript" src="path/to/p5.dom.js"></script>
+	
+	• Syntax :: createP("My favorite color is purple.")
+	• createDiv()
+	• createButton()
+	• createInput()    // creates an <input></input> element in the DOM for text input. 
+	
+	• createImage()
+	• Total 16 more to this :: http://p5js.org/reference/#/libraries/p5.dom  
+	
+	• createElement("tag"," content")
+	
+	• createImg('http://p5js.org/img/asterisk-01.png');
+	Syntax ::   createImg(src,[alt],[successCallback])
+	
+	• Anchor Element for links ::
+	createA(href,html,[target])
+	[target] 	String: target where new link should open, could be _blank, _self, _parent, _top.
+	
+	• Either returns the value of the element if no arguments given, or sets the value of the element.
+	value([value])
+	• Creates a dropdown menu <select></select> element in the DOM.
+	• empty
+
+	
+7.3 Manipulating DOM Elements with html & position function
+
+	• Create function makes an object
+	• Object that hold the all the info about that element
+	• And allows to execute function upon them
+	• Make a variable and stores the create___() inside it
+// style() , for using with the css.
+//clear () , clears the background.
+
+:: Syntax ::
+
+position()
+	• Declare       :: var canvas 
+	• Initialize     :: canvas = create Canvas(600,600); 
+	• Call              :: canvas.position (400,500)
+
+html()
+	• Declare   :: var h1
+	• Init    ::  h1 = createElement 'h1', 'Waiting.');
+	• Calling   ::  h1.html ('Now I have changed the waiting calling….')
+?? What is value function - check p5 element
+?? createInput
+
+	i. https://codepen.io/pen?
+	ii. https://jsfiddle.net/api/mdn/
+
+7.5 Other Events changed && input functions
+
+___.mouseOver()
+___.mouseOut()
+___.changed()
+___.input ()
+
+All of these events are available for any kind of DOM element  that you might create
+You can click on a para, h1, canvas
+
+
+FOCUS on EVENTS  [lingo?]
+
+	• Value () :: Either returns the value of the element if no arguments given, or sets                    the value of the element.1
+           Syntax :: ___[ var name ]__.value()  
+
+	• Syntax :: ____.changed () :: when the variable is changed after pressing enter// tabs
+
+7.4 Handling DOM Elements with Callback
+
+Works with p5 and p5 DOM js library
+	
+	• The .mousePressed() function is called once after every time a mouse button is pressed over the element.
+	Function: function to be fired when mouse is pressed over the element. 
+	
+	• By storing the result of the create button func. into a variable
+	var button = createButton()
+	
+	Syntax :: 
+	• Declare a variable :: var but;
+	• Init ::  but = createButton ();  // store and DOM Element into it
+	• Calling :: but.mousePressed ( [ fxn ] )
+EXTRA
+mouseWheel()
+mouseMoved() 
+
+7.6 The Basics of CSS // the style ()
+
+	• Can write into __name.css files
+Syntax for html
+	• css Syntax
+	
+	[_selector_] {
+	name : value pairs;
+	} 
+
+	Eg.  >> p {
+	background-color: #F0F ;
+	color: white;
+	padding: 8px;
+	}
+
+	• <style>     </style>  :: Inside head tag
+	• Look for CSS properties online
+	http://www.blooberry.com/indexdot/css/propindex/all.htm
+	https://developer.mozilla.org/en-US/docs/Web/CSS
+
+	• JS_Syntax :: [ element_Name ].style ("background-color",  "pink");
+
+7.7 Js Input Event
+
+	• Changed event is triggered when you press ENTER // TAB
+	• Input event at any time the content changes
+	• Call back functions.. Notekit web browser
+
+7.8 CSS Selectors
+
+These should be defined and call under html
+	• tag :: all p type elements
+	 
+	• # id  :: a single DOM element
+	Syntax :: 
+	Declare :: <p id = "unicorn">           </p>
+	Defining :: #unicorn { 
+	name: value pairs;
+	}
+	
+	• . class :: group of elements
+	Syntax :: 
+	Declare :: <p class = "rainbows">     </p>
+	Defining ::
+	.rainbows { 
+	   name: value_pairs;
+	    }
+	
+	Priority Order
+	1. id 
+	2. class
+	3. Tag // Basic DOM Element
+
+7.9 select() and selectAll() with CSS Selectors
+
+	• Syntax :: select("[tags]")
+	// This only select the first element of the tag
+	
+	Def && Init :: var element = select("#unicorn");
+	Calls :: element.__all _DOM_Functions ();
+	
+	• Syntax :: selectAll("[tag name]") 
+	//   This is an Array
+	
+	Def && Init :: var elements = selectAll("p")
+	Call :: for (var i =0; elements.length; i++)
+	           { paragraphs.mouseOver(changeBg)  
+	           }
+
+7.10 Callbacks on multiple DOM Elements
+
+	• Keyword "" this   "" /// MAGIC
+	
+Def && Init  ::  var para = selectAll('p')
+Calling     ::       for (var i = 0;  i< para.length; i++)
+                          {  para[i].mouseOver (highlight);
+                             para[i].mouseOut (unhighlight);
+                           }
+
+Callback Function Def ::
+                   function highlight (){
+                      this.style ( 'background', 'pink')
+                      this.style ( 'padding', '8px')
+                      )
+
+                           }
+
+
+7.11 parent() and child()  /// IMP
+
+	• forces to make the p5 DOM element to the HTML element
+	• Make the p5 DOM parent to a particular 'id' tag
+Syntax :: 
+	• [var_Name].parent('canvasp')
+This means 'canvasp' is the parent of the variable. 
+
+Note :: '#' symbol is not required
+??wtf <div>  </div>
+Sorted && unsorted list
+
+Loading with a CALLBACK pg 125
+
+7.4 
+Callback function is automatically called with one argument
+
+mousePressed event for DOM elements only
+
+7.12 Assigning a CSS class Dynamically
+
+ Dom element can be a member of multiple class
+
+	• Already Defined in Html file 
+<style>
+.apple{
+Background-color: #F00
+}
+
+.blueberry{
+Background-color: #00F
+} 
+</style>
+
+Call
+p[userDefined].class('[className]')
+
+	• Create A tag 
+	• createA('link // #', 'blueberry')
+
+7.13 parent && child functions with variables
+
+Same statement
+	• img.parent (p)
+	• p.child ( img )
+	
+	• You can receive the info about the element's parent into a variable
+	hence making them siblings
+	Syntax :: var para = this.parent()
+	
+	• remove():: Removes the element and deregisters all listeners.
+	
+	• Adding img to images = [array]
+	
+	• remove()  :::wtf ???
+	• Declaring || Resetting the Array :: paragraphs = [];
+	• hide()
+
+7.15 
+
+7.14 drag and drop a file
+
+<style>
+ #dropzone {
+                   padding: 24px;
+	        border-style: dashed;
+	        font-size:36pt; 
+	        width: 50%;
+                               }
+</style>
+
+	• drop(callback, callback)
+	callback 1 :: triggered when files are dropped
+	callback2:: when the files are received
+	• Pass it with the callback of second function in an argument 
+	• P5 file object
+	• http://p5js.org/reference/#/p5.File 
+
+NOTE :: JavaScript Closure ???

@@ -1,0 +1,248 @@
+
+Shaders // Effects // Lights
+
+Fresnel Shading //viewing angle :: the relationship b/w  the angle that you look at surface and the amount of reflectivity you see.
+                                 Glazing angle vs perpendicular to normals.
+
+The Posterizer Shader :: is a filter that is used to adjust another shader or image. 
+                                            Allows you to adjust the number of levels per color channel of the texture for               
+                                           posterizer effects.  Number of levels of color, b/w zero and maximum intensity.
+
+Ambient Occlusion ::  offers, within certain limits, a fast alternative to GI.
+ 
+	If you now place the AO shader in the Diffusion material channel, these affected areas will be darkened,
+	The left end of the gradient represents areas with minimal exposure (bottom of sphere) & the right side represents areas with maximum exposure.
+
+Minimum Ray Length :: This value shouldn’t really be tampered with. Leave it set to its default setting of 0.
+	The maximum Ray Length :: This value defines to which distance the surfaces see each other.
+
+Dispersion :: 0 nah 100 yaay //dissolves the AO
+
+Maximum Samples in critical areas.
+
+AO in Environment channel 
+AO must be placed into the Environment  //or Luminance material channels.
+
+	•  Traces the distance b/w two objects
+	• Self shadow Only :: Enabled
+
+Note :: Particles
+
+Self Shadowing only :: only to itself [//self explanatory//]
+
+Backlight
+	Backlight allows you to gather illumination (only from real light sources, i.e., no polygon lights, GI, etc.) from the back face of an object. This gives the ability to create translucency effects with backlighting, such as rice paper or a thin leaf lit from the opposite side complete with shadowing.
+	The most likely place to use Backlight is in the Luminance channel.
+
+
+Colorizer //gradient shader:: takes the value of an input channel & remaps it based on a gradient. 
+                     This is very useful for colorizing shaders such as noise.
+
+ChanLum / // RayTracer // / almost SSS supplied by NAAM.
+
+Light sources must cast shadows! No shadows - no ChanLum effect!
+	• It is designed for use in the Luminance channel. 
+	• Simply load the shader, define a color that should be blended into the object’s color and set Mix Mode to Multiply.
+	• This shader can also be used in other channels, e.g., the Color channel - just make sure Mix Mode is always set to Multiply.
+
+This effect, when applied well, comes close to SubSurface Scattering, though it is actually entirely different. 
+ It makes for a great wax shader, and when used moderately, can be used to make surfaces like human skin much more realistic, thanks to the light creeping around corners and the softening of shading.
+BRIEF
+• creates an effect similar to SubSurface Scattering see [advance rendring]
+• the difference being that the ChanLum shader’s effect takes place on the object surface.
+• A good comparison would be to that of a peach, whose surface is furry, somewhat blurred.
+• What the ChanLum shader does is gather dispersed light across a given surface
+• ChamLum lets light creep around corners when using this offset.
+• When combining this type of lighting with a Fresnel effect (above), a fuzzy, velvet-like effect will result, that correctly attenuates for shadows.
+
+Description :: 
+	For a point on the surface (P), the angles (a) between the surface and all light sources in the scene will be ascertained. These angles will then by analyzed by such lighting models as Phong or Oren Nayar
+
+Fog, for example, has no surface Normals. The renderer will only take into account the shadows cast by the light sources (when volumetric fog is used).
+
+Shadow caster ??
+Good Settings ::
+• Sample & Sample Radius :: less is good for render
+
+Samples:2 	Initial offset:2/16	Sample radius:2/8  	Along Normal
+• With Fresnel on transparency :: looks like an egg shell
+
+2	.25	2222222 cm	Area
+
+The Cel shader  //ray tracer
+for cartoon-style shading, such as Manga-style or Anime-style.
+
+
+Lumas //creates light map
+
+[Light tracer just like Cel Shader]
+
+	• Its an illumination shader 
+	• can simulate the anisotropic scratches 
+
+Lumas is useful in combination with Fusion and other channel shaders or images.
+
+Algorithm :: 
+	Internal, which is the standard Lambertian model, 
+
+Oren Nayar, which provides for a roughness variable allowing the user to go from simple surfaces (0 Roughness, identical to Lambertian), to complex rough surface (1+ Roughness, which provides a matt surface, such as linen or dirt).
+
+Roughness :: // only for Oren Nayer
+Zero is no roughness while 100% or greater is very rough. 
+
+Illumiation
+	makes the color darker when the value is close to zero and brighter when the value is closer to 100% or above).
+	If you are using the Oren Nayar illumination algorithm, you may want to bump up the illumination by about 10% to 20% because it renders darker usually. Appropriate values are between 0% to 200%.
+
+Contrast :: 
+	Provides contrast for the result of the Color. Zero causes no effect, 0% - 100% causes standard contrast, above 100% causes a wrap contrast (the values that go above 100% wrap around to 0% again, used to create the Candy materials), negative values provide an inverse contrast that simulates materials that seem luminescent, such as silver. Appropriate values are -500% to 500%.
+
+Lumas into > Colorizer to use as a mask
+
+Map Alpha for shinny metal scratcehs
+
+
+SSS //Ray tracer
+	• most effectively applied in the Luminance channel.
+	• also works in conjunction with GI, 
+	• i.e., GI light bounces onto an SSS object will be included in the calculation. 
+	
+	•  light that is generated by a SSS will only be recognized by other objects when in QMC GI Mode.
+
+	•  Strength value is a multiplier for the SSS effect. It defines the overall strength of the SSS. 
+	• Greater values are possible, which will cause the object to radiate more brightly.
+
+Shader option ::  this Shader define how the light hitting on an object’s surface sshould be colored.
+
+
+Path Length :: 
+	• Defines how far the light can penetrate beneath a given surface. 
+	• Lesser values absorb (diffuse) faster than greater values.
+	• Higher Path Length offers the light correspondingly less resistance.
+	• lower values increases the render time. 
+	• because far more samples have to be calculated the shorter the path length. 
+	
+	For animations 
+	• the values will in part be cached, 
+	• which causes the first frame of animation to take much longer to finish than the following frames. 
+	
+	RGB :: 
+	• multipliers of the Path Length
+	•  you can define which color can penetrate deeper (higher values) or less deep (lower values) into a material.
+
+	• These colors influence the color effect inside the object. 
+	• These effects primarily occur in object regions not directly affected by light (shadow regions). 
+
+TIP Values of less than 100% can be used - which will increase render times accordingly.
+Sub surface can be seen from the other side of the light source much better.
+
+Multiple TAB
+Sample Density :: Lower the sample faster the caching will be.
+Smoothing ::smoothens the splotchiness in the dark samples.
+Threshold :: increase it to get faster results
+
+
+Art Shader :: 
+
+The first step when using the Art Shader is to create the shaded sphere. Why not paint it from scratch in your favorite painting software such as Body Paint 3D. Or perhaps render a sphere in CINEMA 4D and run a few filters over it in an image editor?
+
+	• When using the Art Shader, lights are not required.
+	
+	The Art Shader (best used in a material’s Luminance channel) is possibly the most fun you will ever have coloring your illustrations. Instead of using lights and complex texture mapping for your scene, you provide the shader with a picture of a shaded sphere textured and lit the way you want the objects in the scene to be textured and lit. Sketch and Toon will then apply this style to the scene’s objects.
+
+	The Hatch shader :: is Sketch and Toon’s most advanced shader. It places a picture of a stroke (or any other picture you want it to use) multiple times onto the object to create a hatched lines effect. The Hatch shader’s settings give you full control over how these strokes are placed, making it possible for you to create any type of hatched lines effect.
+
+MoGraph Color Shader
+
+Variation Shader 
+	works in conjunction with MoGraph & can be used to vary the textures of clones (even those of render instances!).
+
+Spots Shader :: 
+	This shader helps you to mimic the halftone appearance of low resolution print images. It generates larger or smaller spots depending on the brightness of the surface illumination.
+
+
+Projection Shader ::
+Material mapping tag controls
+	Projector allows you to alter the projection of a shader or image. This is useful for having different mappings in separate channels of a material, especially when used in conjunction with other shaders such as Nukei or Fusion. Note that 3D shaders do not work with Projector.
+
+PIXEL SHADER :: 
+	Let’s say you want to project a texture made up of small areas of the same color onto a surface (e.g., a TFT display). You would want the individual pixels to also look good close up. This is where the Pixel Shader works its magic - it creates a fitting "pixel coarseness" without having to make changes to the original texture.
+
+Distortion Shader :: 
+	takes the value of an input channel and distorts it using the value from another texture channel.
+
+LAYER CHANNEL :: 
+	is like putting up different shaders to create a single texture
+
+Light Details Effects+++
+
+Visible Light
+	This effect is comparable to fog, which does not diminish light, but rather adds to its brightness.
+	With Visible Light, you can produce stunning effects including headlights, shimmering lights, laser beams and a host of atmospheric effects.
+
+Visible
+	the light source will produce visible light that passes through all objects. 
+	For example, a visible light could be placed in the center of a planet’s sphere to simulate an atmosphere.
+
+	The Visible option is of special importance to the particle system. Visible lights (with No Light Radiation enabled) lend themselves to a huge range of effects, such as nebula clouds, smoke, comet tails, fire and flames.
+
+Volumetric
+	Cast shadow in the visible light's beam.
+
+
+Inverse Volumetric
+	the light is visible where the light cone would normally be in shadow.
+	This inverts the light’s volumetric effect, giving the impression that the light is radiating from the logo itself.
+
+No illumination
+	If you need to see just the visible light and/or its lens effects without the light source actually illuminating objects, enable this option. Should you need your light sources for special effects (such as the exhaust gas of a jet engine) enable this box for faster rendering.
+
+Ambient Illumination
+	With both Ambient Illumination and Falloff enabled for the light source, you can lighten specific regions of your scene in a similar way to how you darken them with Negative Lighting, explained earlier.
+
+Show visible Light 
+	Enable this option to show an approximation of the visible light in the viewports, not to be confused with illumination. Again, this range can be interactively adjusted via its handles.
+
+Additive :: 
+	Enable this option if you want to mix the light beam additively with other light sources.
+
+Adapt :: 
+	This option prevents a light beam from being over-exposed. The brightness is reduced until the  over exposed effect disappears.
+
+No Illumination :: 
+	If you need to see just the visible light and/or its lens effects without the light source actually illuminating objects, enable this option. Should you need your light sources for special effects (such as the exhaust gas of a jet engine) enable this box for faster rendering.
+
+Shadows:: Area :: 33 (Greyish)
+
+BOOLEAN EXPRESSION
+
+Shadow             Multiply :: 1-0 // all white - black [grey]
+Illumination      Normal :: 0-1 // all black -[introducing] white
+Material Lum   Normal :: 0-1 [limited] // 
+
+Diffusion Channel
+	The Diffusion page lets you darken and lighten the material in specific areas using a diffusion map.
+	texture is colored, it will still be treated as a grayscale map.
+	The darker a pixel in the diffusion map, the darker the corresponding region of the material.
+
+Affect Luminance:: After Specular [on by default] :: After Reflection 
+ Enable the Affect Luminance option if you want the diffusion map to affect the luminance property.
+ This helps you add irregularities to the luminance to achieve a more natural look.
+
+Making gels // also known as lightmaps
+
+Details tab 
+	Contrast :: use less for soft transitions from its lit surface to its shadowed area.
+	0 % contrast for  soft edges 
+	100% for hard edges
+
+	With the contrast control you can adjust how soft or hard you wish the lit surface transition to be.
+	If you need a special over-soft look to your objects you may even enter negative values,
+
+Shadow Caster
+	You can use the Shadow Caster option to cast shadows without adding illumination to the scene.
+	Adding negative Intensity value (at General Tab) , the shadow will cast light instead of shadows.
+
+NOTE Area lights cannot emit a visible or volumetric light, with one exception - the Line area shape.
+
+

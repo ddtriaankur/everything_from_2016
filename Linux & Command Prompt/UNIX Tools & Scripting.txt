@@ -1,0 +1,773 @@
+
+UNIX Tools & Scripting
+
+http://www.cs.cornell.edu/courseinfo/listofcscourses
+http://www.cs.cornell.edu/courses/CS2043/2014sp/index.shtml
+http://www.cs.cornell.edu/courses/CS2043/2015sp/index.shtml
+https://en.wikipedia.org/wiki/Unix
+http://www.catb.org/esr/writings/taoup/html/ch01s05.html
+
+for ssh -ing use putty on win
+>> ssh ha232@linus.csulab.cornell.edu
+- cygwin :  a lunux-like environment for windows
+- VMWare: Unix environment in Virtual Machine within Windows
+- OSX: install xcode and the package manager Macports 
+
+---------------------------------------------------------------
+
+Lecture 1  A brief intro to Unix
+	SHELL
+		is a program that allows the user to interact with the UNIX system.	
+		There are primarily two "families" of unix shells:
+		- Bourne shell (AT&T) sh => ksh => bash
+		- C shell (Berkley) csh => tcsh
+
+---------------------------------------------------------------
+
+Lecture 2 The Unix file system
+
+	UNIX: single global "root" directory /regardless of how many disks/volumes you have
+				Directories are separated by forward slash instead of backward (in windows)
+			: /home/user1/kjahsd/asldj
+				'Hidden' files begin with "dot"  :: .gimp
+							/dev:		hardware devices can be accessed here  
+							/lib:		store libraries, along with /sur/lib, /usr/local/lib.
+							/mnt:		frequently used to mount disk drives
+							/usr:		mostly user-installed programs and their related files
+							/etc:  	System-wide settings
+
+Programs are usually installed in one of the "binaries" directories:
+		- /bin:						system programs
+		- /usr/bin: 			most user programs
+		- /usr/local/bin: a few other user programs
+		- /home/username:	user documents/files
+Relative Path Shortcuts
+		~ 	current user's home directory
+		. 	the current dir 
+		.. 	the parent dir of the current directory | move up a dir
+
+Creating a New File
+	touch [flags] <file>		// by default txt file
+Creating a New Dir
+	mkdir [flags] <directory>
+		- can use relative/absolute paths to make dirs outside the current dir
+File Deletion
+	rm [flags] <filename>
+	rm * 		removes every file in the current dir
+	rm *.jpg 		removes every .jpg file in the current dir
+
+	rm -i filename 		- prompt before deletion
+Deleting Dirs
+	rmdir [flags] <dirname> 		// -r flag for recursive del
+Copy 
+	cp -r <src> <dest> 		//copy complete dir
+Move
+	mv [flags] <source> <destination>
+		- also used for renaming
+
+Mannual to check it ::
+	man <command_name>
+		use /<keyword> to perform a keyword search in a manpage
+
+Unix was designed to allows multiple people to use the same machine at once. This raises some security issues.
+Files can also be assigned to groups of users, allowing reading, modifications and /or execution to be restricted to a subset of users
+type 'groups' to see what groups you belong to. 
+
+File Ownership
+	- each file is assigned to a single user and a single group
+	- it takes root permission to change file ownership
+	- to check you group type $ groups
+	Changin Permissions - Convenience
+			r x 2^2 + w x 2^1 + x x(execute) 2^0
+			Examples:
+				chmod 755 : rwxr-xr-x
+				chmod 600 : rw-------
+				chmod 777 : rwxrwxrwx
+
+chgrp group <target> : 			change Group
+chown user:group <target>   change Ownership
+
+Reading Files
+	cat <filename>
+	cat <filename1> <filename2>
+	more <filename> 	//scroll through 1 page at a time
+	less <filename>		//scroll up and down by pages or lines
+To see only the beginning of a file
+	head -[numblines] <filename>
+	tail -[numlines] <filename>
+		-prints the first/last numlines of the file
+		-default is 10 lines
+
+Binaries
+		are written in machine code
+
+Text files
+	nano filename :			in terminal editor, all shortcuts begin with CTRL	
+	cat filename :			prints the contents of the file to the treminal window
+	cat filename filename2
+	more filename :			allows you to scroll through the file 1 page at a time
+	less filename :			lets you scroll up and down by pages 
+	head -[numlines] <filename>
+	tail -[numlines] <filename>
+									prints the first/last numlines of the file. Default is 10 lines
+	echo <text_string>
+		prints the input string to the stdout (the terminal)
+		
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+-----------------------------------------------------------
+
+Lecture 3 More on the Unix file system, text editing: nano and vim (basics)
+
+Unmask acts as the last stage filter that strips permissions as a file or directory is created:
+	$ unmask mode 		::remove mode from the file's permissions
+	Examples: 
+				unmask 077: full access to user, no access to eveyone else
+				unmask -S : displays mask in simbolic notation
+
+Change Group:				if you want to change the group of a file you have ownership of
+		chgrp group <target>
+Change Ownership:		change who owns a file you use
+		chown user:group <target>   
+				: group is optional
+				: use the flag "-R"  to do a recursive change to a directory and files within
+
+	Just like in windows, we can create links to files and directories.
+	There are two types of links, hard links and symbolic links.
+Link Creation
+		ln [options] <target file> [link_name]	
+Symbolic Link
+		ln -s <target_file> [link_name]
+			- the link file contains a string that is the pathname of the original file or dir.
+			- in other words the symbolic link points to the other file
+
+Binaries: written in machine code, not human readable		
+
+To check the file type
+		$ file filename
+
+	If the machine automatically put you into a shell that is not bash just type bash
+
+	~/.login file gets executed each time you log into the server
+		::add the following line to the end ~/.login
+				if( -f /bin/bash) exec /bin/bash --login 	
+Editing password				
+	- If you had root privilages you could just edit /etc/passwd and find the line corresponding to the current user.
+	- The environment variable $PS1 stores your default prompt. You can modify this variable to spruce up your prompt::
+	Example: First echo $PS1 to see its current value.
+			\s-\v\$ (default)
+			\s name of shell and \v version of bash
+			for other options: 			http://www.gnu.org/software/bash/manual/bashref.html#Controlling-the-Prompt
+			Bash shell shortcuts: 	http://linuxhelp.blogspot.com/2005/08/bash-shell-shortcuts.html
+		
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+-----------------------------------------------------------
+doit
+Lecture 4 Shortcut keys, history, aliasing, character expansion, and file
+compression
+
+	Vim: Tip of the day !
+	Search and Replace
+		search_term
+		Replace pattern with string:
+		:%s/pattern/string/[options]
+	once you find the first occurence of search_term, hit n to find the
+next one. "N" goes to the previous occurence
+
+	Listing files
+	The human option:  ls -lh
+	One file per line: ls -1
+
+sh : The Bourne Shell - a popular shell made by Stephen Bourne
+bash : default shell for the GNU OS, most Linux distros, and OSX
+csh : The C Shell - interactive and close to C, default shell for BSD-based
+systems
+zsh : The Z Shell - possibly the most fully-featured shell inspired by sh,
+bash, ksh, and tcsh
+
+Since bash is the gold standard of shells 
+more info : wikipedia.org/wiki/Comparison_of_command_shells
+
+If you are already logged in to the server, just type bash
+More importantly we would like the server to automatically put us into bash
+when we login. One way to do this is by editing the file /.login which gets
+executed each time you log in to the server and csh starts up
+	Start bash automatically: Add the following line to the end of /.login
+		if (-f /bin/bash) exec /bin/bash --login
+if you had root privileges you could just edit /etc/passwd and find the line
+corresponding to the current user
+
+	CTRL +e : jump cursor to end of line
+	CTRL +a : jump cursor to beginning of line
+	CTRL +u : deleting everything from cursor to beginning of line
+	CTRL +k : deleting everything from cursor to end of line
+	CTRL +i : clear the screen
+more shortcuts: linuxhelp.blogspot.com/2005/08/bash-shell-shortcuts.html
+
+Use the bang operator (!) to repeat a command from you history that begins
+with the characters following it.
+Example: 
+pdflatex lecture3.tex
+!p
+!pdf  
+!p and !pdf will recall pdflatex lecture3.tex
+
+Using ! can save you many keystrokes when repeating tasks
+Search through command history using CTRL + R
+	- Press Ctrl +r and type a search string. Matching history entries
+	  will be shown
+	- Press Ctrl +r again to see other matches
+	- Press ESC to copy the entry to the prompt without executing
+	- Press Ctrl + g to exit search and go back to an empty prompt
+
+Example:	(reverse-i-search)'pd': pdsh -w node[0-9] -R ssh hostname -i
+You will not be able to tyoe if there are no matches
+The more you use Bash the more you see what options you use all the time.
+For instance ls -l to see permissions, or rm -i to insure you don't
+accidentally delete a file. 
+
+Alias:
+	alias name=command
+	- alias allows to type something simple
+	- you can set an alias for your current session at the command prompt
+	- to set an alias more permanently add it to you .bashrc or .bash_profile file in you home dir
+Example : 
+	alias ls='ls --color=auto'
+	alias dc-cd
+	alias ll="ls -l"
+	-quotes are necessary if the string being aliased is more than one
+word
+	- to see what aliases are active simply type alias
+	- Nore: If you rare poking around in .bashrc you should know that any
+	  line that starts with # is commented out
+Type it in a bash shell,
+$ echo This is a test
+This is a test
+But if we type 
+$ echo *
+lec1.pdf lec1.dvi lec1.tex lec1.aux
+
+	- The shell interprets the special char in a special way unless we
+	  escape (\$) or place them in quotes "$"
+	- * ^ ? {} [] Are all "wildcard" char that the shell uses to match:
+		- any string, a single char, a phrase, a restricted set of
+		  char
+	- [...] matches any char inside the square brackets
+		- use a dash to indicate a range of char
+		- can put commas b/w char/ranges
+	- [^...] matches any char not inside the square brackets
+	- Brace Expansion:  {...,...} matches any phrase inside the
+	  comma-separated brackets, note that brace expansion must have a list
+of patterns to choose from. (i.e at least two options)
+	
+zip/unzip
+	- compress and archive (bundle) files into a single file
+	- a new compressed .zip file is created & the original files stay
+	  intact
+	- zip <zipped_file_name> <files_to_compress>
+	- unzip <zipped_file_name>
+	- Many options! e.g, add files to an existing zip, encypt with a
+	  passwd ..etc
+
+gzip
+	- compress files using Lempel-Ziv coding
+	- doesn't bundle files, the compressed files will replace the original
+	  files
+	- gzip <file_to_comperess>
+	- gunzip <compressed_file>
+bzip2
+	- copmress files using Burrows-Wheeler block sorting text compression
+	  alg. and Huffman coding
+	- more efficient than gzip on most files, but a bit slower
+	- like gzip, this is only a compression tool, and thus compressed
+	  files will replace the original files
+	- bzip2 <fil_to_compress>
+	- bunzip2 <compressed_file>
+	- to archieve multiple files together, we can use the "Tape Archieve"
+	  utility (tar)
+
+	- tar bundles multiple files together into a single file (but does not
+	  compress them or replace them)
+		- tar -cf archive.tar foo bar
+		  create archive.tar from files foo and foo bar
+		- tar -xf archieve.tar
+		  Extract all files from archieve.tar
+	- to copmress a tarball we can pipe the outcome of tar to tool like
+	  gzip or bzip2
+	- Hpwever, tar has flags to automatically do this:
+		-z: compress using gzip
+		-j: copmress using bzip2
+		tar -czf archive.tar.gz foo bar
+		creates a compressed file (archive.tar.gz) from files foo and
+bar
+	Naming convention:
+	- archive.tar.gz or archive.tgz: gzipped tarballs
+	- archieve.tar.bz2 or archive.tbz: bzip2 tarballs
+	
+	Works with directories too!
+	- tar -czf cs2042.tgz cs2042/*
+	creates a compressed file containing the dir and contents of cs2042
+directory
+
+A backup script
+	 - a simple script to back up all the files in you docs dir:
+Example:
+#! /bin/bash
+tar -czf ~/backups/cs2042.backup.tar.gz \
+~/Documents/cs2042/
+
+This script makes use of the tar archiving command:
+Making tarballs:
+tar -c(z/j)f <dest_archive> <source>
+tar -x(z/j)f <archive>
+	-c version created a new archive from a sourve file/dir
+	-x extracts an existing archive to the current dir
+	pick either -z or -j options (-z => .tar.gz, -j=> .tar.bz2)
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-----------------------------------------------------------------------------
+
+LECTURE 5 ::	wc, sort, uniq, tr, pipes and redirection, te, backticks
+
+Vim: Tip of the day!
+	:set nu		-displays line number in VIm
+	:set nonu	hides line number
+	
+Counting
+	WC	- how many lines of code are there, how many words, good for
+braggin rights
+
+Words, Character, Line and Byte count with wc
+	wc -l:	count the number of lines
+	wc -w: 	count the number of words
+	wc -m:	count the number of char
+	wv -c:	count the number of bytes
+Sort: sorts the line of a text file alphabetically
+	sort -ru file	
+	sorts the file in reverse order & deletes duplicate
+lines
+	sort -n -k 2 -t : file
+	-sorts the file numberically by using the second column, spearated by
+a colon
+Example
+	$ sort numbers.txt 
+	$ sort numbers.txt -n
+
+Pipes and redirection
+	- tr only receives input from standard input (stdin), ie keyboard
+	- Piping: cat somefile | tr 'ARIOU' 'aeiou'
+	- Input redirection: tr 'AEIOU' 'aeiou' < somefile
+
+Applications in UNIX are associated with Input/Output (I/O) Streams:
+#0: Standard input stream; STDIN (usually keyboard)
+#1: Standard output stream; STDOUT (usually terminal console)
+#2: Standard error stream; STDERR (depends on system setting, but usually
+terminal console)
+
+Piping: combining simple commands together to do more powerful things
+<command 1> | <command 2>
+$ ls -al /bin | less
+	allows you to scroll through the long list of programs in /bin
+$ history | head -20 | tail -10
+	displays the 10th-19th last commands from the current session
+
+Bash processes I/O redirection from left to right,
+Example: let's delete everything but the numbers from test1.txt, then store
+them in test2.txt
+	$ tr -cd '0-9' <test1.txt> test2.txt
+
+$ echo * | tr ' ' '\n' -replaces all spaces with newlines
+$ tr 'a-z' 'A-Z' < test.txt -prints the contents of text.txt in all caps
+
+redirect you output to a file and still see it on the stdout?!
+$ ls -1 | tee file.txt
+
+/dev/null is a special file which has the following props:
+	- any user can write to it
+	- anything writtern to it goess nowhere
+	- it always reports a successful write
+
+$ ping google.com > testping.log &
+	- when you care about a programs's output, redirect it to a log file
+
+$ play somesong.mp3 > /dev/null &
+	- if the text output doesn't matter, redirect it to /dev/null
+
+Revisiting a command
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+--------------------------------------------------------------------------------
+
+LECTURE 6 cut, paste, split, join, bc, find, grep
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+--------------------------------------------------------------------------------
+
+LECTURE  7 ssh,scp, processes: nice, kill, top: jobs
+Accessing Remote Resources
+	-ssh : secure shell to connect to a remote machine
+	-if the username is omitted, local username will be used
+	-remote machine has to be config. to accept ssh connection
+		-ssh daemon (service) has to be running and listening on an open port(by default 22)
+	- the -f flag puts ssh into the background befire executing the remote command
+	- the -Y or -X (interactive) flags forward X11 (gui) to the local machine
+
+	- An identity file authenticates with the remote machine instead of using you username/passwd
+	- Allows you to authenticate yourself with a 'pass phrase' (which could be empty)
+	- Consists typically of a pair of public/private keys used for asymmetric key cryptography (e.g. RSA)
+
+	$ ssh [username@]<remote machine name or IP add.>
+	$ ssh ha232@csug01.csuglab.cornell.edu ls
+
+	Run firefox on the remote machine
+	$ ssh -Y ha232@csug01.csulab.cornell.edu firefox
+
+Create Identity files
+	$ ssh-keygen -t dsa
+	pub key file location	(default)
+	'~/.ssh/id_rsa.pub' on the remote machine '~/.ssh/authorized_keys'
+
+ssh config file ~/.ssh/config, example
+	host office                      // ssh office connects to 
+	hostname mishmish.cs.cornell.edu // this machine and
+
+	host tiger											// ssh tiger connects to 
+	hostname tiger.cs.cornell.edu		// this machine with 
+	user Alice											// username Alice and 
+	ForwardX11 yes
+	IdentityFile ~/.ssh/id_rsa      //identity and enable X11 forwarding
+
+scp  
+	-copy file securely over a network using an encrypted ssh transport
+	- ':' is necessary after the remote machine name. 
+	- A path on the remote machine starting from the user's home dir can be specified after the colon ':'
+
+	$ scp file [username]@remote_machine:			// copy file to remote machine
+	$ scp [username]@remote_machine:file . 		//copy file from remote machine	
+	$ scp -r pics/ remote_machine: 			//copy dir using the -r flag
+
+$ wget [ OPTIONS] [URL...] 
+	-download a file from a remote location over HTTP.
+	-r: recursive
+	-l[number]: how many levels to descend when following links
+	-c: continue a partial download
+
+$curl [ OPTIONS] [URL...]
+	-transfer data from/to web servers
+
+PROCESS and JOBS
+	-a process is an instance of a running program
+	-PID		Process unique ID 
+	-Find out which process are running, and with which PIDs?
+	$ ps [options]
+		-e 		::lists every process currently running on the sys
+		-ely	::give more info about you process than you'll ever need
+		-u username	::list all processes for user 'username'
+
+	-To see info about a specific process, pipe through grep
+	$ ps -e | grep firefox
+
+Start a process with a non-default priority:
+The nice command
+	$ nice [options] command
+		- runs cmd with a specified 'niceness value' (default: 10)
+		- niceness values range from -20 (highest priority) and 19 (lowest priority)
+		- only root can give a process a negative niceness value!
+		- commands run without nice have priority 0
+		$ nice -n 10 firefox
+
+	Adjust the niceness of a running process:
+		$ renice <priority> -p <PID>
+		- changes the niceness of the indicated process to <priority>
+		- again, only root can go below 0!
+		$ renice 5 -p 10275
+		$ renice 19 -u <username>		//renice all user's process to 19
+
+		- to end a process running in the foregroung simply hit Ctrl+C
+
+		$ kill [-signal] <PID>
+		$ killall [-signal] <name>
+		$ killall firefox		
+
+			- TERM or 15 : terminate execution (default)
+			- HUP or 1 : Hang-up (restarts the program)
+			- KILL or 9 : Like bleach, can kill anything
+		$ kill 9000 : terminates process 9000
+		$ kill -9 3200 : force kill on PID 3200
+		$ kill -HUP 12118 : restarts 12118 (handy for servers & daemons)
+
+	top is a useful little program that lists and dynamically updates information about running programs. It also allows the user to kill and renice other processes.
+			$ top [-options]
+			- hit h for a list options
+			- u - show specified user only
+			- can manipulate tasks: 'k' kill; 'r' renice
+
+	job control is a bulit-in feature of most shells, allowing the user to pause and resume tasks, as well as 
+	- run them in the background (so that the shell is usable while it executes!)
+
+	$ ping <server>
+		-measures the network respons time (or network latency) to a remote server
+		-sends short bursts to the server, then measures the time until they are returned
+	
+	<command> [arguments] &
+		-runs the specified command as a backgroung job
+	cat &
+
+	$ CTRL + Z to suspend a running process!		:Pausing a job
+	
+	bg <Job_ID>
+		- Resumes a suspended job in the background
+		- without a Job ID resumes the last	job placed in the background
+
+	Find Job IDs
+	$ jobs
+
+	fg <Job_ID>
+		-resumes a paused job in the background
+
+	kill %<Job_ID>
+		alternatively you can also either foreground it and hit Ctrl+C, or you can use the kill command with the PID
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+--------------------------------------------------------------------------------
+
+LECTURE 8 Regular Expressions
+- a new level of mastery over you data
+- pattern matching with RegEx is more sophisticated & more powerful than shell expansion
+- a RegEx is a set of string that match the expression.
+- many Unix tool, like grep, takes RegEx as its input
+Example
+- grep 't.a'	-prints lines with things like tea, taa, and steap
+
+Shortcuts for many ranges of char :
+[:alnum:]	-alphanumeric char
+[:alpha:]	-alphabetic char
+[:digit:]	-digits
+[:punct:]	-punctuation char
+[:lower:]	-lowercase letters
+[:upper:]	-uppercase letters
+[:space:]	-whitespace char
+Example
+ls | grep [[:digit:]]		//list all files with numbers in the filename
+
+Support for the following shorthands is comman:
+	\d 	-digit
+	\D 	-non-digit
+	\w 	-part of word char, i.e. [a-zA-Z0-9]
+	\W 	-non-word char
+	\s 	-whitespcae char
+	\S 	-non-whitespace char
+
+The Not Operator
+[^abc] 	-matches any char that is not a b or c
+[^a-z] 	-matches any non lowercase letter
+
+Matching Repetitions
+	* 	-matches 0 or more occurences of the expression
+	\? 	-matches 0 or 1 occ. of the exp
+	\+ 	- matches 1 or more occ. of the exp
+
+$ grep 't*a'
+$ grep '[[:alpha:]]\+a'		-matches the letter a only when it is preceeded by at least one letter
+$ grep '"\?Hello World"\?'		-matches Hello World or without qoutes
+
+Positional Operators
+	^ matches the beginning of a line
+	$ matches the end of a line
+	Example
+		grep 'o$'
+			matches lines ending with "o"
+		grep '^[A-Z]'
+			matches lines beginning with a capital letter
+		ls -l | grep '^l'
+			prints all files that are links
+
+Matching A Range of Repetitions
+	\{\n}		-preceeding item is repeated exactly n times
+	\{n,\}	-preceeding item is repeated at least n times
+	\{i,j\}	-matches between i and j occ. of strings that match e.
+
+Grouping Expressions
+	a\(boat\)		- finds a, aboat, aboatboat etc
+
+RegEx Rules
+	c1\|c2 	matches the exp c1 or the exp c2
+	\< 			matches the beginning of a word
+	\>			matches the end of a word
+	Example
+	grep '\(left\)\||(right\)'		matches left or right
+	grep 'top\{3\}'			searches for toppp
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+--------------------------------------------------------------------------------
+
+LECTURE 9 sed, cron
+LECTURE 10 diff, awk(1/3)
+LECTURE 11 awk (2/3)
+LECTURE 12 screen, gnuplot
+LECTURE 13 awk (3/3), sctipting preliminaries
+LECTURE 14 conditionals
+LECTURE 15 loops
+LECTURE 16 Bash tips, arrays and functions
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+--------------------------------------------------------------------------------
+
+LECTURE 17 Python 1/2
+	- pythin is interpreted it is slower than C/C++ but is fast enough for most applications
+	- work with an interactive interpreter that makes it easy to experiment and try code
+	- write OOP, but you don't need to use classes for everything like in java
+	- work with built in modules for text processing and regular expressions
+	- automatically convert variable types
+	- work with scipy and numpy and do scientific computation like matlab
+
+Data Types
+	int : 3
+	float : 2.5
+	str : 'abc', "abc"
+	list : [0,1,2], [0,1,'the']
+	tuple : (0,1,2),(0,1,'the')
+	dict : {'a':1, 'Ohio': 'Columbus' 2: 'b'}
+
+start pythin interpretor by typing 'python' // ipythin if you have it installed
+
+Working with strings
+
+	"hello"+"world" "helloworld"  #concatenation
+	"hello"*3 "hellohellohello"		#repitition
+	"hello"[0] "h"								#indexing
+	"hello"[-1] "o"								#indexing from end
+	"hello"[1:4] "ello"						#slicing
+	len("hello") 5 								#size
+	"hello"< "jello"True					#comparison
+	"e" in "hello" True						#search
+
+Working with lists
+	somelist = [1, "abc", "5", 2, [3,5,"wewt"]]
+	somelist[0]
+	1
+	>> somelist[2]
+	'5'
+	>> somelist[4][2]
+	'wewt'
+	>> somelist[1:3]
+	['abc', '5']  <----- [a:b] starts at a and goes up to 1 before b
+	>> somelist [:2]
+	[1, 'abc']
+	del (somelist[2])  <---- remove an element
+
+More on Lists
+	list.reverse()	- reverses a list
+	list.append(obj)	- appends obj to a list
+	list.sort()	- sort a list
+	list.index(obj)	- finds the first occurence of a value in a list
+	list.pop()	- pop off last element
+	help(list)	- get doc
+	Everything is an object
+
+Working with Dictionaries
+	d= {'a':1, 'b':2}
+	d.keys() - returns a list of keys
+	d.values() - returns a list of values
+	d.items()	- returns a list of pairs of keys and values
+	d.has_key(arg)	-is arg a key in d?
+
+Variables
+	no need to declare
+	the variable _ in interactive mode stores the most recent output value 
+	everything is a variable (function, classes, modules)
+
+Assignment = reference!
+	we are making a reference the of the object when assigning
+
+Example
+a = [1,2,3]
+b = a
+a.append(4)
+>> print b
+	[1, 2, 3, 4]
+-------------------------------------------------------------------------------
+
+LECTURE 18 Python 2/2
+
+print
+	prints to the screen. Data in quotes is printed exactlly as typed, data not in quotes is interpreted first
+	>> c = 4
+	>> print 'a', 1+2, c, "c"
+	a 3 4 c
+
+Conditions
+	A colon is placed at the end of lines 
+	if x > 0:
+		print ' x > 0'
+		some other command
+
+	if x > 0 and y < 0:
+		print 'a'
+	elif y < -10 or x < 5:
+		if not z < 10:
+			print 'b'
+
+		else:
+			print 'c'
+
+	else:
+		print 'd'
+
+
+Looping
+	python has for and while loops:
+
+	i = 0
+	while i < 10 and x > 0:
+		x = input ('enter a number')
+		i = i + 1
+		total = total + x
+
+	print x, total
+
+	for i in [0 1 2 3 4]:
+		print i
+
+for loop exmaples
+	for i in range(4):
+		print i,               //(prints 0 1 2 3)
+
+	for i in range (0,10,2):
+		print i,						// (prints 0 2 4 6 8)
+
+	for i in 'the quick':
+		print i,							// prints t h e  q u i c k
+
+Writing Python Scripts
+#! /usr/bin/python	
+
+	for i in range (4)
+		print i,
+
+Importing modules
+	import modulename
+
+sys
+	if we import sys, then the command line content is stored in the sys.argv list. For example:
+
+	#! /usr/bin/python
+	# getlist.py
+	import sys
+	print sys.argv,
+
+	Then if we type ./getlist.py file1 file2 file3 the script would print 
+		getlist.py file1, file2, file3
+
+Python Modules
+	There are modules for all sorts of activities. For ex
+	import MySQLdb 					work with SQL db
+	import wxPython 				graphical interface 
+	import scipi 						math stuff
+	import NumPy 						more math stuff
+	import matplotlib 			more plotting
+	import re 							regular expressions 
+
+Built-in Modules
+http://www.python.org/doc/current/modindex.html
+
+commonly used modules: os, sys, string, re, math, scipy, numpy and time

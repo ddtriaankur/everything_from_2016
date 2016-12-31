@@ -1,0 +1,112 @@
+
+Chapter 4 First Application
+  A nodejs application consists of following  
+	- Import required modules
+	- Create server
+	- Read request and return response
+
+Creating Nodejs Application
+	var http = require('http');
+
+	create a http instance and pass it a function with params req and res
+	http.createServer() method is called to create server instance and then we bind it at port 8081 using listen method  
+
+>> http.createServer((req, res) => {
+		res.writeHead(200, {'Content-type': 'text/plain'});
+		res.end('Hello World!');
+}).listen(8181);
+
+--------------------------------------------------------------------------
+Chapter 5
+REPL Commands
+>> tab	>> .help	>> .break
+>> ctrl + d 
+>> .save <filename>
+>> .load <filename>
+
+---------------------------------------------------------------------------
+Chapter 6
+by dafault npm installs any dependency in the local mode. 
+Globally installed dependencies are stored in system directory.
+Such depen. can be used in CLI function.But cannot be imported using require() in Node application directly
+
+>> npm ls     to list down all the locally installed modules
+>> npm ls -g
+>> npm update <moduelName>
+
+----------------------------------------------------------------------------- 
+Chapter 7 
+Callback Concept
+Async vs Synchronuse 
+
+- data.toString();
+
+-----------------------------------------------------------------------------
+Chapter 8
+Event Loop
+
+- node is single threaded application but it support concurrency via concept of event and callbacks
+- node js uses the observer patter
+- Node thread keeps an event loop and whenever any task get completed, it fires the corresponding event which signals the event listener function to get executed
+
+The difference lies in the fact that callback function are called when a n async function returns its result where as event handling works on the observer pattern
+- the function which listens to events act as Observers. 
+- whenever an event gets fired, its listener function starts executing.
+- Event Emitter class which is used to bind events and event listeners as follows:
+
+>> var events = require('events')
+>> var eventEmitter = new events.EventEmitter(); 
+
+// Bind event and event handler
+eventEmitter.on('eventName', eventHandler);
+//Fire an event
+eventEmitter.emit('eventName');
+
+Example
+d:\sektor_51\test\events
+
+HOW NODE WORK ?
+- any async function accepts a callback as a last param and the callback func accepts error as a first param.
+exxample fs read file  
+
+--------------------------------------------------------------------------
+Chapter 9 Event Emitter 
+- all the objects which emit events are instances of events.EventEmitter
+
+EventEmitter Class
+- EventEmitter instance emits an 'error' event when it faces any error. 
+- 'newListener' event is fired when new listener is added/removed
+- EventEmitter provides multiple properties like 'on' and 'emit'.
+- 'on' property is used to bind a function with the event, and 
+- 'emit' is used to fire an event
+
+METHODS
+	>>TBC<<
+
+-------------------------------------------------------------------------
+CHAPTER 15: WEB MODULE
+Whats is Wweb Server?
+- its a software application which handles HTTP requests sent by the HTTP client, like web browsers, and returns web pages in response to the clients.
+- usually delivers html documents along with images, style sheets and scripts
+
+- Most of the web server support server side script using scripting language or redirect to application server which perform the specific task of getting data from DB.
+- Apache web server is one of the most commonly used web server
+
+Web Application Architecture
+- a web app is usually divided into four layers:
+	client
+		this layer consists of web browsers, mobile browsers or applications which can make HTTP req to the web server
+	server 
+		this layer consists of web server which can intercepts the requests made by clients and pass them the responses
+	Bussiness Layer
+		this layer consists of application server which is utilized by web servers to do required processing. This layer interacts with data layer via data base or some external programs
+	Data Layer
+		this layer consists of databases or any source of data
+
+Creating Web Server using Node
+- nodejs provides http module which can be used to create either HTTP client or server 
+
+Creating Web client using Node
+
+
+

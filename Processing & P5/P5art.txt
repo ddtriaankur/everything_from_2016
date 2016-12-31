@@ -1,0 +1,43 @@
+
+P5art
+
+Links
+Begginers :: http://funprogramming.org/
+	• http://p5art.tumblr.com/tutorials
+	• Fun Programming
+	• Daniel Shiffman
+	• The Imaginary Institute
+	• Nathan Wolek Introduction to coding - https://www.youtube.com/playlist?list=PLG8vJUg0ALmssb3E-Yekn314MyeVCX2-7
+	• Mathew Epler - Intro to Data Viz for Processing (beginners)
+	• Albert Schueller :: http://carrot.whitman.edu/IntroProcessing/
+	• Creating Geometric and Generative Art with Code
+	• Learn Coding with Khan Academy - https://www.khanacademy.org/computing/computer-programming
+	• Daniel Shiffman The nature of code - http://natureofcode.com/book/introduction/
+	• Plethora - http://www.plethora-project.com/education/2011/09/12/processing-tutorials/
+
+Mathew Epler:: 
+Intro to Processing playlist : https://vimeo.com/album/2573675
+Intro to Processing for Designs : https://vimeo.com/album/2797706
+
+Node WebKit :: https://github.com/nwjs/nw.js/
+
+futureLearn :: https://www.futurelearn.com/courses/creative-coding
+
+Coding Math :: https://www.youtube.com/channel/UCF6F8LdCSWlRwQm_hfA2bcQ
+
+Processing Books :: 
+For Beginners
+Getting Started with Processing by Casey Reas and Ben Fry
+Learning Processing Second Edition: A beginners guide to Programming by Daniel Shiffman
+Processing : A Programming Handbook for Visual Designers and Artist by Casey Reas and Bend Fry
+Processing : Creative Coding and Generative Art in Processing 2.0 by Ira Greenberg
+
+Advance Level books 
+Generative Design: Visualize, Program, and Create with Processing by Benedikt Gross et al
+The Nature of code by Daniel Shiffman
+Generative Art by Matt Pearson
+
+Conceptual Books about coding 
+Form + Code in Design, Art, and Architecture by Casey Reas and Chandler McWilliams
+Novelty Waves: short Book about Digital Art by Matt Pearson
+Networks - Whitechapel: Documents of contemporary Arts by Lar Larsen

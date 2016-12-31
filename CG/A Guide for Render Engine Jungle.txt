@@ -1,0 +1,51 @@
+
+link ->> curse-studio.com
+
+UNBIASED : less params for user
+Guerilla Render
+
+1. OCTANE RENDER
+	- GPU Based /Unbiased
+	- Live preview
+	- Fast creation of materials 
+	-  really good render times
+Cons :: [nvidia 780 gtx 970] 
+	- Small area lights might lead to endless render times
+	- Geometry that can be loaded depends on the VRAM available
+
+2 Arnold Render
+	- CPU based /UN-biased
+	- Live preview
+	- can handle amazing big scenes
+	- awesome shaders
+Cons
+	- might be really slow if you are a small freelancer with only one machine /CPU 
+
+3. Corona Render
+	- CPU Based /unbiased /biased
+	- Live preview
+	- really easy material setup
+	- good render speed even with only one CPU
+CONS
+	- still a lot of bugs /crashes
+
+4. Maxwell Render  :: time accurate
+CPU Based for now / unbiased
+	- live preview
+	- awesome materials
+	- spectral lighting
+	- comes with a nice material assistant
+	- Multi -light, Easy to use for beginners but still with a lot of depth for material creation
+CONS
+	- might be really slow for freelancers with only one machine /CPU
+
+5. VRAY FOR C4D
+	- CPU BASED /GPU BASED / UNBIASED /BIASED
+	- Live preview
+	- A lot of setting faster rendering (optimization)
+	- Good shaders
+	- Very good integrated into Cinema4D
+Cons
+	- Really Complex
+
+till 16:26 MIN

@@ -1,0 +1,109 @@
+
+CRUD Operations
+
+CREATE
+
+Insert a Document
+
+	1. Inserting a document in the "invent" collection  
+	>> db.inventory.insert({                      // use insertOne() for inserting one document
+		item: "ABC1",
+		details: {
+			model: "14Q3",
+			manufacturer: "XYZ Company"
+		},
+	      stock: [ { size: "S", qty: 25, }, { size: "M", qty: 50} ],
+	      category: "clothing" 
+	});
+	
+The operation returns a "WriteResult" object with the status.
+
+	2. Review the inserted document ::Query the collection
+	db.<doc_name>.find();
+	
+
+Insert an Array of Document
+
+	1. Create an array of documents
+	var mydocuments =
+    [
+      {
+        item: "ABC2",
+        details: { model: "14Q3", manufacturer: "M1 Corporation" },
+        stock: [ { size: "M", qty: 50 } ],
+        category: "clothing"
+      },
+      {
+        item: "MNO2",
+        details: { model: "14Q3", manufacturer: "ABC Company" },
+        stock: [ { size: "S", qty: 5 }, { size: "M", qty: 5 }, { size: "L", qty: 1 } ],
+        category: "clothing"
+      },
+      {
+        item: "IJK2",
+        details: { model: "14Q2", manufacturer: "M5 Corporation" },
+        stock: [ { size: "S", qty: 5 }, { size: "L", qty: 1 } ],
+        category: "houseware"
+      }
+    ];
+	
+Insert the document // bulk insertion
+	>>  db.invent.insert( mydocuments );
+	
+	returns a BulkWriteResult object.
+	
+Initialize a Bulk operation Builder
+var bulk = db.inventory.initializeUnorderedBulkOp();
+
+Inserting the _id with the document ::
+ ( { info : "etc.", "_id": "asdkjhasd"} )
+
+Insert many
+.insertMany(
+ [ {key value pairs}, {key value pairs}, {key value pairs}, {key value pairs}
+ ]
+)
+
+READ // QUERY
+
+>> db.collection.find();      //select all documents in a collection 
+retrieves documents from a collection
+
+This method returns a cursor to the retrieved documents.
+
+db.collection.findOne(); method is the db.collection.find() with a limit of 1.
+
+Specify Equality Condition
+
+{ <field>: <value> } 
+Eg ::
+>> db.invent.find ( { type: "snacks"} )
+ 
+Specify Conditions Using Query Operator
+
+following example selects all documents in the inventory collection where the value of the type field is either 'food' or 'snacks':
+>> db.invent.find ( { type: { $in: [ 'food', 'snacks' ] } } )
+	• Although you can express this query using the $or operator,
+	• use the $in operator rather than the $or operator when performing equality checks on the same field.
+Ref :: query operators >> https://docs.mongodb.org/manual/reference/operator/query/#query-selectors
+
+Specify AND Condition
+$lt :: less than comparison match example
+>>db.invent.find( { type: 'food', price: { $lt: 9.95 } } )
+ 
+Specify OR Condition
+>> db.invent.find 
+(
+   {
+     $or: [ { qty: { $gt: 100 } }, { price: { $lt: 9.95 } } ]
+   }
+)
+
+Specify AND as well as OR operator
+
+>>db.inventory.find(
+   {
+     type: 'food',
+     $or: [ { qty: { $gt: 100 } }, { price: { $lt: 9.95 } } ]
+   }
+)

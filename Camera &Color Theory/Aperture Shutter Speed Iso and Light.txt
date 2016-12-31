@@ -1,0 +1,17 @@
+
+ISO is the sensitivity of the cameras sensor
+High iso ~ makes grainy
+Iso low ~ smooth
+
+F Stop
+f/32 more closed aperture
+f/4 opens more the aperture
+
+Low f stop means low background sharpness
+Higher the f stop the more depth it captures
+
+F stop controls iris i.e the aperture
+
+ISO 160 320 640 1250
+
+

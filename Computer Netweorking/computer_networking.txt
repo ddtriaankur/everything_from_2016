@@ -1,0 +1,109 @@
+
+DNS
+10.20.17.135
+10.20.17.1
+
+Type of Networks
+LAN                 - local area network
+WAN                 - wide area network           larger than 30 miles
+MAN                 - metropolitan area network   less than 30 miles
+
+All devices in a network is a called a node.
+Communication media - is the way how these nodes are conneted in a network
+
+SERVERS        - they are the special computer to which all the other comp. in a network has an access
+Client         - gets the files
+Host           - give the files 
+
+NIC            - Netwrok Interface Cards
+Device Manager - devmgmt.msc
+
+Protocols      - are the rules for communications
+
+============================================================================
+PART 2
+
+Topology/Layout
+- Bus  - Ring Top.  - Star Top.  - Mesh Top.  
+
+OSI Model
+-Layers
+	Application         user experience   firefox // chrome 
+	Presentation        OS  letters and numbers ASCII
+	Session             conversatoin between two computers
+	Transport           chunk of data sent between two computers aka packets. 
+	Network             determine best route for data
+	Data Link           NIC's / checking for errors
+	Physical            Cable / fiber optics / electric signal
+
+Modem its a device that connects you to the internet. Converts digital signal to analog signals
+DOCSIS	 3.0 modem version 
+
+Wifi\ Router   they joins two network together
+Switch  gives more port .. managed and unmanaged
+
+=============
+Part 3
+Repeater  boost signals
+Ethernet  100m signals looses. switches and router they both can act as a switch
+
+binary digit   = bit
+2 bit  = 01
+4 bit = 1010
+8 bit = 128-64-32-16-8-4-2-1        bandwidth 0- 255
+
+Network ID
+Host ID
+
+Subnetting for beginners
+Subnet mask: 
+IP address : 108      .161     .228     .70
+Subnet mask: 11111111 11111111 11111111 00000000
+             255      255       255     000
+             network IP add             host address 
+
+Network IP
+Broadcast IP
+
+CIDR
+
+Cloud server
+digital ocean, amazon, cloud9
+
+SSH  -secure shell
+
+download PuTTY installer
+Host IP  // which is the server bdw
+
+SHIFT + INSET can paste it too
+Connect to a terminal whoa
+
+adduser bucky
+gpasswd -a bucky sudo
+
+PuTTY gen
+
+su ~ bucky    // means switch user
+mkdir .ssh
+chmod 700 .ssh    //change the permission of a directory
+nano .ssh/authorized_keys
+chmod 600 .ssh/authorized_keys
+
+Pageant
+add private key
+
+http port:  80
+https:      443
+
+sudo nano /etc/ssh/ssh_config
+sudo service ssh restart
+
+Firewall  - it gives you control over your server
+>> sudo ufw 7777/tcp           //default ssh port
+>> sudo ufw allow80 443/tcp
+>> sudo ufw show added
+>> sudo ufw enable
+>> sudo dpkg-reconfigure tzdata
+
+vid 37
+DHCP - Dynamic Host Config Protocol

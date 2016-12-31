@@ -1,0 +1,46 @@
+
+16 How large is you index 
+17 number of index entries
+27 Sharding overview
+index cardinality
+
+sharding 
+	https://www.youtube.com/watch?v=BDxT-VZdYqc
+--------------------------------------------------
+12 Using Explain
+used to be 
+	>> db.foo.find().explain()
+changed  version
+	>> db.foo.explain().find()
+	>> db.foo.explain().update()
+	>> db.foo.explain().remove()
+	>> db.foo.explain().aggregate()
+	>> db.foo.explain().help()
+
+- cant be run on insert()
+- returns a explainable object
+- params can give to explain in terms of verbosity
+
+Compound Indexes
+>> db.example.createIndex({a:1, b:1});
+>> db.example.createIndex({ b:1 });
+
+ >> var exp = db.example.explain()
+ >> exp.help()
+
+	>> exp.find( {a:17, b:55}).sort({b:-1});
+this is same as 
+	>> db.example.explain().find( {a:17, b:55}).sort({b:-1});
+
+*Non-indexed collection does the whole collection scan for the database
+-----------------------------------------------------------
+13
+Explain
+	1 query Planner Mode - 
+	2 execution stats  - 
+	3 all Plans Execution - 
+
+
+
+
+

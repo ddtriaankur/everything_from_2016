@@ -1,0 +1,69 @@
+
+"Run Hello, World !"
+
+First, install jsx with npm
+$ npm install -g jsx
+
+Then copy the code below hello.jsx
+	class _Main {
+	    static function main(args : string[]) : void {
+	        log "Hello, world!";
+	    }
+	}
+
+Now run 
+$ jsx --run hello.jsx
+
+
+JSX 
+	a statically typed programming language 
+	that gets optimizing compiled into JavaScript
+
+Binding W3C standards to JSX
+
+The Goal fo JSX
+	an excellent programming language for the web browsers
+	fun faster than JavaScript, on any web browser
+		important for browser based games on smartphones
+	higher productivity that JS
+		easy to learn / maintain
+		esp. in medium to large-scale development
+	help writing high-quality code than in JavaScript
+
+
+The Language
+
+class Point {
+	
+	var x = 0; // x is a 'number'
+	var y = 0; // y is a 'number'
+
+	function constructor() {
+	}
+
+	function constructor( x: number, y : number) {
+		this.x = x;
+		this.y = y;
+	}
+
+	override function toString() : string {
+		return this.x as string + "," + this.y as string;
+	}
+}
+
+
+Integrated Test Framework
+//to run: jsx --test hello.jsx
+
+import "test-case.jsx";
+
+class_Test extends TestCase {
+		function test1 () :void {
+			this.expect("hello").toBe("hello");
+			this.expect("world").toBe("world");
+	} 
+		function test2() :void {
+			this.exoect(42).toBe(42);
+		}
+}
+
